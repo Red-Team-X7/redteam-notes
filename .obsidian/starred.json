@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "type": "file",
+      "title": "😈 KALI",
+      "path": "00 😈/😈 KALI.md"
+    },
+    {
+      "type": "file",
+      "title": "curling",
+      "path": "01 📦/📦 curling.md"
+    },
+    {
+      "type": "file",
+      "title": "Emoji",
+      "path": "09 🎒/Emoji List.md"
+    },
+    {
+      "type": "file",
+      "title": "🏷️ Tags & Emoji",
+      "path": "09 🎒/🏷️ Tags & Emoji.md"
+    },
+    {
+      "type": "file",
+      "title": "P3DD",
+      "path": "02 COURSES/Fred Baptiste/P3DD.md"
+    },
+    {
+      "type": "file",
+      "title": "new_target",
+      "path": "10 TEMPLATES/New Target/Acme Corporation.md"
+    },
+    {
+      "type": "file",
+      "title": "HTB Academy - Cheatsheets",
+      "path": "01 HTB/Academy/HTB Academy - Cheatsheets.md"
+    },
+    {
+      "type": "file",
+      "title": "RedPanda",
+      "path": "01 HTB/X/Machines/RedPanda/RedPanda.md"
+    },
+    {
+      "type": "file",
+      "title": "tmux",
+      "path": "03 TOOLS & UTILITIES/tmux.md"
+    }
+  ]
+}

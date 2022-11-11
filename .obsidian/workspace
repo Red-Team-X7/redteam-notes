@@ -1,0 +1,128 @@
+{
+  "main": {
+    "id": "38728355c5303f48",
+    "type": "split",
+    "children": [
+      {
+        "id": "dc0c30ad1ffb8d18",
+        "type": "leaf",
+        "state": {
+          "type": "graph",
+          "state": {}
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "76b4b97d83ae72b6",
+    "type": "split",
+    "children": [
+      {
+        "id": "666bfc8c678605f7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "28c312cd65e2be84",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "43f9f0ffd66a0d5d",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "76d4c2c20f7ae46e",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          },
+          {
+            "id": "f19c784c62f24332",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 389.5,
+    "collapsed": true
+  },
+  "right": {
+    "id": "0c799eff9ce64e70",
+    "type": "split",
+    "children": [
+      {
+        "id": "9742c9b00d58c373",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "917c0cd5d129cc2a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "0de81b41e1216049",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 675,
+    "collapsed": true
+  },
+  "active": "43f9f0ffd66a0d5d",
+  "lastOpenFiles": [
+    "01 HTB/Academy/02. Information Gathering/10a. Introduction to Python 3/Introduction to Python 3.md",
+    "01 HTB/Academy/02. Information Gathering/11. Footprinting/Footprinting.md",
+    "01 HTB/Academy/01. Pre-Engagement/03. Windows Fundamentals/Windows Fundamentals.md",
+    "03 TOOLS & UTILITIES/gobuster.md",
+    "01 HTB/Pro Labs/dante.md",
+    "03 TOOLS & UTILITIES/fping.md",
+    "03 TOOLS & UTILITIES/masscan.md",
+    "00 KALI/Live Host Identification.md",
+    "03 TOOLS & UTILITIES/hping3.md",
+    "03 TOOLS & UTILITIES/nmap.md"
+  ]
+}

@@ -1,1 +1,39 @@
-{}
+{
+  "app:toggle-left-sidebar": [
+    {
+      "modifiers": [],
+      "key": "F1"
+    }
+  ],
+  "app:toggle-right-sidebar": [],
+  "editor:fold-all": [
+    {
+      "modifiers": [
+        "Alt"
+      ],
+      "key": "F"
+    }
+  ],
+  "workspace:edit-file-title": [],
+  "app:open-help": [],
+  "file-explorer:reveal-active-file": [
+    {
+      "modifiers": [],
+      "key": "F2"
+    }
+  ],
+  "workspace:open-in-new-window": [],
+  "workspace:toggle-pin": [
+    {
+      "modifiers": [],
+      "key": "F3"
+    }
+  ],
+  "editor:insert-tag": [],
+  "tag-pane:open": [
+    {
+      "modifiers": [],
+      "key": "F4"
+    }
+  ]
+}

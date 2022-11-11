@@ -1,1 +1,24 @@
-{}
+{
+  "promptDelete": false,
+  "readableLineLength": false,
+  "fileSortOrder": "alphabetical",
+  "alwaysUpdateLinks": true,
+  "vimMode": false,
+  "foldHeading": true,
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  },
+  "showFrontmatter": false,
+  "showLineNumber": false,
+  "newFileLocation": "root",
+  "attachmentFolderPath": "/",
+  "legacyEditor": false,
+  "livePreview": false,
+  "communityThemeSortOrder": "download",
+  "defaultViewMode": "source",
+  "autoPairMarkdown": true,
+  "foldIndent": false
+}

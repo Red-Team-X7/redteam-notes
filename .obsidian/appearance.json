@@ -1,3 +1,11 @@
 {
+  "baseFontSize": 12,
+  "theme": "obsidian",
+  "translucency": false,
+  "enabledCssSnippets": [
+    "obsidian"
+  ],
+  "cssTheme": "segv",
+  "baseFontSizeAction": false,
   "accentColor": ""
 }

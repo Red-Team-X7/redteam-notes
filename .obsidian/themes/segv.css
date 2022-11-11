@@ -1,0 +1,75 @@
+.cm-header-1.cm-link,
+h1 a
+{
+    color: #ffffff !important;
+}
+.cm-header-2.cm-link,
+h2 a
+{
+    color: #b2b5be !important;
+}
+.cm-header-3.cm-link,
+h3 a
+{
+    color: #c4a000 !important;
+}
+.cm-header-4.cm-link,
+h4 a
+{
+    color: #3465a4 !important;
+}
+.cm-header-5.cm-link,
+h5 a
+{
+    color: #75507b !important;
+}
+.cm-header-6.cm-link,
+h6 a
+{
+    color: #06989a !important;
+}
+.HyperMD-header-1,
+.markdown-preview-section h1
+{
+    color: #ffffff !important;
+}
+.HyperMD-header-2,
+.markdown-preview-section h2
+{
+    color: #b2b5be !important;
+}
+.HyperMD-header-3,
+.markdown-preview-section h3
+{
+    color: #c4a000 !important;
+}
+.HyperMD-header-4,
+.markdown-preview-section h4
+{
+    color: #3465a4 !important;
+}
+.HyperMD-header-5,
+.markdown-preview-section h5
+{
+    color: #75507b !important;
+}
+.HyperMD-header-6,
+.markdown-preview-section h6
+{
+    color: #06989a !important;
+}
+
+/* << LIVE PREVIEW inline code >> */
+.cm-s-obsidian span.cm-inline-code {
+    color: yellowgreen;
+}
+/* << READING VIEW inline code >> */
+.markdown-preview-view code {
+    color: yellowgreen;
+}
+
+/* << CENTER IMAGES >> */
+.center_image img {
+  display: block;
+  margin: 0px auto;
+}

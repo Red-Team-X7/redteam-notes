@@ -1,0 +1,16 @@
+{
+  "snippets_file": "s : ```shell-session$nl$$tb$$nl$```\np : ```shell-session$nl$$pst$$nl$```$nl$$nl$$tb$\npb : ```bash$nl$$pst$$nl$```$nl$$nl$$tb$",
+  "snippets": [
+    "s : ```shell-session$nl$$tb$$nl$```",
+    "p : ```shell-session$nl$$pst$$nl$```$nl$$nl$$tb$",
+    "pb : ```bash$nl$$pst$$nl$```$nl$$nl$$tb$"
+  ],
+  "endSymbol": "$end$",
+  "newlineSymbol": "$nl$",
+  "stopSymbol": "$tb$",
+  "pasteSymbol": "$pst$",
+  "useTab": true,
+  "useSpace": false,
+  "wordDelimiters": "$()[]{}<>,.!?;:'\"\\/",
+  "isWYSIWYG": true
+}
