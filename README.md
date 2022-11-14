@@ -14,6 +14,5 @@
   <li> Now you have 2 options either to use same folder or or the new vault you created </li>
   <li> Just copy things as you like and open Obsidian</li>
   <li> Then check your github plugin settings in obsidian, if everything shows as i mention below then everything works as wanted else use setup them</li>
-  <li>
   
 </ol>
