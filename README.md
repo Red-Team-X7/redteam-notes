@@ -1,6 +1,3 @@
-<h1>Disclaimer</h1>
-<p>If you try to do any bullshit here or try to delete the content you will be kicked in your ass and beware i am keeping backup of every minute so good luck if you want to show your shitty skills here.</p>
-<br>
 
 <h1>Steps to add Repo to your obsidian<h1>
 <ol>
