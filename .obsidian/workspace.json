@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03 TOOLS & UTILITIES/addgroup.md",
+                "file": "01 HTB/Pro Labs/dante.md",
                 "mode": "preview",
                 "source": true
               }
@@ -96,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "03 TOOLS & UTILITIES/addgroup.md",
+                "file": "01 HTB/Pro Labs/dante.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +113,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "03 TOOLS & UTILITIES/addgroup.md"
+                "file": "01 HTB/Pro Labs/dante.md"
               }
             }
           }
@@ -127,15 +127,15 @@
   },
   "active": "83cfc315269d6947",
   "lastOpenFiles": [
-    "03 TOOLS & UTILITIES/aircrack-ng.md",
-    "03 TOOLS & UTILITIES/cifs-utils.md",
     "03 TOOLS & UTILITIES/addgroup.md",
-    "03 TOOLS & UTILITIES/medusa.md",
-    "03 TOOLS & UTILITIES/md5sum.md",
-    "03 TOOLS & UTILITIES/masscan.md",
-    "03 TOOLS & UTILITIES/mimikatz.md",
-    "03 TOOLS & UTILITIES/metasploit framework.md",
-    "03 TOOLS & UTILITIES/miredo.md",
-    "03 TOOLS & UTILITIES/mitmproxy.md"
+    "03 TOOLS & UTILITIES/apropos.md",
+    "03 TOOLS & UTILITIES/autopsy.md",
+    "03 TOOLS & UTILITIES/aptitude.md",
+    "03 TOOLS & UTILITIES/find.md",
+    "03 TOOLS & UTILITIES/fls.md",
+    "03 TOOLS & UTILITIES/fierce.md",
+    "03 TOOLS & UTILITIES/ifind.md",
+    "03 TOOLS & UTILITIES/img-cat.md",
+    "03 TOOLS & UTILITIES/ils-sleuthkit.md"
   ]
 }
