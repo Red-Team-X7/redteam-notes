@@ -4,59 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "f073f38504edadb4",
+        "id": "d5b08d5e12a4f799",
         "type": "tabs",
         "children": [
           {
-            "id": "dc0c30ad1ffb8d18",
+            "id": "83cfc315269d6947",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 HTB/Academy/01. Pre-Engagement/03. Windows Fundamentals/Windows Fundamentals.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "ce3e3451dc62c673",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "KillSwitchX7.md.md",
-                "mode": "source",
-                "source": true
-              }
-            }
-          },
-          {
-            "id": "57d787557e4c4d7e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
+                "file": "03 TOOLS & UTILITIES/addgroup.md",
                 "mode": "preview",
                 "source": true
               }
             }
-          },
-          {
-            "id": "a871b3b42147dec5",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "test-file.md",
-                "mode": "source",
-                "source": true
-              }
-            }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -133,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "test-file.md",
+                "file": "03 TOOLS & UTILITIES/addgroup.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -150,7 +113,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "test-file.md"
+                "file": "03 TOOLS & UTILITIES/addgroup.md"
               }
             }
           }
@@ -162,17 +125,17 @@
     "width": 675,
     "collapsed": true
   },
-  "active": "a871b3b42147dec5",
+  "active": "83cfc315269d6947",
   "lastOpenFiles": [
-    "README.md",
-    "Untitled.md",
-    "KillSwitchX7.md.md",
-    "01 HTB/Academy/01. Pre-Engagement/03. Windows Fundamentals/Windows Fundamentals.md",
-    "01 HTB/Academy/02. Information Gathering/10a. Introduction to Python 3/Introduction to Python 3.md",
-    "01 HTB/Academy/02. Information Gathering/11. Footprinting/Footprinting.md",
-    "03 TOOLS & UTILITIES/gobuster.md",
-    "01 HTB/Pro Labs/dante.md",
-    "03 TOOLS & UTILITIES/fping.md",
-    "03 TOOLS & UTILITIES/masscan.md"
+    "03 TOOLS & UTILITIES/aircrack-ng.md",
+    "03 TOOLS & UTILITIES/cifs-utils.md",
+    "03 TOOLS & UTILITIES/addgroup.md",
+    "03 TOOLS & UTILITIES/medusa.md",
+    "03 TOOLS & UTILITIES/md5sum.md",
+    "03 TOOLS & UTILITIES/masscan.md",
+    "03 TOOLS & UTILITIES/mimikatz.md",
+    "03 TOOLS & UTILITIES/metasploit framework.md",
+    "03 TOOLS & UTILITIES/miredo.md",
+    "03 TOOLS & UTILITIES/mitmproxy.md"
   ]
 }
