@@ -19,27 +19,27 @@ Command-line client to redis-server.
 
 	info
 
-```shell-session
+```text
 redis_version:5.0.7
 redis_git_sha1:00000000
 redis_git_dirty:0
 redis_build_id:66bd629f924ac924
 ```
 
-```shell-session
+```text
 # Keyspace
 db0:keys=4,expires=0,avg_ttl=0
 ```
 
 	select 0
 
-```shell-session
+```text
 OK
 ```
 
 	KEYS *
 
-```shell-session
+```text
 1) "flag"
 2) "numb"
 3) "temp"
@@ -48,7 +48,7 @@ OK
 
 	GET flag
 
-```shell-session
+```text
 <...FLAG...>
 ```
 

@@ -3,7 +3,7 @@
 Tags: #⚙️ 
 Related to: 
 See also: 
-Previous: [[ ]]
+Previous: [[OSINT - Corporate Recon]]
 
 ## Description
 

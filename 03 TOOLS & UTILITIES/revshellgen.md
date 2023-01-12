@@ -1,7 +1,7 @@
 # 💢 revshellgen
 Tags: #💢
 Related to: 
-See also: [[get shell]]
+See also: [[_shells]]
 Previous: [[Post Exploitation]]
 
 ## Description

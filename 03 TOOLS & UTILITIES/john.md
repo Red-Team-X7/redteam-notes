@@ -3,7 +3,7 @@
 Tags: #💢
 Related to:
 See also:
-Previous: [[00 KALI/Password Attacks]]
+Previous: [[Passwd Attacks]]
 
 ## Description
 
@@ -52,19 +52,19 @@ Welcometomyblog  (?)
 
 	zip2john 6969.zip > 6969.zip.hash
 
-```shell-session
+```text
 ver 2.0 efh 5455 efh 7875 6969.zip/DoNotTouch PKZIP Encr: TS_chk, cmplen=335181, decmplen=884736, crc=E8183254 ts=5B04 cs=5b04 type=8
 ```
 
 	john --wordlist=/usr/share/wordlists/rockyou.txt  6969.zip.hash
 
-```shell-session
+```text
 letmeinplease    (6969.zip/DoNotTouch)
 ```
 
 	unzip -P letmeinplease 6969.zip
 
-```shell-session
+```text
 Archive:  6969.zip
   inflating: DoNotTouch
 ```

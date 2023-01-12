@@ -24,4 +24,8 @@ https://markdown-convert.com/en/tool/table
 |Subnet mask|`1111 1111`|`1111 1111`|`1111 1111`|`11` &#124; 00 0000|255.255.255.192|
 |Bits|/8|/16|/24|/32| |
 
+### Checkbox
+
+- [x] 
+
 # References

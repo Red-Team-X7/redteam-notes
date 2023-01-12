@@ -1,9 +1,9 @@
 # ⚙️ flameshot
 
 Tags: #⚙️
-Related to: 
+Related to: [[peek]]
 See also: 
-Previous: [[ ]]
+Previous: [[Learning Process]] , [[Setting Up]]
 
 ## Description
 

@@ -16,7 +16,7 @@ https://lelinhtinh.github.io/de4js/
 
 # References
 
-## Training courses:
+## Training courses
 
 1. netninja udemy course
 2. all brad traversy coding projects 50 projects in 50 days

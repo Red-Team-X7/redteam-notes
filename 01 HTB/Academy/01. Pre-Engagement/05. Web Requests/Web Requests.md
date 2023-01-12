@@ -139,7 +139,7 @@ We can send a basic HTTP request to any URL by using it as an argument for cURL,
 
 	curl inlanefreight.com
 
-```shell-session
+```text
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
 ...SNIP...
@@ -152,7 +152,7 @@ We may also use cURL to download a page or a file and output the content into a 
 	curl -O inlanefreight.com/index.html
 	ls
 
-```shell-session
+```text
 index.html
 ```
 
@@ -164,7 +164,7 @@ This time, cURL did not print anything, as the output was saved into the `index
 
 	curl -h
 
-```shell-session
+```text
 Usage: curl [options...] <url>
  -d, --data <data>   HTTP POST data
  -h, --help <category> Get help for commands
@@ -247,7 +247,7 @@ cURL should automatically handle all HTTPS communication standards and perform a
 
 	curl https://inlanefreight.com
 
-```shell-session
+```text
 curl: (60) SSL certificate problem: Invalid certificate chain
 More details here: https://curl.haxx.se/docs/sslcerts.html
 ...SNIP...
@@ -259,7 +259,7 @@ We may face such an issue when testing a local web application or with a web app
 
 	curl -k https://inlanefreight.com
 
-```shell-session
+```text
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
 ...SNIP...
@@ -322,7 +322,7 @@ In our earlier examples with cURL, we only specified the URL and got the respons
 
 	curl inlanefreight.com -v
 
-```shell-session
+```text
 *   Trying SERVER_IP:80...
 * TCP_NODELAY set
 * Connected to inlanefreight.com (SERVER_IP) port 80 (#0)
@@ -473,7 +473,7 @@ The following command shows an example output of using the `-I` flag:
 
 	curl -I https://www.inlanefreight.com
 
-```shell-session
+```text
 Host: www.inlanefreight.com
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko)
 Cookie: cookie1=298zf09hf012fh2; cookie2=u32t4o3tb3gg4
@@ -500,7 +500,7 @@ In addition to viewing headers, cURL also allows us to set request headers with 
 
 	curl https://www.inlanefreight.com -A 'Mozilla/5.0'
 
-```shell-session
+```text
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html><head>
 ...SNIP...
@@ -605,7 +605,7 @@ Let's try to access the page with cURL, and we'll add `-i` to view the respons
 
 	curl -i http://<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 HTTP/1.1 401 Authorization Required
 Date: Mon, 21 Feb 2022 13:11:46 GMT
 Server: Apache/2.4.41 (Ubuntu)
@@ -621,7 +621,7 @@ As we can see, we get `Access denied` in the response body, and we also get `
 
 	curl -u admin:admin http://<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 <!DOCTYPE html>
 <html lang="en">
 
@@ -633,7 +633,7 @@ This time we do get the page in the response. There is another method we can pro
 
 	curl http://admin:admin@<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 <!DOCTYPE html>
 <html lang="en">
 
@@ -654,7 +654,7 @@ If we add the `-v` flag to either of our earlier cURL commands:
 
 	curl -v http://admin:admin@<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 *   Trying <SERVER_IP>:<PORT>...
 * Connected to <SERVER_IP> (<SERVER_IP>) port PORT (#0)
 * Server auth using Basic with user 'admin'
@@ -689,7 +689,7 @@ Let's try to manually set the `Authorization`, without supplying the credential
 
 	curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 <!DOCTYPE html
 <html lang="en">
 
@@ -726,7 +726,7 @@ To send a GET request with cURL, we can use the exact same URL seen in the above
 
 	curl 'http://<SERVER_IP>:<PORT>/search.php?search=le' -H 'Authorization: Basic YWRtaW46YWRtaW4='
 
-```shell-session
+```text
 Leeds (UK)
 Leicester (UK)
 ```
@@ -778,7 +778,7 @@ If we clear the Network tab in our browser devtools and try to log in again, we 
 
 We can click on the request, click on the `Request` tab (which shows the request body), and then click on the `Raw` button to show the raw request data. We see the following data is being sent as the POST request data:
 
-```bash
+```text
 username=admin&password=admin
 ```
 
@@ -788,7 +788,7 @@ We will use the `-X POST` flag to send a `POST` request. Then, to add our PO
 
 	curl -X POST -d 'username=admin&password=admin' http://<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 ...SNIP...
         <em>Type a city name and hit <strong>Enter</strong></em>
 ...SNIP...
@@ -807,7 +807,7 @@ If we were successfully authenticated, we should have received a cookie so our b
 
 	curl -X POST -d 'username=admin&password=admin' http://<SERVER_IP>:<PORT>/ -i
 
-```shell-session
+```text
 HTTP/1.1 200 OK
 Date: 
 Server: Apache/2.4.41 (Ubuntu)
@@ -822,7 +822,7 @@ With our authenticated cookie, we should now be able to interact with the web ap
 
 	curl -b 'PHPSESSID=c1nsa6op7vtk7kdis7bcnbadf1' http://<SERVER_IP>:<PORT>/
 
-```shell-session
+```text
 ...SNIP...
         <em>Type a city name and hit <strong>Enter</strong></em>
 ...SNIP...
@@ -859,7 +859,7 @@ As we can see, the search form sends a POST request to `search.php`, with the f
 
 The POST data appear to be in JSON format, so our request must have specified the `Content-Type` header to be `application/json`. We can confirm this by right-clicking on the request, and selecting `Copy>Copy Request Headers`:
 
-```bash
+```text
 POST /search.php HTTP/1.1
 Host: server_ip
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:97.0) Gecko/20100101 Firefox/97.0
@@ -879,7 +879,7 @@ Indeed, we do have `Content-Type: application/json`. Let's try to replicate thi
 
 	curl -X POST -d '{"search":"london"}' -b 'PHPSESSID=c1nsa6op7vtk7kdis7bcnbadf1' -H 'Content-Type: application/json' http://<SERVER_IP>:<PORT>/search.php
 
-```shell-session
+```text
 ["London (UK)"]
 ```
 
@@ -933,7 +933,7 @@ The first thing we will do when interacting with an API is reading data. As ment
 
 	curl http://<SERVER_IP>:<PORT>/api.php/city/london
 
-```shell-session
+```text
 [{"city_name":"London","country_name":"(UK)"}]
 ```
 
@@ -941,7 +941,7 @@ We see that the result is sent as a JSON string. To have it properly formatted i
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
 
-```shell-session
+```text
 [
   {
     "city_name": "London",
@@ -954,7 +954,7 @@ As we can see, we got the output in a nicely formatted output. We can also provi
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/le | jq
 
-```shell-session
+```text
 [
   {
     "city_name": "Leeds",
@@ -976,7 +976,7 @@ Finally, we can pass an empty string to retrieve all entires in the table:
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/ | jq
 
-```shell-session
+```text
 [
   {
     "city_name": "London",
@@ -1009,7 +1009,7 @@ Now, we can read the content of the city we added (`HTB_City`), to see if it was
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/HTB_City | jq
 
-```shell-session
+```text
 [
   {
     "city_name": "HTB_City",
@@ -1041,7 +1041,7 @@ We see in the example above that we first specified `/city/london` as our city
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
 
-```shell-session
+```text
 [
   {
     "city_name": "New_HTB_City",
@@ -1065,7 +1065,7 @@ Finally, let's try to delete a city, which is as easy as reading a city. We simp
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/New_HTB_City | jq
 
-```shell-session
+```text
 []
 ```
 

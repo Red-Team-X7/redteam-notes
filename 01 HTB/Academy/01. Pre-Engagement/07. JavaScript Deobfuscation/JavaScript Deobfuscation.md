@@ -469,7 +469,7 @@ In the previous section, we found out that the `secret.js` main function is se
 
 	curl http://SERVER_IP:PORT/
 
-```shell-session
+```html
 </html>
 <!DOCTYPE html>
 
@@ -521,7 +521,7 @@ After doing the exercise in the previous section, we got a strange block of text
 
 	curl http:/SERVER_IP:PORT/serial.php -X POST -d "param1=sample"
 
-```shell-session
+```text
 ZG8gdGhlIGV4ZXJjaXNlLCBkb24ndCBjb3B5IGFuZCBwYXN0ZSA7KQo=
 ```
 
@@ -548,7 +548,7 @@ To encode any text into `base64` in Linux, we can echo it and pipe it with '`|
 
 	echo https://www.hackthebox.eu/ | base64
 
-```shell-session
+```text
 aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K
 ```
 
@@ -558,7 +558,7 @@ If we want to decode any `base64` encoded string, we can use `base64 -d`, as 
 
 	echo aHR0cHM6Ly93d3cuaGFja3RoZWJveC5ldS8K | base64 -d
 
-```shell-session
+```text
 https://www.hackthebox.eu/
 ```
 
@@ -579,7 +579,7 @@ To encode any string into `hex` in Linux, we can use the `xxd -p` command:
 
 	echo https://www.hackthebox.eu/ | xxd -p
 
-```shell-session
+```text
 68747470733a2f2f7777772e6861636b746865626f782e65752f0a
 ```
 
@@ -589,7 +589,7 @@ To decode a `hex` encoded string, we can use the `xxd -p -r` command:
 
 	echo 68747470733a2f2f7777772e6861636b746865626f782e65752f0a | xxd -p -r
 
-```shell-session
+```text
 https://www.hackthebox.eu/
 ```
 
@@ -610,7 +610,7 @@ There isn't a specific command in Linux to do `rot13` encoding. However, it is
 
 	echo https://www.hackthebox.eu/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
-```shell-session
+```text
 uggcf://jjj.unpxgurobk.rh/
 ```
 
@@ -620,7 +620,7 @@ We can use the same previous command to decode rot13 as well:
 
 	echo uggcf://jjj.unpxgurobk.rh/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
-```shell-session
+```text
 https://www.hackthebox.eu/
 ```
 

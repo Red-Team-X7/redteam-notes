@@ -19,7 +19,7 @@ List all loaded modules and their associated commands.
 
 	Get-Module | select Name,ExportedCommands | fl
 
-```powershell-session
+```text
 Name             : Appx
 ExportedCommands : {[Add-AppxPackage, Add-AppxPackage], [Add-AppxVolume, Add-AppxVolume], [Dismount-AppxVolume,
                    Dismount-AppxVolume], [Get-AppxDefaultVolume, Get-AppxDefaultVolume]...}

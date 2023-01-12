@@ -15,7 +15,7 @@ Display the help menu for a specific command.
 
 	help
 
-```cmd-session
+```text
 For more information on a specific command, type HELP command-name
 ASSOC          Displays or modifies file extension associations.
 ATTRIB         Displays or changes file attributes.
@@ -44,7 +44,7 @@ COPY           Copies one or more files to another location.
 
 	help schtasks
 
-```cmd-session
+```text
 SCHTASKS /parameter [arguments]
 
 Description:

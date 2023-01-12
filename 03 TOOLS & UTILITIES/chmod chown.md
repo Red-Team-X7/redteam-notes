@@ -7,7 +7,7 @@ Previous:
 
 ## Description
 
-```shell-session
+```text
 chmod: Change file mode bits.
 chown: Change file owner and group.
 ```
@@ -22,7 +22,7 @@ The permissions can be set for the `owner`, `group`, and `others` like prese
 
 	ls -l /etc/passwd
 
-```shell-session
+```text
 - rwx rw- r--   1 root root 1641 May  4 23:42 /etc/passwd
 - --- --- ---   |  |    |    |   |__________|
 |  |   |   |    |  |    |    |        |_ Date
@@ -44,7 +44,7 @@ We can modify permissions using the `chmod` command, permission group referenc
 
 	ls -l shell
 
-```shell-session
+```text
 -rwxr-x--x   1 cry0l1t3 htbteam 0 May  4 22:12 shell
 ```
 
@@ -52,7 +52,7 @@ We can then apply `read` permissions for all users and see the result.
 
 	chmod a+r shell && ls -l shell
 
-```shell-session
+```text
 -rwxr-xr-x   1 cry0l1t3 htbteam 0 May  4 22:12 shell
 ```
 
@@ -60,13 +60,13 @@ We can also set the permissions for all other users to `read` only using the o
 
 	chmod 754 shell && ls -l shell
 
-```shell-session
+```text
 -rwxr-xr--   1 cry0l1t3 htbteam 0 May  4 22:12 shell
 ```
 
 Let us look at all the representations associated with it to understand better how the permission assignment is calculated.
 
-```shell-session
+```text
 Binary Notation:                4 2 1  |  4 2 1  |  4 2 1
 ----------------------------------------------------------
 Binary Representation:          1 1 1  |  1 0 1  |  1 0 0
@@ -90,7 +90,7 @@ In this example, "shell" can be replaced with any arbitrary file or folder.
 
 	chown root:root shell && ls -l shell
 
-```shell-session
+```text
 -rwxr-xr--   1 root root 0 May  4 22:12 shell
 ```
 

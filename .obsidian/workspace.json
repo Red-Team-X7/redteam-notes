@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01 HTB/Pro Labs/dante.md",
+                "file": "03 TOOLS & UTILITIES/chmod chown.md",
                 "mode": "preview",
                 "source": true
               }
@@ -80,7 +80,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 389.5
+    "width": 247.5
   },
   "right": {
     "id": "0c799eff9ce64e70",
@@ -96,7 +96,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "01 HTB/Pro Labs/dante.md",
+                "file": "03 TOOLS & UTILITIES/chmod chown.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -113,7 +113,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "01 HTB/Pro Labs/dante.md"
+                "file": "03 TOOLS & UTILITIES/chmod chown.md"
               }
             }
           }
@@ -125,17 +125,28 @@
     "width": 675,
     "collapsed": true
   },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false,
+      "zk-prefixer:Create new unique note": false,
+      "workspaces:Manage workspace layouts": false
+    }
+  },
   "active": "83cfc315269d6947",
   "lastOpenFiles": [
+    "03 TOOLS & UTILITIES/chisel.md",
+    "03 TOOLS & UTILITIES/cewl.md",
+    "00 KALI/Exploitation Tools.md",
+    "01 HTB/Pro Labs/dante.md",
     "03 TOOLS & UTILITIES/addgroup.md",
     "03 TOOLS & UTILITIES/apropos.md",
     "03 TOOLS & UTILITIES/autopsy.md",
     "03 TOOLS & UTILITIES/aptitude.md",
     "03 TOOLS & UTILITIES/find.md",
-    "03 TOOLS & UTILITIES/fls.md",
-    "03 TOOLS & UTILITIES/fierce.md",
-    "03 TOOLS & UTILITIES/ifind.md",
-    "03 TOOLS & UTILITIES/img-cat.md",
-    "03 TOOLS & UTILITIES/ils-sleuthkit.md"
+    "03 TOOLS & UTILITIES/fls.md"
   ]
 }

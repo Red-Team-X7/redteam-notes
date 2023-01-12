@@ -478,7 +478,7 @@ As we can see, HTML elements are displayed in a tree form, similar to `XML` an
 
 #### HTML Structure
 
-```shell-session
+```text
 document
  - html
    -- head
@@ -985,7 +985,7 @@ The following shows an example of requesting a page in a Linux terminal using th
 
 	curl -I https://academy.hackthebox.com
 
-```shell-session
+```text
 HTTP/2 200
 date: Tue, 15 Dec 2020 19:54:29 GMT
 content-type: text/html; charset=UTF-8
@@ -996,7 +996,7 @@ While this `cURL` command example shows us the source code of the webpage:
 
 	curl https://academy.hackthebox.com
 
-```shell-session
+```text
 <!doctype html>
 <html lang="en">
 <head>

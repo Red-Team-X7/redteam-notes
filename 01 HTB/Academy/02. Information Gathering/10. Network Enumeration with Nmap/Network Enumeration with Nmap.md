@@ -5,9 +5,9 @@ Related to: [[nmap]]
 See also:
 Previous: [[HTB Academy]], [[Getting Started]]
 
-Nmap is one of the most used networking mapping and discovery tools because of its accurate results and efficiency. The tool is widely used by both offensive and defensive security practitioners. This module covers fundamentals that will be needed to use the Nmap tool for performing effective network enumeration.
-
 ![[logo_network_enumeration_with_nmap.png]]
+
+Nmap is one of the most used networking mapping and discovery tools because of its accurate results and efficiency. The tool is widely used by both offensive and defensive security practitioners. This module covers fundamentals that will be needed to use the Nmap tool for performing effective network enumeration.
 
 ### Cheatsheet
 
@@ -178,7 +178,7 @@ Nmap offers many different scanning techniques, making different types of connec
 
 	nmap --help
 
-```shell-session
+```text
 <SNIP>
 SCAN TECHNIQUES:
   -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
@@ -202,7 +202,7 @@ Let us take an example of such a scan.
 
 	sudo nmap -sS localhost
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-11 22:50 UTC
 Nmap scan report for localhost (127.0.0.1)
 Host is up (0.000010s latency).
@@ -230,7 +230,7 @@ It is always recommended to store every single scan. This can later be used for 
 
 	sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
 
-```shell-session
+```text
 10.129.2.4
 10.129.2.10
 10.129.2.11
@@ -258,7 +258,7 @@ Such a list could look something like this:
 
 	cat hosts.lst
 
-```shell-session
+```text
 10.129.2.4
 10.129.2.10
 10.129.2.11
@@ -272,7 +272,7 @@ If we use the same scanning technique on the predefined list, the command will l
 
 	sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d" " -f5
 
-```shell-session
+```text
 10.129.2.18
 10.129.2.19
 10.129.2.20
@@ -294,7 +294,7 @@ It can also happen that we only need to scan a small part of a network. An alter
 
 	sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20| grep for | cut -d" " -f5
 
-```shell-session
+```text
 10.129.2.18
 10.129.2.19
 10.129.2.20
@@ -304,7 +304,7 @@ If these IP addresses are next to each other, we can also define the range in th
 
 	sudo nmap -sn -oA tnet 10.129.2.18-20| grep for | cut -d" " -f5
 
-```shell-session
+```text
 10.129.2.18
 10.129.2.19
 10.129.2.20
@@ -319,7 +319,7 @@ Before we scan a single host for open ports and its services, we first have to d
 
 	sudo nmap 10.129.2.18 -sn -oA host 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-14 23:59 CEST
 Nmap scan report for 10.129.2.18
 Host is up (0.087s latency).
@@ -336,7 +336,7 @@ If we disable port scan (`-sn`), Nmap automatically ping scan with `ICMP Echo R
 
 	sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:08 CEST
 SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
 RCVD (0.0309s) ARP reply 10.129.2.18 is-at DE:AD:00:00:BE:EF
@@ -357,7 +357,7 @@ Another way to determine why Nmap has our target marked as "alive" is with the "
 
 	sudo nmap 10.129.2.18 -sn -oA host -PE --reason 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:10 CEST
 SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
 RCVD (0.0309s) ARP reply 10.129.2.18 is-at DE:AD:00:00:BE:EF
@@ -378,7 +378,7 @@ We see here that `Nmap` does indeed detect whether the host is alive or not th
 
 	sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:12 CEST
 SENT (0.0107s) ICMP [10.10.14.2 > 10.129.2.18 Echo request (type=8/code=0) id=13607 seq=0] IP [ttl=255 id=23541 iplen=28 ]
 RCVD (0.0152s) ICMP [10.129.2.18 > 10.10.14.2 Echo reply (type=0/code=0) id=13607 seq=0] IP [ttl=128 id=40622 iplen=28 ]
@@ -395,8 +395,6 @@ We have already mentioned in the "`Learning Process`," and at the beginning of t
 #### Questions
 
 >Based on the last result, find out which operating system it belongs to. Submit the name of the operating system as result.
->
->
 
 ### Host and Port Scanning
 
@@ -431,7 +429,7 @@ By default, `Nmap` scans the top 1000 TCP ports with the SYN scan (`-sS`). Thi
 
 	sudo nmap 10.129.2.28 --top-ports=10 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:36 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.021s latency).
@@ -465,7 +463,7 @@ We see that we only scanned the top 10 TCP ports of our target, and `Nmap` dis
 
 	sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:39 CEST
 SENT (0.0429s) TCP 10.10.14.2:63090 > 10.129.2.28:21 S ttl=56 id=57322 iplen=44  seq=1699105818 win=1024 <mss 1460>
 RCVD (0.0573s) TCP 10.129.2.28:21 > 10.10.14.2:63090 RA ttl=64 id=0 iplen=40  seq=0 win=0
@@ -503,7 +501,7 @@ Let us look at an example where the firewall `drops` the TCP packets we send f
 
 	sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:45 CEST
 SENT (0.0381s) TCP 10.10.14.2:60277 > 10.129.2.28:139 S ttl=47 id=14523 iplen=44  seq=4175236769 win=1024 <mss 1460>
 SENT (1.0411s) TCP 10.10.14.2:60278 > 10.129.2.28:139 S ttl=45 id=7372 iplen=44  seq=4175171232 win=1024 <mss 1460>
@@ -528,7 +526,7 @@ We see in the last scan that `Nmap` sent two TCP packets with the SYN flag. By
 
 	sudo nmap 10.129.2.28 -p 445 --packet-trace -n --disable-arp-ping -Pn
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:55 CEST
 SENT (0.0388s) TCP 10.129.2.28:52472 > 10.129.2.28:445 S ttl=49 id=21763 iplen=44  seq=1418633433 win=1024 <mss 1460>
 RCVD (0.0487s) ICMP [10.129.2.28 > 10.129.2.28 Port 445 unreachable (type=3/code=3) ] IP [ttl=64 id=20998 iplen=72 ]
@@ -560,7 +558,7 @@ Let's look at an example of what a UDP scan (`-sU`) can look like and what resul
 
 	sudo nmap 10.129.2.28 -F -sU
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:01 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.059s latency).
@@ -587,7 +585,7 @@ Another disadvantage of this is that we often do not get a response back because
 
 	sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:15 CEST
 SENT (0.0367s) UDP 10.10.14.2:55478 > 10.129.2.28:137 ttl=57 id=9122 iplen=78
 RCVD (0.0398s) UDP 10.129.2.28:137 > 10.10.14.2:55478 ttl=64 id=13222 iplen=257
@@ -612,7 +610,7 @@ If we get an ICMP response with `error code 3` (port unreachable), we know tha
 
 	sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 100 --reason 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:25 CEST
 SENT (0.0445s) UDP 10.10.14.2:63825 > 10.129.2.28:100 ttl=57 id=29925 iplen=28
 RCVD (0.1498s) ICMP [10.129.2.28 > 10.10.14.2 Port unreachable (type=3/code=3) ] IP [ttl=64 id=11903 iplen=56 ]
@@ -637,7 +635,7 @@ For all other ICMP responses, the scanned ports are marked as (`open|filtered`).
 
 	sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 138 --reason 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:32 CEST
 SENT (0.0380s) UDP 10.10.14.2:52341 > 10.129.2.28:138 ttl=50 id=65159 iplen=28
 SENT (1.0392s) UDP 10.10.14.2:52342 > 10.129.2.28:138 ttl=40 id=24444 iplen=28
@@ -681,7 +679,7 @@ We can also specify the option (`-oA`) to save the results in all formats. The c
 
 	sudo nmap 10.129.2.28 -p- -oA target
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 12:14 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.0091s latency).
@@ -704,7 +702,7 @@ If no full path is given, the results will be stored in the directory we are cur
 
 	ls
 
-```shell-session
+```text
 target.gnmap target.html  target.nmap
 ```
 
@@ -712,7 +710,7 @@ target.gnmap target.html  target.nmap
 
 	cat target.nmap
 
-```shell-session
+```text
 # Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28
 Nmap scan report for 10.129.2.28
 Host is up (0.053s latency).
@@ -730,7 +728,7 @@ MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
 
 	cat target.gnmap
 
-```shell-session
+```text
 # Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28
 Host: 10.129.2.28 ()	Status: Up
 Host: 10.129.2.28 ()	Ports: 22/open/tcp//ssh///, 25/open/tcp//smtp///, 80/open/tcp//http///	Ignored State: closed (4)
@@ -741,7 +739,7 @@ Host: 10.129.2.28 ()	Ports: 22/open/tcp//ssh///, 25/open/tcp//smtp///, 80/open/t
 
 	cat target.xml
 
-```shell-session
+```text
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
@@ -789,8 +787,6 @@ More information about the output formats can be found at: [https://nmap.org/bo
 #### Questions
 
 >Perform a full TCP port scan on your target and create an HTML report. Submit the number of the highest port as the answer.
->
->
 
 ### Service Enumeration
 
@@ -809,7 +805,7 @@ A full port scan takes quite a long time. To view the scan status, we can press 
 
 	sudo nmap 10.129.2.28 -p- -sV
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 19:44 CEST
 [Space Bar]
 Stats: 0:00:03 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
@@ -827,7 +823,7 @@ Another option (`--stats-every=5s`) that we can use is defining how periods of t
 
 	sudo nmap 10.129.2.28 -p- -sV --stats-every=5s
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 19:46 CEST
 Stats: 0:00:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
 SYN Stealth Scan Timing: About 13.91% done; ETC: 19:49 (0:00:31 remaining)
@@ -846,7 +842,7 @@ We can also increase the `verbosity level` (`-v` / `-vv`), which will show u
 
 	sudo nmap 10.129.2.28 -p- -sV -v 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 20:03 CEST
 NSE: Loaded 45 scripts for scanning.
 Initiating ARP Ping Scan at 20:03
@@ -880,7 +876,7 @@ Once the scan is complete, we will see all TCP ports with the corresponding serv
 
 	sudo nmap 10.129.2.28 -p- -sV
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 20:00 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.013s latency).
@@ -913,7 +909,7 @@ Primarily, `Nmap` looks at the banners of the scanned ports and prints them ou
 
 	sudo nmap 10.129.2.28 -p- -sV -Pn -n --disable-arp-ping --packet-trace
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 20:10 CEST
 <SNIP>
 NSOCK INFO [0.4200s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 18 [10.129.2.28:25] (35 bytes): 220 inlane ESMTP Postfix (Ubuntu)..
@@ -948,7 +944,7 @@ Then we see that the SMTP server on our target gave us more information than `N
 
 	sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 ```
@@ -957,14 +953,14 @@ listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
 
 	nc -nv 10.129.2.28 25
 
-```shell-session
+```text
 Connection to 10.129.2.28 port 25 [tcp/*] succeeded!
 220 inlane ESMTP Postfix (Ubuntu)
 ```
 
 #### Tcpdump - Intercepted Traffic
 
-```shell-session
+```text
 18:28:07.128564 IP 10.10.14.2.59618 > 10.129.2.28.smtp: Flags [S], seq 1798872233, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 331260178 ecr 0,sackOK,eol], length 0
 18:28:07.255151 IP 10.129.2.28.smtp > 10.10.14.2.59618: Flags [S.], seq 1130574379, ack 1798872234, win 65160, options [mss 1460,sackOK,TS val 1800383922 ecr 331260178,nop,wscale 7], length 0
 18:28:07.255281 IP 10.10.14.2.59618 > 10.129.2.28.smtp: Flags [.], ack 1, win 2058, options [nop,nop,TS val 331260304 ecr 1800383922], length 0
@@ -1033,7 +1029,7 @@ For example, let us keep working with the target SMTP port and see the results w
 
 	sudo nmap 10.129.2.28 -p 25 --script banner,smtp-commands
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 23:21 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.050s latency).
@@ -1056,7 +1052,7 @@ We see that we can recognize the Ubuntu distribution of Linux by using the' ba
 
 	sudo nmap 10.129.2.28 -p 80 -A
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-17 01:38 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.012s latency).
@@ -1101,7 +1097,7 @@ Now let us move on to HTTP port 80 and see what information and vulnerabilities 
 
 	sudo nmap 10.129.2.28 -p 80 -sV --script vuln 
 
-```shell-session
+```text
 Nmap scan report for 10.129.2.28
 Host is up (0.036s latency).
 
@@ -1142,7 +1138,6 @@ The scripts used for the last scan interact with the webserver and its web appli
 
 >Use NSE and its scripts to find the flag that one of the services contain and submit it as the answer.
 
-
 	sudo nmap -sV -Pn -n -g 53 -p53 -vv --disable-arp-ping --reason --packet-trace 10.129.2.48
 
 ### Performance
@@ -1162,7 +1157,7 @@ When Nmap sends a packet, it takes some time (`Round-Trip-Time` - `RTT`) to re
 
 	sudo nmap 10.129.2.0/24 -F
 
-```shell-session
+```text
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 39.44 seconds
 ```
@@ -1171,7 +1166,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 39.44 seconds
 
 	sudo nmap 10.129.2.0/24 -F --initial-rtt-timeout 50ms --max-rtt-timeout 100ms
 
-```shell-session
+```text
 <SNIP>
 Nmap done: 256 IP addresses (8 hosts up) scanned in 12.29 seconds
 ```
@@ -1194,7 +1189,7 @@ Another way to increase the scans' speed is to specify the retry rate of the sen
 
 	sudo nmap 10.129.2.0/24 -F | grep "/tcp" | wc -l
 
-```shell-session
+```text
 23
 ```
 
@@ -1202,7 +1197,7 @@ Another way to increase the scans' speed is to specify the retry rate of the sen
 
 	sudo nmap 10.129.2.0/24 -F --max-retries 0 | grep "/tcp" | wc -l
 
-```shell-session
+```text
 21
 ```
 
@@ -1224,7 +1219,7 @@ During a white-box penetration test, we may get whitelisted for the security sys
 
 	sudo nmap 10.129.2.0/24 -F -oN tnet.default
 
-```shell-session
+```text
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 29.83 seconds
 ```
@@ -1233,7 +1228,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 29.83 seconds
 
 	sudo nmap 10.129.2.0/24 -F -oN tnet.minrate300 --min-rate 300
 
-```shell-session
+```text
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 8.67 seconds
 ```
@@ -1249,7 +1244,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 8.67 seconds
 
 	cat tnet.default | grep "/tcp" | wc -l
 
-```shell-session
+```text
 23
 ```
 
@@ -1257,7 +1252,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 8.67 seconds
 
 	cat tnet.minrate300 | grep "/tcp" | wc -l
 
-```shell-session
+```text
 23
 ```
 
@@ -1281,7 +1276,7 @@ These templates contain options that we can also set manually, and have seen som
 
 	sudo nmap 10.129.2.0/24 -F -oN tnet.default 
 
-```shell-session
+```text
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 32.44 seconds
 ```
@@ -1290,7 +1285,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 32.44 seconds
 
 	sudo nmap 10.129.2.0/24 -F -oN tnet.T5 -T 5
 
-```shell-session
+```text
 <SNIP>
 Nmap done: 256 IP addresses (10 hosts up) scanned in 18.07 seconds
 ```
@@ -1306,7 +1301,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 18.07 seconds
 
 	cat tnet.default | grep "/tcp" | wc -l
 
-```shell-session
+```text
 23
 ```
 
@@ -1314,7 +1309,7 @@ Nmap done: 256 IP addresses (10 hosts up) scanned in 18.07 seconds
 
 	cat tnet.T5 | grep "/tcp" | wc -l
 
-```shell-session
+```text
 23
 ```
 
@@ -1367,7 +1362,7 @@ If we look at these scans, we will see how the results differ.
 
 	sudo nmap 10.129.2.28 -p 21,22,25 -sS -Pn -n --disable-arp-ping --packet-trace
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 14:56 CEST
 SENT (0.0278s) TCP 10.10.14.2:57347 > 10.129.2.28:22 S ttl=53 id=22412 iplen=44  seq=4092255222 win=1024 <mss 1460>
 SENT (0.0278s) TCP 10.10.14.2:57347 > 10.129.2.28:25 S ttl=50 id=62291 iplen=44  seq=4092255222 win=1024 <mss 1460>
@@ -1392,7 +1387,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
 
 	sudo nmap 10.129.2.28 -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 14:57 CEST
 SENT (0.0422s) TCP 10.10.14.2:49343 > 10.129.2.28:21 A ttl=49 id=12381 iplen=40  seq=0 win=1024
 SENT (0.0423s) TCP 10.10.14.2:49343 > 10.129.2.28:22 A ttl=41 id=5146 iplen=40  seq=0 win=1024
@@ -1447,7 +1442,7 @@ There are cases in which administrators block specific subnets from different re
 
 	sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 16:14 CEST
 SENT (0.0378s) TCP 102.52.161.59:59289 > 10.129.2.28:80 S ttl=42 id=29822 iplen=44  seq=3687542010 win=1024 <mss 1460>
 SENT (0.0378s) TCP 10.10.14.2:59289 > 10.129.2.28:80 S ttl=59 id=29822 iplen=44  seq=3687542010 win=1024 <mss 1460>
@@ -1479,7 +1474,7 @@ Another scenario would be that only individual subnets would not have access to 
 
 	sudo nmap 10.129.2.28 -n -Pn -p445 -O
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 01:23 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.032s latency).
@@ -1498,7 +1493,7 @@ Nmap done: 1 IP address (1 host up) scanned in 3.14 seconds
 
 	sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 01:16 CEST
 Nmap scan report for 10.129.2.28
 Host is up (0.010s latency).
@@ -1533,7 +1528,7 @@ However, `Nmap` still gives us a way to specify DNS servers ourselves (`--dns-
 
 	sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 22:50 CEST
 SENT (0.0417s) TCP 10.10.14.2:33436 > 10.129.2.28:50000 S ttl=41 id=21939 iplen=44  seq=736533153 win=1024 <mss 1460>
 SENT (1.0481s) TCP 10.10.14.2:33437 > 10.129.2.28:50000 S ttl=46 id=6446 iplen=44  seq=736598688 win=1024 <mss 1460>
@@ -1550,7 +1545,7 @@ Nmap done: 1 IP address (1 host up) scanned in 2.06 seconds
 
 	sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
 
-```shell-session
+```text
 SENT (0.0482s) TCP 10.10.14.2:53 > 10.129.2.28:50000 S ttl=58 id=27470 iplen=44  seq=4003923435 win=1024 <mss 1460>
 RCVD (0.0608s) TCP 10.129.2.28:50000 > 10.10.14.2:53 SA ttl=64 id=0 iplen=44  seq=540635485 win=64240 <mss 1460>
 Nmap scan report for 10.129.2.28
@@ -1576,7 +1571,7 @@ Now that we have found out that the firewall accepts `TCP port 53`, it is very 
 
 	ncat -nv --source-port 53 10.129.2.28 50000
 
-```shell-session
+```text
 Ncat: Version 7.80 ( https://nmap.org/ncat )
 Ncat: Connected to 10.129.2.28:50000.
 220 ProFTPd
@@ -1609,7 +1604,7 @@ This page shows us the number of alerts. We know that if we receive a specific a
 
 	nmap -sV -F <target>
 
-```shell-session
+```text
 PORT   STATE SERVICE VERSION
 22/tcp open  ssh     OpenSSH <...> Ubuntu <...>
 80/tcp open  http    Apache httpd <...> ((Ubuntu))
@@ -1629,9 +1624,9 @@ After we conducted the first test and submitted our results to our client, the a
 > Hint: During the meeting, the administrators talked about the host we tested as a publicly accessible server that was not mentioned before.
 >
 > `nmap -sV -p53 10.129.2.48`
-```shell-session
+```text
 PORT   STATE SERVICE VERSION
-53/tcp open  domain  (unknown banner: HTB{...FLAG...})
+53/tcp open  domain  (unknown banner: HTB{...})
 ```
 
 ### Firewall and IDS/IPS Evasion - Hard Lab
@@ -1648,7 +1643,7 @@ With our second test's help, our client was able to gain new insights and sent o
 
 	sudo nmap -g 53 -p- -n -Pn --disable-arp-ping <target>
 
-```shell-session
+```text
 PORT      STATE SERVICE
 22/tcp    open  ssh
 80/tcp    open  http
@@ -1657,10 +1652,10 @@ PORT      STATE SERVICE
 
 	sudo nc -nv -p 53 <target> <port>
 
-```shell-session
+```text
 Ncat: Version <...> ( https://nmap.org/ncat )
 Ncat: Connected to <target>:<port>.
-220 HTB{...FLAG...}
+220 HTB{...}
 ```
 
 ### What's Next?

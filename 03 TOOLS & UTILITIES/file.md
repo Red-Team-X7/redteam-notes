@@ -15,13 +15,13 @@ Determine file type.
 
 	file shell
 
-```shell-session
+```text
 shell: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, no section header
 ```
 
 	md5sum shell
 
-```shell-session
+```text
 321de1d7e7c3735838890a72c9ae7d1d shell
 ```
 

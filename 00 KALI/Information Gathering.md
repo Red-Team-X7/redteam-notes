@@ -26,12 +26,13 @@ Previous: [[KALI]]
 [[spiderfoot]]
 
 [[p0f]]
+[[waybackurls]]
 
-## Error codes [^1]
+### Error codes
 
 	gobuster dir -u http://10.10.10.121/ -w /usr/share/dirb/wordlists/common.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -57,4 +58,15 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ```
 
 # References
-[^1]: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+### ASN IP ranges
+
+https://bgp.he.net/
+
+### DNS / whois lookup
+
+https://domain.glass/
+
+### Discover cloud storage
+
+https://buckets.grayhatwarfare.com/

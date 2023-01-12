@@ -34,7 +34,7 @@ Get-Member        | gm
 
 ### Built-in variables
 
-```shell-session
+```text
 ls env:								// List environment variables.
 ls variable:						// List all variables.
 
@@ -44,7 +44,7 @@ echo $env:PROCESSOR_ARCHITECTURE	// Display environment variable.
 
 ### cmdlet aliases
 
-```shell-session
+```text
 gcm										// Alias of Get-Command.
 alias									// List all aliases.
 help get-command						// Get alias of Get-Command.
@@ -53,7 +53,7 @@ get-alias -Definition Get-ChildItem		// Get list of aliases for Cmdlet.
 
 ### cmdlets
 
-```shell-session
+```text
 get-command set*		// Get a list of cmdlets that start with “set”.
 get-command *process	// Get a list of cmdlets that end with “process”.
 
@@ -64,7 +64,7 @@ Common Verbs: Set-, Get-, New-, Read-, Find-, Start-
 
 For command flags, type only as much as you need to make it unambiguous.
 
-```shell-session
+```text
 ls -recurse
 ls -rec
 ls -r
@@ -74,25 +74,25 @@ ls -r
 
 Echo 1 through 10.
 
-```shell-session
+```text
 1..10 | % {echo $_}
 ```
 
 Conduct a ping sweep of all IPv4 addresses in the 10.10.10 network and go through the output to find the string ttl.
 
-```shell-session
+```text
 1..255 | % {ping -n 1 -w 100 10.10.10.$_ | select-string ttl}
 ```
 
 ### Display output
 
-```shell-session
+```text
 ls -r | Out-Host -paging	// Out-Host converts the output into a text stream. -paging makes it behave like “more”.
 ```
 
 ### Find files & directories
 
-```shell-session
+```text
 get-childitem -recurse [dir] [string] | % {echo $_.fullname}	// Find a file with [string] in its name.
 ls -r [dir] [string] | % {echo $_.fullname}						// Simpler.
 ls -r c:\windows hosts 2>$null | % {echo $_.fullname}			// Find hosts file.
@@ -107,7 +107,7 @@ ls -r c:\windows hosts 2>$null | % {echo $_.fullname}			// Find hosts file.
 
 Examples:
 
-```shell-session
+```text
 ps -name nc | % {stop-process $_}	// Note: In older versions of Powershell (v2 in Win7), there is a bug in the way ps and stop-process interact.
 									// Use this instead:
 ps -name nc | stop-process
@@ -116,7 +116,7 @@ ps -name nc | stop-process
 
 ### Getting help
 
-```shell-session
+```text
 help
 help ps
 help ps -detailed
@@ -133,13 +133,13 @@ When you use the | between cmdlets, you are NOT piping streams of textual data.
 • You don't have to parse. Instead, you pull out stuff you want.
 • So, for example, the Get-Process (ps) cmdlet doesn't generate a list of processes; it generates a group of process objects you can pipe to other commands
 
-```shell-session
+```text
 ls | gm
 ```
 
 ### Using commands safely
 
-```shell-session
+```text
 Remove-Item *.txt -WhatIf	// What if: Performing the operation “Remove File” on target “<target>”.
 ```
 
@@ -150,7 +150,7 @@ Remove-Item *.txt -WhatIf	// What if: Performing the operation “Remove File”
 
 Examples:
 
-```shell-session
+```text
 get-service | select servicename,displayname
 get-service | select servicename,displayname | gm
 ```
@@ -177,7 +177,7 @@ Examples:
 
 Use format-list to create customized list of properties.
 
-```shell-session
+```text
 ps												// Show processes
 ps | gm											// Show process properties and method names.
 ps | format-list								// Show process summaries (ID, handles, CPU usage, name)
@@ -189,7 +189,7 @@ ps | format-list -property *					// Show all properties of each process.
 
 You can navigate the Registry just like it was a part of your filesystem!
 
-```shell-session
+```text
 cd HKLM:\sys<Tab>
 ```
 
@@ -203,7 +203,7 @@ Where-Object (alias “?”)
 
 Examples:
 
-```shell-session
+```text
 get-service | gm							// services have “status”
 get-service | ? {$_.status -eq “running”}
 ```
@@ -213,7 +213,7 @@ get-service | ? {$_.status -eq “running”}
 
 ### Writing output
 
-```shell-session
+```text
 “hello”			// Display text.
 3+6				// Do math.
 1..10			// Make a range of numbers.
@@ -312,7 +312,7 @@ Enter Access Name:
 
 	Start-Transcript -Path "C:\Pentesting\03-21-2021-0200pm-exploitation.log"
 
-```powershell-session
+```text
 Transcript started, output file is C:\Pentesting\03-21-2021-0200pm-exploitation.log
 ```
 
@@ -333,7 +333,7 @@ To keep with our command-line use, we will work at utilizing the command-line wh
 
 	Get-ExecutionPolicy -List
 
-```powershell-session
+```text
 Scope ExecutionPolicy
 ----- ---------------
 MachinePolicy Undefined
@@ -349,7 +349,7 @@ We must first check our systems Execution Policy to ensure we can download, load
 
 	Set-ExecutionPolicy Unrestricted -Scope Process
 
-```powershell-session
+```text
 Execution Policy Change
 The execution policy helps protect you from scripts that you do not trust. 
 Changing the execution policy might expose you to the security risks described in the about_Execution_Policies help topic at https:/go.microsoft.com/fwlink/?LinkID=135170. Do you want to change the execution policy?
@@ -374,7 +374,7 @@ Now that we have our ExecutionPolicy set, let us install the PSWindowsUpdate mod
 
 	Install-Module PSWindowsUpdate 
 
-```powershell-session
+```text
 Untrusted repository 
 You are installing the modules from an untrusted repository. If you trust this repository, 
 change its InstallationPolicy value by running the Set-PSRepository cmdlet. 
@@ -387,7 +387,7 @@ Once the module installation completes, we can import it and run our updates.
 	Import-Module PSWindowsUpdate 
 	Install-WindowsUpdate -AcceptAll
 
-```powershell-session
+```text
 X ComputerName Result KB Size Title
 - ------------ ------ -- ---- -----
 1 DESKTOP-3... Accepted KB2267602 510MB Security Intelligence Update for Microsoft Defender Antivirus - KB2267602...
@@ -408,7 +408,7 @@ Chocolatey is a free and open software package management solution that can mana
 
 	Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-```powershell-session
+```text
 Forcing web requests to allow TLS v1.2 (Required for requests to Chocolatey.org)
 Getting latest version of the Chocolatey package for download.
 Not using proxy.
@@ -435,7 +435,7 @@ We have now installed chocolatey. The Powershell string we issued sets our Execu
 
 	choco upgrade chocolatey -y 
 
-```powershell-session
+```text
 Chocolatey v0.10.15
 Upgrading the following packages:
 chocolatey
@@ -450,7 +450,7 @@ Now that we are sure chocolatey is up-to-date let us run our packages. We can us
 
 	choco info vscode 
 
-```powershell-session
+```text
 Chocolatey v0.10.15
 vscode 1.55.1 [Approved]
 Title: Visual Studio Code | Published: 4/9/2021
@@ -475,7 +475,7 @@ Above is an example of using the info option with chocolatey.
 
 	choco install python vscode git wsl2 openssh openvpn 
 
-```powershell-session
+```text
 Chocolatey v0.10.15
 Installing the following packages:
 python;vscode;git;wsl2;openssh;openvpn 
@@ -537,7 +537,7 @@ We can use the [Get-WmiObject](https://docs.microsoft.com/en-us/powershell/modu
 
 	Get-WmiObject -Class win32_OperatingSystem | select Version,BuildNumber
 
-```powershell-session
+```text
 Version    BuildNumber
 -------    -----------
 10.0.19041 19041

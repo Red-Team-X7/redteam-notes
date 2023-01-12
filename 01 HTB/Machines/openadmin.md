@@ -1,15 +1,15 @@
-📦 HTB | openadmin
-----
+# 📦 HTB | openadmin
+
 Tags: #📦
 Related to: 
-See also: [[nmap]], [[gobuster]], [[searchsploit]], [[vi vim]], [[python]], [[PHP]], [[bash]], [[burpsuite]], [[netcat ncat nc]], [[curl]], [[sed]], [[tail]], [[head]], [[git]], [[find]], [[grep]], [[mysql]], [[awk]], [[stty]], [[medusa]], [[ncrack]], [[sucrack]], [[ps]], [[ssh]], [[echo]], [[chmod chown]], [[nano]], [[su]], [[iptables]], [[gtfobins lolbas]], [[ifconfig]], [[peass]]
+See also: [[MySQL]], [[PHP]], [[awk]], [[bash]], [[burpsuite]], [[chmod chown]], [[curl]], [[echo]], [[find]], [[git]], [[gobuster]], [[grep]], [[gtfobins lolbas]], [[head]], [[ifconfig]], [[iptables]], [[medusa]], [[nano]], [[ncrack]], [[nc]], [[nmap]], [[peass]], [[ps]], [[python]], [[searchsploit]], [[sed]], [[ssh]], [[stty]], [[su]], [[sucrack]], [[tail]], [[vi vim]]
 Previous: [[01 HTB/HTB]]
 
 - [ ] official walkthrough
 - [x] ippsec
 
-Enumeration
-----
+## Enumeration
+
 ### Default script and version detection
 	nmap -sC -sV -oA nmap/openadmin 10.129.1.145
 

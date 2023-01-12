@@ -1,8 +1,8 @@
-📦 HTB | reddish
-----
+# 📦 HTB | reddish
+
 Tags: #📦
 Related to: 
-See also: [[nmap]], [[ping]], [[traceroute]], [[burpsuite]], [[netcat ncat nc]], [[python]], [[linenum]], [[bash]], [[ifconfig]], [[ip]], [[ping]], [[curl]][[chisel]], [[sum]], [[netstat]], [[pkill]]
+See also: [[bash]], [[burpsuite]], [[curl]][[chisel]], [[ifconfig]], [[ip]], [[linenum]], [[nc]], [[netstat]], [[nmap]], [[ping]], [[ping]], [[pkill]], [[python]], [[sum]], [[traceroute]]
 Previous: [[01 HTB/HTB]]
 
 - [ ] official walkthrough

@@ -13,7 +13,7 @@ Previous: [[Windows Fundamentals]]
 
 	Get-WmiObject -Class win32_OperatingSystem
 
-```powershell-session
+```text
 Version    BuildNumber
 -------    -----------
 10.0.19041 19041
@@ -21,7 +21,7 @@ Version    BuildNumber
 
 	Get-WmiObject -Class Win32_OperatingSystem | select SystemDirectory,BuildNumber,SerialNumber,Version | ft
 
-```powershell-session
+```text
 SystemDirectory     BuildNumber SerialNumber            Version
 ---------------     ----------- ------------            -------
 C:\Windows\system32 19041       00123-00123-00123-AAOEM 10.0.19041

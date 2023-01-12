@@ -16,7 +16,7 @@ OpenSSH remote login client
 
 	ssh root@<vps-ip-address>
 
-```shell-session
+```text
 root@<vps-ip-address>'s password: 
 
 [root@VPS ~]# 
@@ -111,7 +111,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 	ssh-keygen -t rsa -b 4096 -f vps-ssh
 
-```shell-session
+```text
 Generating public/private rsa key pair.
 Enter passphrase (empty for no passphrase): ******************
 Enter same passphrase again: ******************
@@ -137,7 +137,7 @@ Once we have added this to the `authorized_keys` file, we can use the `privat
 
 	ssh cry0l1t3@<vps-ip-address> -i vps-ssh-cry0l1t3
 
-```shell-session
+```text
 [cry0l1t3@VPS ~]$
 ```
 

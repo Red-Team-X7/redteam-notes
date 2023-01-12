@@ -29,7 +29,7 @@ Provides a high-level commandline interface for the package management system.
 apt-cache show impacket-scripts
 ```
 
-```shell-session
+```text
 Package: impacket-scripts
 Version: 1.4
 Architecture: all
@@ -59,7 +59,7 @@ Size: 2080
 	sudo rm /usr/bin/code
 	sudo rm /usr/bin/code-oss
 
-```shell-session
+```text
 Reading package lists... Done
 Building dependency tree
 Reading state information... Done

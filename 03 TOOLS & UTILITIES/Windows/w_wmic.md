@@ -15,7 +15,7 @@ Provides system administrators with powerful tools for system monitoring.
 
 	wmic /?
 
-```cmd-session
+```text
 WMIC is deprecated.
 
 [global switches] <command>
@@ -49,7 +49,7 @@ Press any key to continue, or press the ESCAPE key to stop
 
 	wmic os list brief
 
-```cmd-session
+```text
 BuildNumber  Organization  RegisteredUser  SerialNumber             SystemDirectory      Version
 19041                      Owner           00123-00123-00123-AAOEM  C:\Windows\system32  10.0.19041
 ```

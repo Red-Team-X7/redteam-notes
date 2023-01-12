@@ -19,7 +19,7 @@ Control the systemd system and service manager
 
 	systemctl status ssh
 
-```shell-session
+```text
 ● ssh.service - OpenBSD Secure Shell server
    Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
    Active: active (running) since Thu 2020-05-14 15:08:23 CEST; 24h ago
@@ -42,7 +42,7 @@ Mai 14 15:08:31 inlane sshd[846]: Server listening on :: port 22.
 
 	systemctl enable ssh
 
-```shell-session
+```text
 Synchronizing state of ssh.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable ssh
 ```
@@ -59,5 +59,8 @@ Executing: /lib/systemd/systemd-sysv-install enable ssh
 
 	systemctl list-units --type=service
 
+### Restart service
+
+	sudo systemctl restart smbd
 
 # References

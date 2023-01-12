@@ -3,7 +3,7 @@
 Tags: #⚙️
 Related to:
 See also:
-Previous: [[SNMP Analysis]], [[Getting Started]], [[Footprinting]]
+Previous: [[Getting Started]], [[Footprinting]], [[SMB]]
 
 ## Description
 
@@ -29,16 +29,21 @@ SMB1 disabled -- no workgroup available
 ### Connect to share
 
 	smbclient //<FQDN/IP>/<share>
+	smbclient -L \\10.129.202.41 -U alex
 
-	proxychains smbclient \\\\172.16.1.10\\SlackMigration	// root:<blankpassword>
+```text
+Password for [WORKGROUP\alex]:
 
-```
-smb: \> ls
-  .                                   D        0  Mon Apr 12 10:39:41 2021
-  ..                                  D        0  Mon Apr 12 10:39:41 2021
-  admintasks.txt                      N      279  Mon May 18 11:24:22 2020
-
-smb: \> get admintasks.txt
+        Sharename       Type      Comment
+        ---------       ----      -------
+        ADMIN$          Disk      Remote Admin
+        C$              Disk      Default share
+        devshare        Disk      
+        IPC$            IPC       Remote IPC
+        Users           Disk      
+Reconnecting with SMB1 for workgroup listing.
+do_connect: Connection to 10.129.202.41 failed (Error NT_STATUS_RESOURCE_NAME_NOT_FOUND)
+Unable to connect with SMB1 -- no workgroup available
 ```
 
 ### List Samba services and suppress password prompt

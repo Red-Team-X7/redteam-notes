@@ -1,13 +1,47 @@
 # Footprinting
 
 Tags: #🧑‍🎓 
-Related to: [[curl]], [[ftp]], [[netcat ncat nc]], [[telnet]], [[openssl]], [[wget]], [[smbclient]], [[rpcclient]], [[samrdump]], [[smbmap]], [[crackmapexec]], [[enum4linux]], [[showmount]], [[mount umount]], [[dig]], [[dnsenum]], [[curl]], [[snmpwalk]], [[onesixtyone]], [[braa]], [[mysql]], [[mssqlclient]], [[msfconsole]], [[ssh-audit]], [[ssh]], [[rdp-sec-check]], [[xfreerdp]], [[evil-winrm]]. [[w_wmiexec]]
+Related To: [[FTP]], [[awk]], [[braa]], [[crackmapexec]], [[curl]], [[cut]], [[dig]], [[dnsenum]], [[enum4linux]], [[evil-winrm]]. [[w_wmiexec]], [[grep]], [[jq]], [[mount umount]], [[mssqlclient]], [[MySQL]], [[nc]], [[nmap]], [[onesixtyone]], [[openssl]], [[openssl]], [[rdp-sec-check]], [[rpcclient]], [[samrdump]], [[showmount]], [[smbclient]], [[smbmap]], [[snmpwalk]], [[sort]], [[ssh-audit]], [[ssh]], [[telnet]], [[wget]], [[xfreerdp]]
 See also:
 Previous: [[HTB Academy]]
 
 ![[logo_footprinting.png]]
 
 This module covers techniques for footprinting the most commonly used services in almost all enterprise and business IT infrastructures. Footprinting is an essential phase of any penetration test or security audit to identify and prevent information disclosure. Using this process, we examine the individual services and attempt to obtain as much information from them as possible.
+
+### Module Summary
+
+This module will cover and deal with many manual techniques that we can use for enumeration, footprinting, and interaction with a wide variety of services.
+
+In this module, we will cover:
+
+-   Enumeration principles
+-   Infrastructure-based enumeration
+-   FTP
+-   SMB
+-   NFS
+-   DNS
+-   SMTP
+-   IMAP/POP3
+-   SNMP
+-   MySQL / MSSQL
+-   IPMI
+-   Windows and Linux remote management protocols
+
+This module is broken into sections with accompanying hands-on exercises to practice each of the tactics and techniques we cover. The module ends with a practical hands-on skills assessment to gauge your understanding of the various topic areas.
+
+As you work through the module, you will see example commands and command output for the various topics introduced. It is worth reproducing as many of these examples as possible to reinforce further the concepts presented in each section. You can do this in the target host provided in the interactive sections or your virtual machine.
+
+You can start and stop the module at any time and pick up where you left off. There is no time limit or "grading," but you must complete all of the exercises and the skills assessment to receive the maximum number of cubes and have this module marked as complete in any paths you have chosen.
+
+The module is classified as "Medium" but assumes a working knowledge of the Linux command line and an understanding of information security fundamentals.
+
+A firm grasp of the following modules can be considered prerequisites for successful completion of this module:
+
+-   Linux Fundamentals
+-   Network Enumeration with Nmap
+-   Introduction to Networking
+-   Windows Fundamentals
 
 ### Cheatsheet
 
@@ -323,7 +357,7 @@ We can also output the results in JSON format.
 
 	curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq .
 
-```shell-session
+```text
 [
   {
     "issuer_ca_id": 23451835427,
@@ -365,7 +399,7 @@ If needed, we can also have them filtered by the unique subdomains.
 
 	curl -s https://crt.sh/\?q\=inlanefreight.com\&output\=json | jq . | grep name | cut -d":" -f2 | grep -v "CN=" | cut -d'"' -f2 | awk '{gsub(/\\n/,"\n");}1;' | sort -u
 
-```shell-session
+```text
 account.ttn.inlanefreight.com
 blog.inlanefreight.com
 bots.inlanefreight.com
@@ -396,7 +430,7 @@ Next, we can identify the hosts directly accessible from the Internet and not ho
 
 	for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
 
-```shell-session
+```text
 blog.inlanefreight.com 10.129.24.93
 inlanefreight.com 10.129.27.33
 matomo.inlanefreight.com 10.129.127.22
@@ -414,7 +448,7 @@ Once we see which hosts can be investigated further, we can generate a list of I
 
 	for i in $(cat ip-addresses.txt);do shodan host $i;done
 
-```shell-session
+```text
 10.129.24.93
 City:                    Berlin
 Country:                 Germany
@@ -490,7 +524,7 @@ We remember the IP `10.129.27.22` (`matomo.inlanefreight.com`) for later activ
 
 	dig any inlanefreight.com
 
-```shell-session
+```text
 ; <<>> DiG 9.16.1-Ubuntu <<>> any inlanefreight.com
 ;; global options: +cmd
 ;; Got answer:
@@ -538,7 +572,7 @@ Let us look at what we have learned here and come back to our principles. We see
     
 -   `TXT` records: this type of record often contains verification keys for different third-party providers and other security aspects of DNS, such as [SPF](https://datatracker.ietf.org/doc/html/rfc7208), [DMARC](https://datatracker.ietf.org/doc/html/rfc7489), and [DKIM](https://datatracker.ietf.org/doc/html/rfc6376), which are responsible for verifying and confirming the origin of the emails sent. Here we can already see some valuable information if we look closer at the results.
 
-```shell-session
+```text
 ...SNIP... TXT     "MS=ms92346782372"
 ...SNIP... TXT     "atlassian-domain-verification=IJdXMt1rKCy68JFszSdCKVpwPN"
 ...SNIP... TXT     "google-site-verification=O7zV5-xFh_jn7JQ31"
@@ -580,7 +614,7 @@ Even though cloud providers secure their infrastructure centrally, this does not
 
 	for i in $(cat subdomainlist);do host $i | grep "has address" | grep inlanefreight.com | cut -d" " -f1,4;done
 
-```shell-session
+```text
 blog.inlanefreight.com 10.129.24.93
 inlanefreight.com 10.129.27.33
 matomo.inlanefreight.com 10.129.127.22
@@ -646,7 +680,7 @@ Employees can be identified on various business networks such as [LinkedIn](htt
 
 #### LinkedIn - Job Post
 
-```shell-session
+```text
 Required Skills/Knowledge/Experience:
 
 * 3-10+ years of experience on professional software development projects.
@@ -783,7 +817,7 @@ As soon as we connect to the vsFTPd server, the `response code 220` is display
 
 	ftp 10.129.14.136
 
-```shell-session
+```text
 Connected to 10.129.14.136.
 220 "Welcome to the HTB Academy vsFTP service."
 Name (10.129.14.136:cry0l1t3): anonymous
@@ -809,7 +843,7 @@ However, to get the first overview of the server's settings, we can use the foll
 
 #### vsFTPd Status
 
-```shell-session
+```text
 ftp> status
 
 Connected to 10.129.14.136.
@@ -830,7 +864,7 @@ Some commands should be used occasionally, as these will make the server show us
 
 #### vsFTPd Detailed Output
 
-```shell-session
+```text
 ftp> debug
 
 Debugging on (debug=1).
@@ -873,7 +907,7 @@ In the following example, we can see that if the `hide_ids=YES` setting is pre
 
 #### Hiding IDs - YES
 
-```shell-session
+```text
 ftp> ls
 
 ---> TYPE A
@@ -898,7 +932,7 @@ Another helpful setting we can use for our purposes is the `ls_recurse_enable=Y
 
 #### Recursive Listing
 
-```shell-session
+```text
 ftp> ls -R
 
 ---> PORT 10,10,14,4,222,149
@@ -942,7 +976,7 @@ drwxrwxrwx    2 ftp      ftp          4096 Sep 16 18:00 Inlanefreight
 
 #### Download a File
 
-```shell-session
+```text
 ftp> ls
 
 200 PORT command successful. Consider using PASV.
@@ -971,7 +1005,7 @@ ftp> exit
 
 	ls | grep Notes.txt
 
-```shell-session
+```text
 'Important Notes.txt'
 ```
 
@@ -981,7 +1015,7 @@ We also can download all the files and folders we have access to at once. This i
 
 	wget -m --no-passive ftp://anonymous:anonymous@10.129.14.136
 
-```shell-session
+```text
 --2021-09-19 14:45:58--  ftp://anonymous:*password*@10.129.14.136/                                         
            => ‘10.129.14.136/.listing’                                                                     
 Connecting to 10.129.14.136:21... connected.                                                               
@@ -1011,7 +1045,7 @@ Once we have downloaded all the files, `wget` will create a directory with the
 
 	tree .
 
-```shell-session
+```text
 .
 └── 10.129.14.136
     ├── Calendar.pptx
@@ -1041,7 +1075,7 @@ The ability to upload files to the FTP server connected to a web server increase
 
 With the `PUT` command, we can upload files in the current folder to the FTP server.
 
-```shell-session
+```text
 ftp> put testupload.txt 
 
 local: testupload.txt remote: testupload.txt
@@ -1080,7 +1114,7 @@ Footprinting using various network scanners is also a handy and widespread appro
 
 	sudo nmap --script-updatedb
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 13:49 CEST
 NSE: Updating rule database.
 NSE: Script Database updated successfully.
@@ -1091,7 +1125,7 @@ All the NSE scripts are located on the Pwnbox in `/usr/share/nmap/scripts/`, bu
 
 	find / -type f -name ftp* 2>/dev/null | grep scripts
 
-```shell-session
+```text
 /usr/share/nmap/scripts/ftp-syst.nse
 /usr/share/nmap/scripts/ftp-vsftpd-backdoor.nse
 /usr/share/nmap/scripts/ftp-vuln-cve2010-4221.nse
@@ -1108,7 +1142,7 @@ As we already know, the FTP server usually runs on the standard TCP port 21, whi
 
 	sudo nmap -sV -p21 -sC -A 10.129.14.136
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-16 18:12 CEST
 Nmap scan report for 10.129.14.136
 Host is up (0.00013s latency).
@@ -1145,7 +1179,7 @@ The `ftp-syst`, for example, executes the `STAT` command, which displays info
 
 	sudo nmap -sV -p21 -sC -A 10.129.14.136 --script-trace
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 13:54 CEST                                                                                                                                                   
 NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 8 [10.129.14.136:21]                                   
 NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 16 [10.129.14.136:21]             
@@ -1176,7 +1210,7 @@ It looks slightly different if the FTP server runs with TLS/SSL encryption. Beca
 
 	openssl s_client -connect 10.129.14.136:21 -starttls ftp
 
-```shell-session
+```text
 CONNECTED(00000003)                                                                                      
 Can't use SSL_get_servername                        
 depth=0 C = US, ST = California, L = Sacramento, O = Inlanefreight, OU = Dev, CN = master.inlanefreight.htb, emailAddress = admin@inlanefreight.htb
@@ -1252,7 +1286,7 @@ As we can imagine, Samba offers a wide range of [settings](https://www.samba.or
 
 	cat /etc/samba/smb.conf | grep -v "#\|\;" 
 
-```shell-session
+```text
 [global]
    workgroup = DEV.INFREIGHT.HTB
    server string = DEVSMB
@@ -1329,7 +1363,7 @@ Let us create a share called `[notes]` and a few others and see how the settin
 
 #### Example Share
 
-```shell-session
+```text
 ...SNIP...
 
 [notes]
@@ -1358,7 +1392,7 @@ Now we can display a list (`-L`) of the server's shares with the `smbclient` c
 
 	smbclient -N -L //10.129.14.128
 
-```shell-session
+```text
         Sharename       Type      Comment
         ---------       ----      -------
         print$          Disk      Printer Drivers
@@ -1373,7 +1407,7 @@ We can see that we now have five different shares on the Samba server from the r
 
 	smbclient //10.129.14.128/notes
 
-```shell-session
+```text
 Enter WORKGROUP\<username>'s password: 
 Anonymous login successful
 Try "help" to get a list of possible commands.
@@ -1414,7 +1448,7 @@ Once we have discovered interesting files or folders, we can download them using
 
 #### Download Files from SMB
 
-```shell-session
+```text
 smb: \> get prep-prod.txt 
 
 getting file \prep-prod.txt of size 71 as prep-prod.txt (8,7 KiloBytes/sec) 
@@ -1439,7 +1473,7 @@ For example, with domain-level security, the samba server acts as a member of a 
 
 #### Samba Status
 
-```shell-session
+```text
 root@samba:~# smbstatus
 
 Samba version 4.11.6-Ubuntu
@@ -1465,7 +1499,7 @@ Let us go back to one of our enumeration tools. Nmap also has many options and N
 
 	sudo nmap 10.129.14.128 -sV -sC -p139,445
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 15:15 CEST
 Nmap scan report for sharing.inlanefreight.htb (10.129.14.128)
 Host is up (0.00024s latency).
@@ -1496,7 +1530,7 @@ The [Remote Procedure Call](https://www.geeksforgeeks.org/remote-procedure-call
 
 	rpcclient -U "" 10.129.14.128
 
-```shell-session
+```text
 Enter WORKGROUP\'s password:
 rpcclient $> 
 ```
@@ -1515,7 +1549,7 @@ The `rpcclient` offers us many different requests with which we can execute sp
 
 #### RPCclient - Enumeration
 
-```shell-session
+```text
 rpcclient $> srvinfo
 
         DEVSMB         Wk Sv PrQ Unx NT SNT DEVSM
@@ -1597,7 +1631,7 @@ Most importantly, anonymous access to such services can also lead to the discove
 
 #### Rpcclient - User Enumeration
 
-```shell-session
+```text
 rpcclient $> enumdomusers
 
 user:[mrb3n] rid:[0x3e8]
@@ -1668,7 +1702,7 @@ We can then use the results to identify the group's RID, which we can then use t
 
 #### Rpcclient - Group Information
 
-```shell-session
+```text
 rpcclient $> querygroup 0x201
 
         Group Name:     None
@@ -1683,7 +1717,7 @@ However, it can also happen that not all commands are available to us, and we ha
 
 	for i in $(seq 500 1100);do rpcclient -N -U "" 10.129.14.128 -c "queryuser 0x$(printf '%x\n' $i)" | grep "User Name\|user_rid\|group_rid" && echo "";done
 
-```shell-session
+```text
         User Name   :   sambauser
         user_rid :      0x1f5
         group_rid:      0x201
@@ -1703,7 +1737,7 @@ An alternative to this would be a Python script from [Impacket](https://github.
 
 	samrdump.py 10.129.14.128
 
-```shell-session
+```text
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
 [*] Retrieving endpoint list from 10.129.14.128
@@ -1740,7 +1774,7 @@ The information we have already obtained with `rpcclient` can also be obtained
 
 	smbmap -H 10.129.14.128
 
-```shell-session
+```text
 [+] Finding open SMB ports....
 [+] User SMB session established on 10.129.14.128...
 [+] IP: 10.129.14.128:445       Name: 10.129.14.128                                     
@@ -1757,7 +1791,7 @@ The information we have already obtained with `rpcclient` can also be obtained
 
 	crackmapexec smb 10.129.14.128 --shares -u '' -p ''
 
-```shell-session
+```text
 SMB         10.129.14.128   445    DEVSMB           [*] Windows 6.1 Build 0 (name:DEVSMB) (domain:) (signing:False) (SMBv1:False)
 SMB         10.129.14.128   445    DEVSMB           [+] \: 
 SMB         10.129.14.128   445    DEVSMB           [+] Enumerated shares
@@ -1782,7 +1816,7 @@ Another tool worth mentioning is the so-called [enum4linux-ng](https://github.c
 
 	./enum4linux-ng.py 10.129.14.128 -A
 
-```shell-session
+```text
 ENUM4LINUX - next generation
 
  ==========================
@@ -2014,7 +2048,7 @@ NFS is not difficult to configure because there are not as many options as FTP o
 
 	cat /etc/exports 
 
-```shell-session
+```text
 # /etc/exports: the access control list for filesystems which may be exported
 #               to NFS clients.  See exports(5).
 #
@@ -2047,7 +2081,7 @@ Let us create such an entry for test purposes and play around with the settings.
 	systemctl restart nfs-kernel-server
 	exportfs
 
-```shell-session
+```text
 /mnt/nfs      	10.129.14.0/24
 ```
 
@@ -2082,7 +2116,7 @@ When footprinting NFS, the TCP ports `111` and `2049` are essential. We can 
 
 	sudo nmap 10.129.14.128 -p111,2049 -sV -sC
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 17:12 CEST
 Nmap scan report for 10.129.14.128
 Host is up (0.00018s latency).
@@ -2122,7 +2156,7 @@ The `rpcinfo` NSE script retrieves a list of all currently running RPC service
 
 	sudo nmap --script nfs* 10.129.14.128 -sV -p111,2049
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 17:37 CEST
 Nmap scan report for 10.129.14.128
 Host is up (0.00021s latency).
@@ -2178,7 +2212,7 @@ Once we have discovered such an NFS service, we can mount it on our local machin
 
 	showmount -e 10.129.14.128
 
-```shell-session
+```text
 Export list for 10.129.14.128:
 /mnt/nfs 10.129.14.0/24
 ```
@@ -2190,7 +2224,7 @@ Export list for 10.129.14.128:
 	cd target-NFS
 	tree .
 
-```shell-session
+```text
 .
 └── mnt
     └── nfs
@@ -2207,7 +2241,7 @@ There we will have the opportunity to access the rights and the usernames and gr
 
 	ls -l mnt/nfs/
 
-```shell-session
+```text
 total 16
 -rw-r--r-- 1 cry0l1t3 cry0l1t3 1872 Sep 25 00:55 cry0l1t3.priv
 -rw-r--r-- 1 cry0l1t3 cry0l1t3  348 Sep 25 00:55 cry0l1t3.pub
@@ -2220,7 +2254,7 @@ total 16
 
 	ls -n mnt/nfs/
 
-```shell-session
+```text
 total 16
 -rw-r--r-- 1 1000 1000 1872 Sep 25 00:55 cry0l1t3.priv
 -rw-r--r-- 1 1000 1000  348 Sep 25 00:55 cry0l1t3.pub
@@ -2268,7 +2302,7 @@ DNS is mainly unencrypted. Devices on the local WLAN and Internet providers can 
 
 However, the DNS does not only link computer names and IP addresses. It also stores and outputs additional information about the services associated with a domain. A DNS query can therefore also be used, for example, to determine which computer serves as the e-mail server for the domain in question or what the domain's name servers are called.
 
-![[tooldev-dns.png]]
+![[01 HTB/Academy/02. Information Gathering/11. Footprinting/images/tooldev-dns.png]]
 
 Different `DNS records` are used for the DNS queries, which all have various tasks. Moreover, separate entries exist for different functions since we can set up mail servers and other servers for a domain.
 
@@ -2308,7 +2342,7 @@ Global options are general and affect all zones. A zone option only affects the 
 
 	cat /etc/bind/named.conf.local
 
-```shell-session
+```text
 //
 // Do any local configuration here
 //
@@ -2333,7 +2367,7 @@ In short, here, all `forward records` are entered according to the BIND format
 
 	cat /etc/bind/db.domain.com
 
-```shell-session
+```text
 ;
 ; BIND reverse data file for local loopback interface
 ;
@@ -2371,7 +2405,7 @@ For the IP address to be resolved from the `Fully Qualified Domain Name` (`FQD
 
 	cat /etc/bind/db.10.129.14
 
-```shell-session
+```text
 ;
 ; BIND reverse data file for local loopback interface
 ;
@@ -2419,7 +2453,7 @@ The footprinting at DNS servers is done as a result of the requests we send. So,
 
 	dig ns inlanefreight.htb @10.129.14.128
 
-```shell-session
+```text
 ; <<>> DiG 9.16.1-Ubuntu <<>> ns inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
 ;; Got answer:
@@ -2450,7 +2484,7 @@ We can use the option `ANY` to view all available records. This will cause the
 
 	dig any inlanefreight.htb @10.129.14.128
 
-```shell-session
+```text
 ; <<>> DiG 9.16.1-Ubuntu <<>> any inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
 ;; Got answer:
@@ -2491,7 +2525,7 @@ The slave fetches the `SOA` record of the relevant zone from the master at cer
 
 	dig axfr inlanefreight.htb @10.129.14.128
 
-```shell-session
+```text
 ; <<>> DiG 9.16.1-Ubuntu <<>> axfr inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
 inlanefreight.htb.      604800  IN      SOA     inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
@@ -2516,7 +2550,7 @@ If the administrator used a subnet for the `allow-transfer` option for testing
 
 	dig axfr internal.inlanefreight.htb @10.129.14.128
 
-```shell-session
+```text
 ; <<>> DiG 9.16.1-Ubuntu <<>> axfr internal.inlanefreight.htb @10.129.14.128
 ;; global options: +cmd
 internal.inlanefreight.htb. 604800 IN   SOA     inlanefreight.htb. root.inlanefreight.htb. 2 604800 86400 2419200 604800
@@ -2547,7 +2581,7 @@ An option would be to execute a `for-loop` in Bash that lists these entries an
 
 	for sub in $(cat /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-110000.txt);do dig $sub.inlanefreight.htb @10.129.14.128 | grep -v ';\|SOA' | sed -r '/^\s*$/d' | grep $sub | tee -a subdomains.txt;done
 
-```shell-session
+```text
 ns.inlanefreight.htb.   604800  IN      A       10.129.34.136
 mail1.inlanefreight.htb. 604800 IN      A       10.129.18.201
 app.inlanefreight.htb.  604800  IN      A       10.129.18.15
@@ -2557,7 +2591,7 @@ Many different tools can be used for this, and most of them work in the same way
 
 	dnsenum --dnsserver 10.129.14.128 --enum -p 0 -s 0 -o subdomains.txt -f /opt/useful/SecLists/Discovery/DNS/subdomains-top1million-110000.txt inlanefreight.htb
 
-```shell-session
+```text
 dnsenum VERSION:1.2.6
 
 -----   inlanefreight.htb   -----
@@ -2646,7 +2680,7 @@ Each SMTP server can be configured in many ways, as can all other services. Howe
 
 	cat /etc/postfix/main.cf | grep -v "#" | sed -r "/^\s*$/d"
 
-```shell-session
+```text
 smtpd_banner = ESMTP Server 
 biff = no
 append_dot_mydomain = no
@@ -2689,7 +2723,7 @@ To interact with the SMTP server, we can use the `telnet` tool to initialize a
 
 	telnet 10.129.14.128 25
 
-```shell-session
+```text
 Trying 10.129.14.128...
 Connected to 10.129.14.128.
 Escape character is '^]'.
@@ -2720,7 +2754,7 @@ The command `VRFY` can be used to enumerate existing users on the system. Howe
 
 	telnet 10.129.14.128 25
 
-```shell-session
+```text
 Trying 10.129.14.128...
 Connected to 10.129.14.128.
 Escape character is '^]'.
@@ -2754,7 +2788,7 @@ All the commands we enter in the command line to send an email we know from ever
 
 	telnet 10.129.14.128 25
 
-```shell-session
+```text
 Trying 10.129.14.128...
 Connected to 10.129.14.128.
 Escape character is '^]'.
@@ -2820,7 +2854,7 @@ Often, administrators have no overview of which IP ranges they have to allow. Th
 
 #### Open Relay Configuration
 
-```shell-session
+```text
 mynetworks = 0.0.0.0/0
 ```
 
@@ -2837,7 +2871,7 @@ The default Nmap scripts include `smtp-commands`, which uses the `EHLO` comma
 
 	sudo nmap 10.129.14.128 -sC -sV -p25
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-27 17:56 CEST
 Nmap scan report for 10.129.14.128
 Host is up (0.00025s latency).
@@ -2857,7 +2891,7 @@ However, we can also use the [smtp-open-relay](https://nmap.org/nsedoc/scripts/
 
 	sudo nmap 10.129.14.128 -p25 --script smtp-open-relay -v
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-30 02:29 CEST
 NSE: Loaded 1 scripts for scanning.
 NSE: Script Pre-scanning.
@@ -2992,7 +3026,7 @@ By default, ports `110`, `143`, `993`, and `995` are used for IMAP and POP3
 
 	sudo nmap 10.129.14.128 -sV -p110,143,993,995 -sC
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 22:09 CEST
 Nmap scan report for 10.129.14.128
 Host is up (0.00026s latency).
@@ -3032,7 +3066,7 @@ If we successfully figure out the access credentials for one of the employees, a
 
 	curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd
 
-```shell-session
+```text
 * LIST (\HasNoChildren) "." Important
 * LIST (\HasNoChildren) "." INBOX
 ```
@@ -3041,7 +3075,7 @@ If we also use the `verbose` (`-v`) option, we will see how the connection is 
 
 	curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v
 
-```shell-session
+```text
 *   Trying 10.129.14.128:993...
 * TCP_NODELAY set
 * Connected to 10.129.14.128 (10.129.14.128) port 993 (#0)
@@ -3088,7 +3122,7 @@ To interact with the IMAP or POP3 server over SSL, we can use `openssl`, as wel
 
 	openssl s_client -connect 10.129.14.128:pop3s
 
-```shell-session
+```text
 CONNECTED(00000003)
 Can't use SSL_get_servername
 depth=0 C = US, ST = California, L = Sacramento, O = Inlanefreight, OU = Customer Support, CN = mail1.inlanefreight.htb, emailAddress = cry0l1t3@inlanefreight.htb
@@ -3144,7 +3178,7 @@ read R BLOCK
 
 	openssl s_client -connect 10.129.14.128:imaps
 
-```shell-session
+```text
 CONNECTED(00000003)
 Can't use SSL_get_servername
 depth=0 C = US, ST = California, L = Sacramento, O = Inlanefreight, OU = Customer Support, CN = mail1.inlanefreight.htb, emailAddress = cry0l1t3@inlanefreight.htb
@@ -3255,7 +3289,7 @@ The default configuration of the SNMP daemon defines the basic settings for the 
 
 	cat /etc/snmp/snmpd.conf | grep -v "#" | sed -r '/^\s*$/d'
 
-```shell-session
+```text
 sysLocation    Sitting on the Dock of the Bay
 sysContact     Me <me@example.org>
 sysServices    72
@@ -3294,7 +3328,7 @@ For footprinting SNMP, we can use tools like `snmpwalk`, `onesixtyone`, and `
 
 	snmpwalk -v2c -c public 10.129.14.128
 
-```shell-session
+```text
 iso.3.6.1.2.1.1.1.0 = STRING: "Linux htb 5.11.0-34-generic #36~20.04.1-Ubuntu SMP Fri Aug 27 08:06:32 UTC 2021 x86_64"
 iso.3.6.1.2.1.1.2.0 = OID: iso.3.6.1.4.1.8072.3.2.10
 iso.3.6.1.2.1.1.3.0 = Timeticks: (5134) 0:00:51.34
@@ -3372,7 +3406,7 @@ Here we recognize some Python packages that have been installed on the system. I
 	sudo apt install onesixtyone
 	onesixtyone -c /opt/useful/SecLists/Discovery/SNMP/snmp.txt 10.129.14.128
 
-```shell-session
+```text
 Scanning 1 hosts, 3220 communities
 10.129.14.128 [public] Linux htb 5.11.0-37-generic #41~20.04.2-Ubuntu SMP Fri Sep 24 09:06:38 UTC 2021 x86_64
 ```
@@ -3387,7 +3421,7 @@ Once we know a community string, we can use it with [braa](https://github.com/m
 	braa <community string>@<IP>:.1.3.6.*   # Syntax
 	braa public@10.129.14.128:.1.3.6.*
 
-```shell-session
+```text
 10.129.14.128:20ms:.1.3.6.1.2.1.1.1.0:Linux htb 5.11.0-34-generic #36~20.04.1-Ubuntu SMP Fri Aug 27 08:06:32 UTC 2021 x86_64
 10.129.14.128:20ms:.1.3.6.1.2.1.1.2.0:.1.3.6.1.4.1.8072.3.2.10
 10.129.14.128:20ms:.1.3.6.1.2.1.1.3.0:548
@@ -3453,7 +3487,7 @@ The management of SQL databases and their configurations is a vast topic. It is 
 	sudo apt install mysql-server -y
 	cat /etc/mysql/mysql.conf.d/mysqld.cnf | grep -v "#" | sed -r '/^\s*$/d'
 
-```shell-session
+```text
 [client]
 port		= 3306
 socket		= /var/run/mysqld/mysqld.sock
@@ -3512,7 +3546,7 @@ There are many reasons why a MySQL server could be accessed from an external net
 
 	sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-21 00:53 CEST
 Nmap scan report for 10.129.14.128
 Host is up (0.00021s latency).
@@ -3564,7 +3598,7 @@ As with all our scans, we must be careful with the results and manually confirm 
 
 	mysql -u root -h 10.129.14.132
 
-```shell-session
+```text
 ERROR 1045 (28000): Access denied for user 'root'@'10.129.14.1' (using password: NO)
 ```
 
@@ -3572,7 +3606,7 @@ For example, if we use a password that we have guessed or found through our rese
 
 	mysql -u root -pP4SSw0rd 10.129.14.128
 
-```shell-session
+```text
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MySQL connection id is 150165
 Server version: 8.0.27-0ubuntu0.20.04.1 (Ubuntu)                                                         
@@ -3632,7 +3666,7 @@ If we look at the existing databases, we will see several already exist. The mos
 	use sys;
 	show tables;
 
-```shell-session
+```text
 -----------------------------------------------+
 | Tables_in_sys                                 |
 +-----------------------------------------------+
@@ -3653,7 +3687,7 @@ If we look at the existing databases, we will see several already exist. The mos
 
 	select host, unique_users from host_summary;
 
-```shell-session
+```text
 +-------------+--------------+                   
 | host        | unique_users |                   
 +-------------+--------------+                   
@@ -3707,7 +3741,7 @@ Of the MSSQL clients listed above, pentester's may find Impacket's mssqlclient.p
 
 	locate mssqlclient
 
-```shell-session
+```text
 /usr/bin/impacket-mssqlclient
 /usr/share/doc/python3-impacket/examples/mssqlclient.py
 ```
@@ -3767,7 +3801,7 @@ The scripted NMAP scan below provides us with helpful information. We can see th
 
 	sudo nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p 1433 10.129.201.248
 
-```shell-session
+```text
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-11-08 09:40 EST
 Nmap scan report for 10.129.201.248
 Host is up (0.15s latency).
@@ -3810,7 +3844,7 @@ We can also use Metasploit to run an auxiliary scanner called `mssql_ping` tha
 	set rhosts 10.129.201.248
 	run
 
-```shell-session
+```text
 [*] 10.129.201.248:       - SQL Server information for 10.129.201.248:
 [+] 10.129.201.248:       -    ServerName      = SQL-01
 [+] 10.129.201.248:       -    InstanceName    = MSSQLSERVER
@@ -3828,7 +3862,7 @@ If we can guess or gain access to credentials, this allows us to remotely connec
 
 	python3 mssqlclient.py Administrator@10.129.201.248 -windows-auth
 
-```shell-session
+```text
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
 Password:
@@ -3844,7 +3878,7 @@ Password:
 
 	select name from sys.databases
 
-```shell-session
+```text
 name                                                                                                                               
 
 --------------------------------------------------------------------------------------
@@ -3897,7 +3931,7 @@ IPMI communicates over port 623 UDP. Systems that use the IPMI protocol are call
 
 	sudo nmap -sU --script ipmi-version -p 623 ilo.inlanfreight.local
 
-```shell-session
+```text
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-11-04 21:48 GMT
 Nmap scan report for ilo.inlanfreight.local (172.16.2.2)
 Host is up (0.00064s latency).
@@ -3923,7 +3957,7 @@ Here, we can see that the IPMI protocol is indeed listening on port 623, and Nma
 	set rhosts 10.129.42.195
 	show options
 
-```shell-session
+```text
    Name       Current Setting  Required  Description
    ----       ---------------  --------  -----------
    BATCHSIZE  256              yes       The number of hosts to probe in each set
@@ -3934,7 +3968,7 @@ Here, we can see that the IPMI protocol is indeed listening on port 623, and Nma
 
 	run
 
-```shell-session
+```text
 [*] Sending IPMI requests to 10.129.42.195->10.129.42.195 (1 hosts)
 [+] 10.129.42.195:623 - IPMI - IPMI-2.0 UserAuth(auth_msg, auth_user, non_null_user) PassAuth(password, md5, md2, null) Level(1.5, 2.0) 
 [*] Scanned 1 of 1 hosts (100% complete)
@@ -3968,7 +4002,7 @@ To retrieve IPMI hashes, we can use the Metasploit [IPMI 2.0 RAKP Remote SHA1 P
 	set rhosts 10.129.42.195
 	show options
 
-```shell-session
+```text
 Module options (auxiliary/scanner/ipmi/ipmi_dumphashes):
 
    Name                 Current Setting                                                    Required  Description
@@ -3985,7 +4019,7 @@ Module options (auxiliary/scanner/ipmi/ipmi_dumphashes):
 
 	run
 
-```shell-session
+```text
 [+] 10.129.42.195:623 - IPMI - Hash found: ADMIN:8e160d4802040000205ee9253b6b8dac3052c837e23faa631260719fce740d45c3139a7dd4317b9ea123456789abcdefa123456789abcdef140541444d494e:a3e82878a09daa8ae3e6c22f9080f8337fe0ed7e
 [+] 10.129.42.195:623 - IPMI - Hash for user 'ADMIN' matches password 'ADMIN'
 [*] Scanned 1 of 1 hosts (100% complete)
@@ -4047,7 +4081,7 @@ The [sshd_config](https://www.ssh.com/academy/ssh/sshd_config) file, responsib
 
 	cat /etc/ssh/sshd_config  | grep -v "#" | sed -r '/^\s*$/d'
 
-```shell-session
+```text
 Include /etc/ssh/sshd_config.d/*.conf
 ChallengeResponseAuthentication no
 UsePAM yes
@@ -4091,7 +4125,7 @@ One of the tools we can use to fingerprint the SSH server is [ssh-audit](https:
 	git clone https://github.com/jtesta/ssh-audit.git && cd ssh-audit
 	./ssh-audit.py 10.129.14.132
 
-```shell-session
+```text
 # general
 (gen) banner: SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.3
 (gen) software: OpenSSH 8.2p1
@@ -4131,7 +4165,7 @@ The first thing we can see in the first few lines of the output is the banner th
 
 	ssh -v cry0l1t3@10.129.14.132
 
-```shell-session
+```text
 OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
 debug1: Reading configuration data /etc/ssh/ssh_config 
 ...SNIP...
@@ -4142,7 +4176,7 @@ For potential brute-force attacks, we can specify the authentication method with
 
 	ssh -v cry0l1t3@10.129.14.132 -o PreferredAuthentications=password
 
-```shell-session
+```text
 OpenSSH_8.2p1 Ubuntu-4ubuntu0.3, OpenSSL 1.1.1f  31 Mar 2020
 debug1: Reading configuration data /etc/ssh/ssh_config
 ...SNIP...
@@ -4191,7 +4225,7 @@ Scanning the RDP service can quickly give us a lot of information about the host
 
 	nmap -sV -sC 10.129.201.248 -p3389 --script rdp*
 
-```shell-session
+```text
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-11-06 15:45 CET
 Nmap scan report for 10.129.201.248
 Host is up (0.036s latency).
@@ -4221,7 +4255,7 @@ In addition, we can use `--packet-trace` to track the individual packages and 
 
 	nmap -sV -sC 10.129.201.248 -p3389 --packet-trace --disable-arp-ping -n
 
-```shell-session
+```text
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-11-06 16:23 CET
 SENT (0.2506s) ICMP [10.10.14.20 > 10.129.201.248 Echo request (type=8/code=0) id=8338 seq=0] IP [ttl=53 id=5122 iplen=28 ]
 SENT (0.2507s) TCP 10.10.14.20:55516 > 10.129.201.248:443 S ttl=42 id=24195 iplen=44  seq=1926233369 win=1024 <mss 1460>
@@ -4282,7 +4316,7 @@ A Perl script named [rdp-sec-check.pl](https://github.com/CiscoCXSecurity/rdp-s
 
 	sudo cpan
 
-```shell-session
+```text
 Loading internal logger. Log::Log4perl recommended for better logging
 
 CPAN.pm requires configuration, but most of it can be done automatically.
@@ -4316,7 +4350,7 @@ Reading '/root/.cpan/sources/authors/01mailrc.txt.gz'
 	git clone https://github.com/CiscoCXSecurity/rdp-sec-check.git && cd rdp-sec-check
 	./rdp-sec-check.pl 10.129.201.248
 
-```shell-session
+```text
 Starting rdp-sec-check v0.9-beta ( http://labs.portcullis.co.uk/application/rdp-sec-check/ ) at Sun Nov  7 16:50:32 2021
 
 [+] Scanning 1 hosts
@@ -4365,7 +4399,7 @@ Authentication and connection to such RDP servers can be made in several ways. F
 
 	xfreerdp /u:cry0l1t3 /p:"P455w0rd!" /v:10.129.201.248
 
-```shell-session
+```text
 [16:37:47:135] [95319:95320] [INFO][com.freerdp.core] - freerdp_connect:freerdp_set_last_error_ex resetting error state
 [16:37:47:135] [95319:95320] [INFO][com.freerdp.client.common.cmdline] - loading channelEx rdpdr
 [16:37:47:135] [95319:95320] [INFO][com.freerdp.client.common.cmdline] - loading channelEx rdpsnd
@@ -4429,7 +4463,7 @@ As we already know, WinRM uses TCP ports `5985` (`HTTP`) and `5986` (`HTTPS`
 
 	nmap -sV -sC 10.129.201.248 -p5985,5986 --disable-arp-ping -n
 
-```shell-session
+```text
 Starting Nmap 7.92 ( https://nmap.org ) at 2021-11-06 16:31 CET
 Nmap scan report for 10.129.201.248
 Host is up (0.030s latency).
@@ -4448,7 +4482,7 @@ If we want to find out whether one or more remote servers can be reached via Win
 
 	evil-winrm -i 10.129.201.248 -u Cry0l1t3 -p P455w0rD!
 
-```shell-session
+```text
 Evil-WinRM shell v3.3
 
 Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc() function is unimplemented on this machine
@@ -4478,7 +4512,7 @@ The initialization of the WMI communication always takes place on `TCP` port 
 
 	/usr/share/doc/python3-impacket/examples/wmiexec.py Cry0l1t3:"P455w0rD!"@10.129.201.248 "hostname"
 
-```shell-session
+```text
 Impacket v0.9.22 - Copyright 2020 SecureAuth Corporation
 
 [*] SMBv3.0 dialect used
@@ -4522,3 +4556,34 @@ The third server is an MX and management server for the internal network. Subseq
 #### Questions
 
 >Enumerate the server carefully and find the username "HTB" and its password. Then, submit HTB's password as the answer.
+
+### What's Next?
+
+Here are a few suggestions to try out based on the module you 've just completed!
+
+![[logo-htb.png]]
+
+#### Machines
+
+>[Remote](https://app.hackthebox.com/machines/234)
+>[LaCasaDePapel](https://app.hackthebox.com/machines/181)
+>[Netmon](https://app.hackthebox.com/machines/177)
+>[Dropzone](https://app.hackthebox.com/machines/139)
+>[Blue](https://app.hackthebox.com/machines/51)
+>[Bastion](https://app.hackthebox.com/machines/186)
+>[Grandpa](https://app.hackthebox.com/machines/13)
+>[Granny](https://app.hackthebox.com/machines/14)
+>[Tentacle](https://app.hackthebox.com/machines/310)
+>[Scavenger](https://app.hackthebox.com/machines/202)
+>[Olympus](https://app.hackthebox.com/machines/135)
+>[Pit](https://app.hackthebox.com/machines/346)
+>[Intense](https://app.hackthebox.com/machines/261)
+>[Conceal](https://app.hackthebox.com/machines/168)
+>[Compromised](https://app.hackthebox.com/machines/276)
+>[Monteverde](https://app.hackthebox.com/machines/223)
+
+#### Modules
+
+- Getting Started
+- Introduction to Bash Scripting
+- Attacking Common Applications

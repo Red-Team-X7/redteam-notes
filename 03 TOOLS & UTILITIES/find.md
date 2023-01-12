@@ -23,7 +23,7 @@ Search for files in a directory hierarchy.
 |`-exec ls -al {} \;`|This option executes the specified command, using the curly brackets as placeholders for each result. The backslash escapes the next character from being interpreted by the shell because otherwise, the semicolon would terminate the command and not reach the redirection.|
 |`2>/dev/null`|This is a `STDERR` redirection to the `'null device'`, which we will come back to in the next section. This redirection ensures that no errors are displayed in the terminal. This redirection must `not` be an option of the 'find' command.|
 
-``` shell-session
+``` text
 find <location> <options>
 ```
 
@@ -31,7 +31,7 @@ find <location> <options>
 
 	find / -type f -name *.conf -user root -size +20k -newermt 2020-03-03 -exec ls -al {} \; 2>/dev/null
 
-```shell-session
+```text
 -rw-r--r-- 1 root root 136392 Apr 25 20:29 /usr/src/linux-headers-5.5.0-1parrot1-amd64/include/config/auto.conf
 -rw-r--r-- 1 root root 82290 Apr 25 20:29  /usr/src/linux-headers-5.5.0-1parrot1-amd64/include/config/tristate.conf
 -rw-r--r-- 1 root root 95813 May  7 14:33  /usr/share/metasploit-framework/data/jtr/repeats32.conf
@@ -60,7 +60,7 @@ find <location> <options>
 
 	find /etc/ -name shadow
 
-```shell-session
+```text
 find: ‘/etc/dovecot/private’: Permission denied
 /etc/shadow
 find: ‘/etc/ssl/private’: Permission denied
@@ -69,7 +69,7 @@ find: ‘/etc/polkit-1/localauthority’: Permission denied
 
 	find /etc/ -name shadow 2>/dev/null
 
-```shell-session
+```text
 /etc/shadow
 ```
 
@@ -218,7 +218,7 @@ Look for files joanna owns: [^1]
    403865  56520 -rw-r--r--   1 root     root     57873685 Nov 28  2019 /boot/initrd.img-4.15.0-70-generic
 ```
 
-```
+```text
 -newerXY reference
 
 	Succeeds if timestamp X of the file being considered is newer than timestamp Y of the file reference.   The letters X and Y can be any of the following letters:
@@ -228,6 +228,21 @@ Look for files joanna owns: [^1]
 		c   The inode status change time of reference
 		m   The modification time of the file reference
 		t   reference is interpreted directly as a time
+```
+
+### Find nmap FTP scripts
+
+	find / -type f -name ftp* 2>/dev/null | grep scripts
+
+```text
+/usr/share/nmap/scripts/ftp-syst.nse
+/usr/share/nmap/scripts/ftp-vsftpd-backdoor.nse
+/usr/share/nmap/scripts/ftp-vuln-cve2010-4221.nse
+/usr/share/nmap/scripts/ftp-proftpd-backdoor.nse
+/usr/share/nmap/scripts/ftp-bounce.nse
+/usr/share/nmap/scripts/ftp-libopie.nse
+/usr/share/nmap/scripts/ftp-anon.nse
+/usr/share/nmap/scripts/ftp-brute.nse
 ```
 
 # References

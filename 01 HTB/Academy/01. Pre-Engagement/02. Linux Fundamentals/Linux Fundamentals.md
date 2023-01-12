@@ -1,7 +1,7 @@
 # Linux Fundamentals
 
 Tags: #🧑‍🎓 
-Related to: [[man]], [[apropos]], [[cat]], [[whoami]], [[id]], [[hostname]], [[uname]], [[pwd]], [[ifconfig]], [[ip]], [[netstat]], [[ss]], [[ps]], [[who]], [[env]], [[lsblk]], [[lsusb]], [[lsof]], [[lspci]], [[sudo]], [[su]], [[useradd]], [[userdel]], [[usermod]], [[addgroup]], [[delgroup]], [[passwd]], [[dpkg]], [[apt]], [[aptitude]], [[snap]], [[gem]], [[pip]], [[git]], [[systemctl]], [[journalctl]], [[kill]], [[bg]], [[jobs]], [[fg]], [[curl]], [[wget]], [[python]], [[ls]], [[cd]], [[clear]], [[touch]], [[mkdir]], [[tree]], [[mv]], [[cp]], [[nano]], [[which]], [[find]], [[updatedb]], [[locate]], [[less more]], [[head]] , [[tail]], [[sort]], [[grep]], [[cut]], [[tr]], [[column]], [[awk]], [[sed]], [[wc]], [[chmod chown]]
+Related to: [[addgroup]], [[apropos]], [[apt]], [[aptitude]], [[awk]], [[bg]], [[cat]], [[cd]], [[chmod chown]], [[clear]], [[column]], [[cp]], [[curl]], [[cut]], [[delgroup]], [[dpkg]], [[env]], [[fg]], [[find]], [[gem]], [[git]], [[grep]], [[head]] , [[hostname]], [[id]], [[ifconfig]], [[ip]], [[jobs]], [[journalctl]], [[kill]], [[less more]], [[locate]], [[ls]], [[lsblk]], [[lsof]], [[lspci]], [[lsusb]], [[man]], [[mkdir]], [[mv]], [[nano]], [[netstat]], [[passwd]], [[pip]], [[ps]], [[pwd]], [[python]], [[sed]], [[snap]], [[sort]], [[ss]], [[su]], [[sudo]], [[systemctl]], [[tail]], [[touch]], [[tr]], [[tree]], [[uname]], [[updatedb]], [[useradd]], [[userdel]], [[usermod]], [[wc]], [[wget]], [[which]], [[who]], [[whoami]]
 See also:
 Previous: [[HTB Academy]]
 
@@ -242,19 +242,19 @@ Besides Bash, there also exist other shells like [Tcsh/Csh](https://en.wikipedi
 
 The bash prompt is easy to understand and, by default, includes information such as the user, hostname, and current working directory. The format can look something like this:
 
-```shell-session
+```text
 <username>@<hostname><current working directory>$
 ```
 
 The home directory for a user is marked with a tilde <`~`> and is the default folder when we log in.
 
-```shell-session
+```text
 <username>@<hostname>[~]$
 ```
 
 The dollar sign, in this case, stands for a user. As soon as we log in as `root`, the character changes to a `hash` <`#`> and looks like this:
 
-```shell-session
+```text
 root@htb[/htb]#
 ```
 
@@ -276,7 +276,7 @@ Let us have a look at an example:
 
 	man curl
 
-```shell-session
+```text
 curl(1)                                                             Curl Manual                                                            curl(1)
 
 NAME
@@ -306,7 +306,7 @@ After looking at some examples, we can also quickly look at the optional paramet
 
 	curl --help
 
-```shell-session
+```text
 Usage: curl [options...] <url>
      --abstract-unix-socket <path> Connect via abstract Unix domain socket
      --anyauth       Pick any authentication method
@@ -328,7 +328,7 @@ We can also use the short version of it:
 
 	curl -h
 
-```shell-session
+```text
 Usage: curl [options...] <url>
      --abstract-unix-socket <path> Connect via abstract Unix domain socket
      --anyauth       Pick any authentication method
@@ -350,7 +350,7 @@ As we can see, the results from each other do not differ in this example. Anothe
 
 	apropos sudo
 
-```shell-session
+```text
 sudo (8)             - execute a command as another user
 sudo.conf (5)        - configuration for sudo front end
 sudo_plugin (8)      - Sudo Plugin API
@@ -396,7 +396,7 @@ The `hostname` command is pretty self-explanatory and will just print the name
 
 	hostname
 
-```shell-session
+```text
 nixfund
 ```
 
@@ -406,7 +406,7 @@ This quick and easy command can be used on both Windows and Linux systems to get
 
 	whoami
 
-```shell-session
+```text
 cry0l1t3
 ```
 
@@ -416,7 +416,7 @@ The `id` command expands on the `whoami` command and prints out our effectiv
 
 	id
 
-```shell-session
+```text
 uid=1000(cry0l1t3) gid=1000(cry0l1t3) groups=1000(cry0l1t3),1337(hackthebox),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),116(lpadmin),126(sambashare)
 ```
 
@@ -424,7 +424,7 @@ uid=1000(cry0l1t3) gid=1000(cry0l1t3) groups=1000(cry0l1t3),1337(hackthebox),4(a
 
 Let's dig into the `uname` command a bit more. If we type `man uname` in our terminal, we will bring up the man page for the command, which will show the possible options we can run with the command and the results.
 
-```shell-session
+```text
 UNAME(1)                                    User Commands                                   UNAME(1)
 
 NAME
@@ -467,7 +467,7 @@ Running `uname -a` will print all information about the machine in a specific 
 
 	uname -a
 
-```shell-session
+```text
 Linux box 4.15.0-99-generic #100-Ubuntu SMP Wed Apr 22 20:32:56 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
@@ -479,7 +479,7 @@ Suppose we want to print out the kernel release to search for potential kernel e
 
 	uname -r
 
-```shell-session
+```text
 4.15.0-99-generic
 ```
 
@@ -524,7 +524,7 @@ User management is an essential part of Linux administration. Sometimes we need 
 
 	cat /etc/shadow
 
-```shell-session
+```text
 cat: /etc/shadow: Permission denied
 ```
 
@@ -532,7 +532,7 @@ cat: /etc/shadow: Permission denied
 
 	sudo cat /etc/shadow
 
-```shell-session
+```text
 root:<SNIP>:18395:0:99999:7:::
 daemon:*:17737:0:99999:7:::
 bin:*:17737:0:99999:7:::
@@ -607,7 +607,7 @@ Each Linux distribution uses software repositories that are updated often. When 
 
 	cat /etc/apt/sources.list.d/parrot.list
 
-```shell-session
+```text
 #parrot repository
 #this file was automatically generated by parrot-mirror-selector
 deb http://htb.deb.parrot.sh/parrot/ rolling main contrib non-free
@@ -620,7 +620,7 @@ APT uses a database called the APT cache. This is used to provide information ab
 
 	apt-cache search impacket
 
-```shell-session
+```text
 impacket-scripts - Links to useful impacket scripts examples
 polenum - Extracts the password policy from a Windows system
 python-pcapy - Python interface to the libpcap packet capture library (Python 2)
@@ -632,7 +632,7 @@ We can then view additional information about a package.
 
 	apt-cache show impacket-scripts
 
-```shell-session
+```text
 Package: impacket-scripts
 Version: 1.4
 Architecture: all
@@ -652,7 +652,7 @@ We can also list all installed packages.
 
 	apt list --installed
 
-```shell-session
+```text
 Listing... Done
 accountsservice/rolling,now 0.6.55-2 amd64 [installed,automatic]
 adapta-gtk-theme/rolling,now 3.95.0.11-1 all [installed]
@@ -666,7 +666,7 @@ If we are missing some packages, we can search for it and install it using the f
 
 	sudo apt install impacket-scripts -y
 
-```shell-session
+```text
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -700,7 +700,7 @@ Nevertheless, before we download the project and its scripts and lists, we shoul
 
 	mkdir ~/nishang/ && git clone https://github.com/samratashok/nishang.git ~/nishang
 
-```shell-session
+```text
 Cloning into '/opt/nishang/'...
 remote: Enumerating objects: 15, done.
 remote: Counting objects: 100% (15/15), done.
@@ -719,7 +719,7 @@ We can also download the programs and tools from the repositories separately. In
 
 	wget http://archive.ubuntu.com/ubuntu/pool/main/s/strace/strace_4.21-1ubuntu1_amd64.deb
 
-```shell-session
+```text
 --2020-05-15 03:27:17--  http://archive.ubuntu.com/ubuntu/pool/main/s/strace/strace_4.21-1ubuntu1_amd64.deb
 Resolving archive.ubuntu.com (archive.ubuntu.com)... 91.189.88.142, 91.189.88.152, 2001:67c:1562::18, ...
 Connecting to archive.ubuntu.com (archive.ubuntu.com)|91.189.88.142|:80... connected.
@@ -736,7 +736,7 @@ Furthermore, now we can use both `apt` and `dpkg` to install the package. Si
 
 	sudo dpkg -i strace_4.21-1ubuntu1_amd64.deb 
 
-```shell-session
+```text
 (Reading database ... 154680 files and directories currently installed.)
 Preparing to unpack strace_4.21-1ubuntu1_amd64.deb ...
 Unpacking strace (4.21-1ubuntu1) over (4.21-1ubuntu1) ...
@@ -748,7 +748,7 @@ With this, we have already installed the tool and can test if it works properly.
 
 	strace -h
 
-```shell-session
+```text
 usage: strace [-CdffhiqrtttTvVwxxy] [-I n] [-e expr]...
               [-a column] [-o file] [-s strsize] [-P path]...
               -p pid... / [-D] [-E var=val]... [-u username] PROG [ARGS]
@@ -787,7 +787,7 @@ After we have started the service, we can now check if it runs without errors.
 
 	systemctl status ssh
 
-```shell-session
+```text
 ● ssh.service - OpenBSD Secure Shell server
    Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
    Active: active (running) since Thu 2020-05-14 15:08:23 CEST; 24h ago
@@ -810,7 +810,7 @@ To add OpenSSH to the SysV script to tell the system to run this service after s
 
 	systemctl enable ssh
 
-```shell-session
+```text
 Synchronizing state of ssh.service with SysV service script with /lib/systemd/systemd-sysv-install.
 Executing: /lib/systemd/systemd-sysv-install enable ssh
 ```
@@ -819,7 +819,7 @@ Once we reboot the system, the OpenSSH server will automatically run. We can che
 
 	ps -aux | grep ssh
 
-```shell-session
+```text
 root       846  0.0  0.1  72300  5660 ?        Ss   Mai14   0:00 /usr/sbin/sshd -D
 ```
 
@@ -827,7 +827,7 @@ We can also use `systemctl` to list all services.
 
 	systemctl list-units --type=service
 
-```shell-session
+```text
 UNIT                                                       LOAD   ACTIVE SUB     DESCRIPTION              
 accounts-daemon.service                                    loaded active running Accounts Service         
 acpid.service                                              loaded active running ACPI event daemon        
@@ -842,7 +842,7 @@ It is quite possible that the services do not start due to an error. To see the 
 
 	journalctl -u ssh.service --no-pager
 
-```shell-session
+```text
 -- Logs begin at Wed 2020-05-13 17:30:52 CEST, end at Fri 2020-05-15 16:00:14 CEST. --
 Mai 13 20:38:44 inlane systemd[1]: Starting OpenBSD Secure Shell server...
 Mai 13 20:38:44 inlane sshd[2722]: Server listening on 0.0.0.0 port 22.
@@ -874,7 +874,7 @@ Processes can be controlled using `kill`, `pkill`, `pgrep`, and `killall`. T
 
 	kill -l
 
-```shell-session
+```text
  1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
  6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
 11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
@@ -912,11 +912,10 @@ For example, if a program were to freeze, we could force to kill it with the fol
 Sometimes it will be necessary to put the scan or process we just started in the background to continue using the current session to interact with the system or start other processes. As we have already seen, we can do this with the shortcut `[Ctrl + Z]`. As mentioned above, we send the `SIGTSTP` signal to the kernel, which suspends the process.
 
 	ping -c 10 www.hackthebox.eu
-
 	vim tmpfile
+	[Ctrl + Z]
 
-```shell-session
-[Ctrl + Z]
+```text
 [2]+  Stopped                 vim tmpfile
 ```
 
@@ -924,7 +923,7 @@ Now all background processes can be displayed with the following command.
 
 	jobs
 
-```shell-session
+```text
 [1]+  Stopped                 ping -c 10 www.hackthebox.eu
 [2]+  Stopped                 vim tmpfile
 ```
@@ -933,7 +932,7 @@ The `[Ctrl] + Z` shortcut suspends the processes, and they will not be execute
 
 	bg
 
-```shell-session
+```text
 --- www.hackthebox.eu ping statistics ---
 10 packets transmitted, 0 received, 100% packet loss, time 113482ms
 
@@ -945,14 +944,14 @@ Another option is to automatically set the process with an AND sign (`&`) at the
 
 	ping -c 10 www.hackthebox.eu &
 
-```shell-session
+```text
 [1] 10825
 PING www.hackthebox.eu (172.67.1.1) 56(84) bytes of data.
 ```
 
 Once the process finishes, we will see the results.
 
-```shell-session
+```text
 --- www.hackthebox.eu ping statistics ---
 10 packets transmitted, 0 received, 100% packet loss, time 9210ms
 
@@ -969,17 +968,16 @@ After that, we can use the `jobs` command to list all background processes. Ba
 
 	jobs
 
-```shell-session
+```text
 [1]+  Running                 ping -c 10 www.hackthebox.eu &
 ```
 
 If we want to get the background process into the foreground and interact with it again, we can use the `fg <ID>` command.
 
 	fg 1
+	ping -c 10 www.hackthebox.eu
 
-```shell-session
-ping -c 10 www.hackthebox.eu
-
+```text
 --- www.hackthebox.eu ping statistics ---
 10 packets transmitted, 0 received, 100% packet loss, time 9206ms
 ```
@@ -997,7 +995,7 @@ The difference between them lies in the previous processes' treatment and depend
 
 	echo '1'; echo '2'; echo '3'
 
-```shell-session
+```text
 1
 2
 3
@@ -1007,7 +1005,7 @@ For example, if we execute the same command but replace it in second place, the 
 
 	echo '1'; ls MISSING_FILE; echo '3'
 
-```shell-session
+```text
 1
 ls: cannot access 'MISSING_FILE': No such file or directory
 3
@@ -1017,7 +1015,7 @@ However, it looks different if we use the double AND characters (`&&`) to run th
 
 	echo '1' && ls MISSING_FILE && echo '3'
 
-```shell-session
+```text
 1
 ls: cannot access 'MISSING_FILE': No such file or directory
 ```
@@ -1038,7 +1036,7 @@ Apache offers the possibility to create web pages dynamically using server-side 
 
 	apt install apache2 -y
 
-```shell-session
+```text
 Reading package lists... Done
 Building dependency tree       
 Reading state information... Done
@@ -1069,7 +1067,7 @@ This is the default page after installation and serves to confirm that the webse
 
 	curl http://localhost
 
-```shell-session
+```text
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <!--
@@ -1095,7 +1093,7 @@ An alternative to curl is the tool `wget`. With this tool, we can download file
 
 	wget http://localhost
 
-```shell-session
+```text
 --2020-05-15 17:43:52--  http://localhost/
 Resolving localhost (localhost)... 127.0.0.1
 Connecting to localhost (localhost)|127.0.0.1|:80... connected.
@@ -1117,7 +1115,7 @@ Another option that is often used when it comes to data transfer is the use of P
 
 	python3 -m http.server
 
-```shell-session
+```text
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
@@ -1127,7 +1125,7 @@ We can see what requests were made if we now look at our Python 3 web server's e
 
 	python3 -m http.server
 
-```shell-session
+```text
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 127.0.0.1 - - [15/May/2020 17:56:29] "GET /readme.html HTTP/1.1" 200 -
 127.0.0.1 - - [15/May/2020 17:56:29] "GET /wp-admin/css/install.css?ver=20100228 HTTP/1.1" 200 -
@@ -1157,7 +1155,7 @@ Let us start with the navigation. Before we move through the system, we have to 
 
 	pwd
 
-```shell-session
+```text
 /home/cry0l1t3
 ```
 
@@ -1165,13 +1163,13 @@ Only the `ls` command is needed for navigation. It has many additional options
 
 	ls
 
-```shell-session
+```text
 Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos
 ```
 
 	ls -l
 
-```shell-session
+```text
 total 32
 drwxr-xr-x 2 cry0l1t3 cry0l1t3 4096 Nov 13 17:37 Desktop
 drwxr-xr-x 2 cry0l1t3 cry0l1t3 4096 Nov 13 17:34 Documents
@@ -1187,7 +1185,7 @@ However, we will not see everything that is in this folder. To list the contents
 
 	ls -l /var/
 
-```shell-session
+```text
 total 52
 drwxr-xr-x  2 root root     4096 Mai 15 18:54 backups
 drwxr-xr-x 18 root root     4096 Nov 15 16:55 cache
@@ -1201,7 +1199,7 @@ We can do the same thing if we want to navigate to the directory. To move throug
 
 	cd /dev/shm
 
-```shell-session
+```text
 cry0l1t3@htb[/dev/shm]$
 ```
 
@@ -1209,7 +1207,7 @@ Since we were in the home directory before, we can quickly jump back to the dire
 
 	cd -
 
-```shell-session
+```text
 cry0l1t3@htb[/dev/shm]$
 ```
 
@@ -1217,7 +1215,7 @@ Since we were in the home directory before, we can quickly jump back to the dire
 
 	cd -
 
-```shell-session
+```text
 cry0l1t3@htb[~]$ 
 ```
 
@@ -1225,7 +1223,7 @@ The shell also offers us the auto-complete function, which makes navigation easi
 
 	cd /dev/s [TAB 2x]
 
-```shell-session
+```text
 shm/ snd/
 ```
 
@@ -1233,7 +1231,7 @@ If we add the letter "`h`" to the letter "`s`," the shell will complete the inpu
 
 	ls -la
 
-```shell-session
+```text
 total 0
 drwxrwxrwt  2 root root   40 Mai 15 18:31 .
 drwxr-xr-x 17 root root 4000 Mai 14 20:45 ..
@@ -1243,7 +1241,7 @@ The first entry with a single dot (`.`) indicates the current directory we are c
 
 	cd ..
 
-```shell-session
+```text
 cry0l1t3@htb[/dev]$
 ```
 
@@ -1296,7 +1294,7 @@ We can look at the whole structure after creating the parent directories with th
 
 	tree .
 
-```shell-session
+```text
 .
 ├── info.txt
 └── Storage
@@ -1312,10 +1310,9 @@ We can also create files directly in the directories by specifying the path wher
 #### Create userinfo.txt
 
 	touch ./Storage/local/user/userinfo.txt
-
 	tree .
 
-```shell-session
+```text
 .
 ├── info.txt
 └── Storage
@@ -1351,7 +1348,7 @@ Now let us create a file named `readme.txt` in the current directory and then 
 
 	tree .
 
-```shell-session
+```text
 .
 └── Storage
     ├── information.txt
@@ -1374,7 +1371,7 @@ Now we can check if the file is thereby using the tool `tree` again.
 
 	tree .
 
-```shell-session
+```text
 .
 └── Storage
     ├── information.txt
@@ -1411,7 +1408,7 @@ Now we should see a so-called "`pager`" open, and we can freely enter or insert 
 
 #### Nano Editor
 
-```shell-session
+```text
   GNU nano 2.9.3                                    notes.txt                                              
 
 Here we can type everything we want and make our notes.▓
@@ -1423,7 +1420,7 @@ Here we can type everything we want and make our notes.▓
 
 Below we see two lines with short descriptions. The `caret` (`^`) stands for our "`[CTRL]`" key. For example, if we press `[CTRL + W]`, a "`Search:`" line appears at the bottom of the editor, where we can enter the word or words we are looking for. If we now search for the word "`we`" and press `[ENTER]`, the cursor will move to the first word that matches.
 
-```shell-session
+```text
 GNU nano 2.9.3                                    notes.txt                                              
 
 Here ▓we can type everything we want and make our notes.
@@ -1435,7 +1432,7 @@ Search:   notes
 
 To jump to the next match with the cursor, we press `[CTRL + W]` again and confirm with `[ENTER]` without any additional information.
 
-```shell-session
+```text
 GNU nano 2.9.3                                    notes.txt                                              
 
 Here we can type everything ▓we want and make our notes.
@@ -1447,7 +1444,7 @@ Search [we]:
 
 Now we can save the file by pressing `[CTRL + O]` and confirm the file name with `[ENTER]`.
 
-```shell-session
+```text
 GNU nano 2.9.3                                    notes.txt                                              
 
 Here we can type everything we want and make our notes.
@@ -1465,7 +1462,7 @@ To view the contents of the file, we can use the command `cat`.
 
 	cat notes.txt
 
-```shell-session
+```text
 Here we can type everything we want and make our notes.
 ```
 
@@ -1484,7 +1481,7 @@ Vim follows the Unix principle here: many small specialized programs that are we
 
 	vim
 
-```shell-session
+```text
   1 $
 ~
 ~                              VIM - Vi IMproved                                
@@ -1517,7 +1514,7 @@ In contrast to Nano, `Vim` is a modal editor that can distinguish between text
 
 When we have the Vim editor open, we can go into command mode by typing "`:`" and then typing "`q`" to close Vim.
 
-```shell-session
+```text
   1 $
 ~
 ~                              VIM - Vi IMproved                                
@@ -1543,7 +1540,7 @@ Vim offers an excellent opportunity called `vimtutor` to practice and get fami
 
 	vimtutor
 
-```shell-session
+```text
 ===============================================================================
 =    W e l c o m e   t o   t h e   V I M   T u t o r    -    Version 1.7      =
 ===============================================================================
@@ -1592,7 +1589,7 @@ One of the common tools is `which`. This tool returns the path to the file or l
 
 	which python
 
-```shell-session
+```text
 /usr/bin/python
 ```
 
@@ -1613,7 +1610,7 @@ Let us look at an example of what such a command with multiple options would loo
 
 	find / -type f -name *.conf -user root -size +20k -newermt 2020-03-03 -exec ls -al {} \; 2>/dev/null
 
-```shell-session
+```text
 -rw-r--r-- 1 root root 136392 Apr 25 20:29 /usr/src/linux-headers-5.5.0-1parrot1-amd64/include/config/auto.conf
 -rw-r--r-- 1 root root 82290 Apr 25 20:29 /usr/src/linux-headers-5.5.0-1parrot1-amd64/include/config/tristate.conf
 -rw-r--r-- 1 root root 95813 May  7 14:33 /usr/share/metasploit-framework/data/jtr/repeats32.conf
@@ -1653,7 +1650,7 @@ If we now search for all files with the "`.conf`" extension, you will find that 
 
 	locate *.conf
 
-```shell-session
+```text
 /etc/GeoIP.conf
 /etc/NetworkManager/NetworkManager.conf
 /etc/UPower/UPower.conf
@@ -1802,7 +1799,7 @@ In the last section, we learned about the redirections we can use to redirect re
 
 After we read the content using `cat` and redirected it to `more`, the already mentioned `pager` opens, and we will automatically start at the beginning of the file.
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -1825,7 +1822,7 @@ If we now take a look at the tool `less`, we will notice on the man page that i
 
 The presentation is almost the same as with `more`.
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -1846,7 +1843,7 @@ Sometimes we will only be interested in specific issues either at the beginning 
 
 	head /etc/passwd
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -1868,7 +1865,7 @@ If we only want to see the last parts of a file or results, we can use the count
 
 	tail /etc/passwd
 
-```shell-session
+```text
 miredo:x:115:65534::/var/run/miredo:/usr/sbin/nologin
 usbmux:x:116:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
 rtkit:x:117:119:RealtimeKit,,,:/proc:/usr/sbin/nologin
@@ -1890,7 +1887,7 @@ Depending on which results and files are dealt with, they are rarely sorted. Oft
 
 	cat /etc/passwd | sort
 
-```shell-session
+```text
 _apt:x:104:65534::/nonexistent:/usr/sbin/nologin
 backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -1917,7 +1914,7 @@ More often, we will only search for specific results that contain patterns we ha
 
 	cat /etc/passwd | grep "/bin/bash"
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 mrb3n:x:1000:1000:mrb3n:/home/mrb3n:/bin/bash
 cry0l1t3:x:1001:1001::/home/cry0l1t3:/bin/bash
@@ -1928,7 +1925,7 @@ Another possibility is to exclude specific results. For this, the option "`-v`" 
 
 	cat /etc/passwd | grep -v "false\|nologin"
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 sync:x:4:65534:sync:/bin:/bin/sync
 postgres:x:111:117:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
@@ -1944,7 +1941,7 @@ Specific results with different characters may be separated as delimiters. Here 
 
 	cat /etc/passwd | grep -v "false\|nologin" | cut -d":" -f1
 
-```shell-session
+```text
 root
 sync
 mrb3n
@@ -1961,7 +1958,7 @@ Another possibility to replace certain characters from a line with characters de
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " "
 
-```shell-session
+```text
 root x 0 0 root /root /bin/bash
 sync x 4 65534 sync /bin /bin/sync
 mrb3n x 1000 1000 mrb3n /home/mrb3n /bin/bash
@@ -1978,7 +1975,7 @@ Since such results can often have an unclear representation, the tool `column`�
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | column -t
 
-```shell-session
+```text
 root         x  0     0      root               /root        /bin/bash
 sync         x  4     65534  sync               /bin         /bin/sync
 mrb3n        x  1000  1000   mrb3n              /home/mrb3n  /bin/bash
@@ -1995,7 +1992,7 @@ As we may have noticed, the user "`postgres`" has one row too many. To keep it a
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}'
 
-```shell-session
+```text
 root /bin/bash
 sync /bin/sync
 mrb3n /bin/bash
@@ -2014,7 +2011,7 @@ The "`s`" flag at the beginning stands for the substitute command. Then we speci
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | sed 's/bin/HTB/g'
 
-```shell-session
+```text
 root /HTB/bash
 sync /HTB/sync
 mrb3n /HTB/bash
@@ -2031,7 +2028,7 @@ Last but not least, it will often be useful to know how many successful matches 
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | wc -l
 
-```shell-session
+```text
 5
 ```
 
@@ -2067,7 +2064,7 @@ The permissions can be set for the `owner`, `group`, and `others` like prese
 
 	ls -l /etc/passwd
 
-```shell-session
+```text
 - rwx rw- r--   1 root root 1641 May  4 23:42 /etc/passwd
 - --- --- ---   |  |    |    |   |__________|
 |  |   |   |    |  |    |    |        |_ Date
@@ -2090,7 +2087,7 @@ We can modify permissions using the `chmod` command, permission group referenc
 
 	ls -l shell
 
-```shell-session
+```text
 -rwxr-x--x   1 cry0l1t3 htbteam 0 May  4 22:12 shell
 ```
 
@@ -2098,7 +2095,7 @@ We can then apply `read` permissions for all users and see the result.
 
 	chmod a+r shell && ls -l shell
 
-```shell-session
+```text
 -rwxr-xr-x   1 cry0l1t3 htbteam 0 May  4 22:12 shell
 ```
 
@@ -2106,13 +2103,13 @@ We can also set the permissions for all other users to `read` only using the o
 
 	chmod 754 shell && ls -l shell
 
-```shell-session
+```text
 -rwxr-xr--   1 cry0l1t3 htbteam 0 May  4 22:12 shell
 ```
 
 Let us look at all the representations associated with it to understand better how the permission assignment is calculated.
 
-```shell-session
+```text
 Binary Notation:                4 2 1  |  4 2 1  |  4 2 1
 ----------------------------------------------------------
 Binary Representation:          1 1 1  |  1 0 1  |  1 0 0
@@ -2139,7 +2136,7 @@ In this example, "shell" can be replaced with any arbitrary file or folder.
 
 	chown root:root shell && ls -l shell
 
-```shell-session
+```text
 -rwxr-xr--   1 root root 0 May  4 22:12 shell
 ```
 

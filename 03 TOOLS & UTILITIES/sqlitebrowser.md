@@ -14,7 +14,7 @@ Previous: [[Database Assessment]]
 
 	head DoNotTouch
 
-```shell-session
+```text
 SQLite format 3@
 ```
 

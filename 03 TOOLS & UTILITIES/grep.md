@@ -66,7 +66,7 @@ Print lines that match patterns.
 
 	curl https://inlanefreight.com/
 
-```shell-session
+```text
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -87,7 +87,7 @@ href="https://www.inlanefreight.com/index.php/feed/" />
 
 	curl https://www.inlanefreight.com/ | grep -Eo "https:\/\/.{0,3}\.inlanefreight\.com[^\"\']*" | sort -u
 
-```shell-session
+```text
 https://www.inlanefreight.com/
 https://www.inlanefreight.com/index.php/about-us/
 https://www.inlanefreight.com/index.php/career/
@@ -128,7 +128,7 @@ https://www.inlanefreight.com/xmlrpc.php?rsd
 
 	grep -ri zap cheatsheet/*
 
-```shell-session
+```text
 cheatsheet/cheatsheet-110.md:# ZAP Shortcuts
 cheatsheet/cheatsheet-144.md:| `ZAP` | [https://www.zaproxy.org/](https://www.zaproxy.org/) |
 ```
@@ -137,7 +137,7 @@ cheatsheet/cheatsheet-144.md:| `ZAP` | [https://www.zaproxy.org/](https://www.za
 
 	cat /etc/passwd | grep bash | awk  -F: '{print $1}'
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 mrb3n:x:1000:1000:mrb3n:/home/mrb3n:/bin/bash
 cry0l1t3:x:1001:1001::/home/cry0l1t3:/bin/bash
@@ -148,7 +148,7 @@ htb-student:x:1002:1002::/home/htb-student:/bin/bash
 
 	cat /etc/passwd | grep -v "false\|nologin"
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 sync:x:4:65534:sync:/bin:/bin/sync
 postgres:x:111:117:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
@@ -159,7 +159,7 @@ user6:x:1000:1000:,,,:/home/user6:/bin/bash
 
 	cat /etc/passwd
 
-```shell-session
+```text
 root:x:0:0:root:/root:/usr/bin/zsh
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -170,7 +170,7 @@ sync:x:4:65534:sync:/bin:/bin/sync
 
 	cat /etc/passwd | grep -v "false\|nologin"
 
-```shell-session
+```text
 root:x:0:0:root:/root:/usr/bin/zsh
 sync:x:4:65534:sync:/bin:/bin/sync
 cntlm:x:104:65534::/var/run/cntlm:/bin/sh
@@ -181,7 +181,7 @@ kali:x:1000:1000:,,,:/home/kali:/usr/bin/zsh
 
 	cat /etc/passwd | grep -v "false\|nologin" | cut -d":" -f1
 
-```shell-session
+```text
 root
 sync
 mrb3n
@@ -193,7 +193,7 @@ htb-student
 
 	grep -r categories /usr/share/nmap/scripts/*.nse
 
-```shell-session
+```text
 /usr/share/nmap/scripts/acarsd-info.nse:categories = {"safe","discovery"}
 /usr/share/nmap/scripts/address-info.nse:categories = {"default", "safe"}
 /usr/share/nmap/scripts/afp-brute.nse:categories = {"intrusive", "brute"}
@@ -217,7 +217,7 @@ htb-student
 
 	grep -R -i password . 2>/dev/null | cut -d ":" -f1 | uniq | sort | grep conf
 
-```shell-session
+```text
 ./apache2/sites-available/default-ssl.conf
 ./debconf.conf
 ./dovecot/conf.d/10-auth.conf
@@ -239,7 +239,7 @@ htb-student
 
 	grep -r categories /usr/share/nmap/scripts/*.nse | grep -oP \".*?\" | sort -u	
 
-```shell-session
+```text
 "auth"
 "broadcast"
 "brute"
@@ -260,7 +260,7 @@ htb-student
 
 	whois 134.209.24.248 | grep "StateProv\|CIDR"
 
-```shell-session
+```text
 CIDR:           134.209.0.0/16
 StateProv:      NY
 ```
@@ -271,7 +271,7 @@ Standard Behavior:
 
 	prips 134.209.0.0/16
 
-```shell-session
+```text
 134.209.0.0
 134.209.0.1
 134.209.0.2
@@ -289,7 +289,7 @@ Piped behavior:
 
 	whois 134.209.24.248 | grep "CIDR" | awk '{print $2}' | prips tmp
 
-```shell-session
+```text
 usage: prips [options] <start end | CIDR block>
 ```
 
@@ -297,7 +297,7 @@ Corrected `xargs` behavior:
 
 	whois 134.209.24.248 | grep "CIDR" | awk '{print $2}' | xargs prips
 
-```shell-session
+```text
 134.209.0.0
 134.209.0.1
 134.209.0.2
@@ -314,7 +314,7 @@ Corrected `xargs` behavior:
 
 	head /etc/passwd
 
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -331,7 +331,7 @@ news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
 
 	tail /etc/passwd
 
-```shell-session
+```text
 miredo:x:115:65534::/var/run/miredo:/usr/sbin/nologin
 usbmux:x:116:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
 rtkit:x:117:119:RealtimeKit,,,:/proc:/usr/sbin/nologin
@@ -343,7 +343,6 @@ lightdm:x:122:125:Light Display Manager:/var/lib/lightdm:/bin/false
 do-agent:x:998:998::/home/do-agent:/bin/false
 user6:x:1000:1000:,,,:/home/user6:/bin/bash
 ```
-
 
 ### Filter for unique lines
 	cat file | sort -u
@@ -360,7 +359,7 @@ user6:x:1000:1000:,,,:/home/user6:/bin/bash
 
 	echo https://www.hackthebox.eu/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
-```shell-session
+```text
 uggcf://jjj.unpxgurobk.rh/
 ```
 
@@ -368,13 +367,13 @@ uggcf://jjj.unpxgurobk.rh/
 
 	echo uggcf://jjj.unpxgurobk.rh/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
-```shell-session
+```text
 https://www.hackthebox.eu/
 ```
 
 ### Filter results in column form
 
-```shell-session
+```text
 root x 0 0 root /root /bin/bash
 sync x 4 65534 sync /bin /bin/sync
 mrb3n x 1000 1000 mrb3n /home/mrb3n /bin/bash
@@ -384,7 +383,7 @@ htb-student x 1002 1002  /home/htb-student /bin/bash
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | column -t
 
-```shell-session
+```text
 root         x  0     0      root               /root        /bin/bash
 sync         x  4     65534  sync               /bin         /bin/sync
 mrb3n        x  1000  1000   mrb3n              /home/mrb3n  /bin/bash
@@ -394,14 +393,14 @@ htb-student  x  1002  1002   /home/htb-student  /bin/bash
 
 ### Filter second word in string
 
-```shell-session
+```text
 CIDR:           134.209.0.0/16
 ```
 
 
 	whois 134.209.24.248 | grep "CIDR" | awk '{print $2}'
 
-```shell-session
+```text
 134.209.0.0/16
 ```
 
@@ -409,7 +408,7 @@ CIDR:           134.209.0.0/16
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | column -t
 
-```shell-session
+```text
 root         x  0     0      root               /root        /bin/bash
 sync         x  4     65534  sync               /bin         /bin/sync
 mrb3n        x  1000  1000   mrb3n              /home/mrb3n  /bin/bash
@@ -419,7 +418,7 @@ htb-student  x  1002  1002   /home/htb-student  /bin/bash
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}'
 
-```shell-session
+```text
 root /bin/bash
 sync /bin/sync
 mrb3n /bin/bash
@@ -445,7 +444,7 @@ htb-student /bin/bash
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}'
 
-```shell-session
+```text
 root /bin/bash
 sync /bin/sync
 mrb3n /bin/bash
@@ -455,7 +454,7 @@ htb-student /bin/bash
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | sed 's/bin/HTB/g'
 
-```shell-session
+```text
 root /HTB/bash
 sync /HTB/sync
 mrb3n /HTB/bash
@@ -469,13 +468,13 @@ The "`s`" flag at the beginning stands for the substitute command. Then we speci
 
 	whois 134.209.24.248 | grep "Netrange\|CIDR"
 
-```shell-session
+```text
 CIDR:           134.209.0.0/16
 ```
 
 	whois 134.209.24.248 | grep "Netrange\|CIDR" | tr -s [:space:]
 
-```shell-session
+```text
 CIDR: 134.209.0.0/16
 ```
 

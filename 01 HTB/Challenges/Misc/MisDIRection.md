@@ -1,7 +1,7 @@
 # 🧩 MisDIRection
 
 Tags: #🧩
-Related to: [[find]], [[awk]], [[sort]], [[grep]], [[tr]], [[base64]]
+Related to: [[awk]], [[base64]], [[find]], [[grep]], [[sort]], [[tr]]
 See also:
 Previous: [[HTB]]
 
@@ -13,7 +13,7 @@ During an assessment of a unix system the HTB team found a suspicious directory.
 
 	echo " " | sha256sum -c -
 
-```shell-session
+```text
 
 ```
 
@@ -22,7 +22,7 @@ During an assessment of a unix system the HTB team found a suspicious directory.
 	unzip misDIRection.zip
 	tree
 
-```shell-session
+```text
 .
 ├── 0
 │   └── 6
@@ -154,7 +154,7 @@ Piping it all together looks like this:
 
 	find
 
-```shell-session
+```text
 .
 ./K
 ./j
@@ -258,7 +258,7 @@ Piping it all together looks like this:
 
 	find -type f
 
-```shell-session
+```text
 ./j/10
 ./j/12
 ./d/13
@@ -301,7 +301,7 @@ Piping it all together looks like this:
 
 	find -type f | awk -F '/' '{ print $2 " " $3 }'
 
-```shell-session
+```text
 j 10
 j 12
 d 13
@@ -344,7 +344,7 @@ N 25
 
 	find -type f | awk -F '/' '{ print $2 " " $3 }' | sort -n -k2
 
-```shell-session
+```text
 S 1
 F 2
 R 3
@@ -387,7 +387,7 @@ V 35
 
 	find -type f | awk -F '/' '{ print $2 " " $3 }' | sort -n -k2 | awk -F ' ' '{ print $1 }'
 
-```shell-session
+```text
 S
 F
 R
@@ -430,7 +430,7 @@ V
 
 	find -type f | awk -F '/' '{ print $2 " " $3 }' | sort -n -k2 | awk -F ' ' '{ print $1 }' | tr -d '\n'
 
-```shell-session
+```text
 SFRCe0RJUjNjdEx5XzFuX1BsNDFuX1NpN2V9
 ```
 
@@ -438,6 +438,6 @@ SFRCe0RJUjNjdEx5XzFuX1BsNDFuX1NpN2V9
 
 	find -type f | awk -F '/' '{ print $2 " " $3 }' | sort -n -k2 | awk -F ' ' '{ print $1 }' | tr -d '\n' | base64 -d
 
-```shell-session
-HTB{DIR3ctLy_1n_Pl41n_Si7e}
+```text
+HTB{...}
 ```

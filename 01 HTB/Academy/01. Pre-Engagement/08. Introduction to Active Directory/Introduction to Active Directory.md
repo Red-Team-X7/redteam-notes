@@ -1,7 +1,7 @@
 # Introduction to Active Directory
 
 Tags: #🧑‍🎓 
-Related to: [[xfreerdp]], [[w_get-module]], [[w_get-command]], [[w_get-help]], [[w_import-module]], [[w_new-aduser]], [[w_remove-aduser]], [[w_unlock-adaccount]], [[w_set-adaccountpassword]], [[w_set-aduser]], [[w_new-adorganizationalunit]], [[w_new-adgroup]], [[w_add-adgroupmember]], [[w_copy-gpo]], [[w_set-gplink]], [[w_add-computer]], [[w_get-adcomputer]]
+Related to: [[w_add-adgroupmember]], [[w_add-computer]], [[w_copy-gpo]], [[w_get-adcomputer]], [[w_get-command]], [[w_get-help]], [[w_get-module]], [[w_import-module]], [[w_new-adgroup]], [[w_new-adorganizationalunit]], [[w_new-aduser]], [[w_remove-aduser]], [[w_set-adaccountpassword]], [[w_set-aduser]], [[w_set-gplink]], [[w_unlock-adaccount]], [[xfreerdp]]
 See also: 
 Previous: [[HTB Academy]]
 
@@ -399,7 +399,7 @@ Active Directory is arranged in a hierarchical tree structure, with a forest at 
 
 At a very (simplistic) high level, an AD structure may look as follows:
 
-```shell-session
+```text
 INLANEFREIGHT.LOCAL/
 ├── ADMIN.INLANEFREIGHT.LOCAL
 │   ├── GPOs
@@ -830,7 +830,7 @@ Let's look at an example. We can perform a `nslookup` for the domain name and 
 
 	nslookup INLANEFREIGHT.LOCAL
 
-```powershell-session
+```text
 Server:  172.16.6.5
 Address:  172.16.6.5
 
@@ -844,7 +844,7 @@ If we would like to obtain the DNS name of a single host using the IP address, w
 
 	nslookup 172.16.6.5
 
-```powershell-session
+```text
 Server:  172.16.6.5
 Address:  172.16.6.5
 
@@ -858,7 +858,7 @@ If we would like to find the IP address of a single host, we can do this in reve
 
 	nslookup ACADEMY-EA-DC01
 
-```powershell-session
+```text
 Server:   172.16.6.5
 Address:  172.16.6.5
 
@@ -973,7 +973,7 @@ Looking at the hash above, we can break the NTLM hash down into its individual p
 
 		crackmapexec smb 10.129.41.19 -u rachel -H e46b9e548fa0d122de7f59fb6d48eaa2
 
-```shell-session
+```text
 SMB         10.129.43.9     445    DC01      [*] Windows 10.0 Build 17763 (name:DC01) (domain:INLANEFREIGHT.LOCAL) (signing:True) (SMBv1:False)
 SMB         10.129.43.9     445    DC01      [+] INLANEFREIGHT.LOCAL\rachel:e46b9e548fa0d122de7f59fb6d48eaa2 (Pwn3d!)
 ```
@@ -989,7 +989,7 @@ The NTLM protocol performs a challenge/response between a server and client usin
 
 #### V1 Challenge & Response Algorithm
 
-```shell-session
+```text
 C = 8-byte server challenge, random
 K1 | K2 | K3 = LM/NT-hash | 5-bytes-0
 response = DES(K1,C) | DES(K2,C) | DES(K3,C)
@@ -1012,7 +1012,7 @@ The NTLMv2 protocol was first introduced in Windows NT 4.0 SP4 and was created a
 
 #### V2 Challenge & Response Algorithm
 
-```shell-session
+```text
 SC = 8-byte server challenge, random
 CC = 8-byte client challenge, random
 CC* = (X, time, CC2, domain name)
@@ -1119,7 +1119,7 @@ Security in Active Directory can be improved using a set of user naming attribut
 
 	Get-ADUser -Identity htb-student
 
-```powershell-session
+```text
 DistinguishedName : CN=htb student,CN=Users,DC=INLANEFREIGHT,DC=LOCAL
 Enabled           : True
 GivenName         : htb
@@ -1221,7 +1221,7 @@ The universal group scope can be used to manage resources distributed across mul
 
 	Get-ADGroup  -Filter * |select samaccountname,groupscope
 
-```powershell-session
+```text
 samaccountname                           groupscope
 --------------                           ----------
 Administrators                          DomainLocal
@@ -1363,7 +1363,7 @@ Below we have provided some output regarding domain admins and server operators.
 
 	Get-ADGroup -Identity "Server Operators" -Properties *
 
-```shell-session
+```text
 adminCount                      : 1
 CanonicalName                   : INLANEFREIGHT.LOCAL/Builtin/Server Operators
 CN                              : Server Operators
@@ -1413,7 +1413,7 @@ As we can see above, the default state of the `Server Operators` group is to h
 
 	Get-ADGroup -Identity "Domain Admins" -Properties * | select DistinguishedName,GroupCategory,GroupScope,Name,Members
 
-```shell-session
+```text
 DistinguishedName : CN=Domain Admins,CN=Users,DC=INLANEFREIGHT,DC=LOCAL
 GroupCategory     : Security
 GroupScope        : Global
@@ -1453,7 +1453,7 @@ After logging into a host, typing the command `whoami /priv` will give us a li
 
 	whoami /priv
 
-```shell-session
+```text
 PRIVILEGES INFORMATION
 ----------------------
 
@@ -1471,7 +1471,7 @@ We can see the following in a `non-elevated` console which does not appear to 
 
 	whoami /priv
 
-```shell-session
+```text
 PRIVILEGES INFORMATION
 ----------------------
 
@@ -1490,7 +1490,7 @@ If we enter the same command from an elevated PowerShell console, we can see the
 
 	whoami /priv
 
-```shell-session
+```text
 PRIVILEGES INFORMATION
 ----------------------
 
@@ -1530,7 +1530,7 @@ User rights increase based on the groups they are placed in or their assigned pr
 
 	whoami /priv
 
-```shell-session
+```text
 PRIVILEGES INFORMATION
 ----------------------
 

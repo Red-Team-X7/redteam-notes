@@ -13,7 +13,7 @@ Previous: [[Windows Fundamentals]]
 
 	icacls c:\windows
 
-```cmd-session
+```text
 c:\windows NT SERVICE\TrustedInstaller:(F)
            NT SERVICE\TrustedInstaller:(CI)(IO)(F)
            NT AUTHORITY\SYSTEM:(M)
@@ -35,7 +35,7 @@ Successfully processed 1 files; Failed processing 0 files
 
 	icacls c:\users /grant joe:f
 
-```cmd-session
+```text
 processed file: c:\users
 Successfully processed 1 files; Failed processing 0 files
 ```

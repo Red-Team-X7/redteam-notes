@@ -13,7 +13,7 @@ We want to update our website but we are unable to because the developer who cod
 
 	echo " " | sha256sum -c -
 
-```shell-session
+```text
 
 ```
 
@@ -22,7 +22,7 @@ We want to update our website but we are unable to because the developer who cod
 	unzip Canvas.zip
 	tree
 
-```shell-session
+```text
 .
 ├── Canvas.zip
 ├── css
@@ -195,8 +195,8 @@ var res = String["fromCharCode"](72, 84, 66, 123, 87, 51, 76, 99, 48, 109, 51, 9
 
 ## Convert ASCII to text
 
-```shell-session
+```text
 72, 84, 66, 123, 87, 51, 76, 99, 48, 109, 51, 95, 55, 48, 95, 74, 52, 86, 52, 53, 67, 82, 49, 112, 55, 95, 100, 51, 48, 98, 70, 117, 53, 67, 52, 55, 49, 48, 78, 125, 10
 ```
 
-`HTB{W3Lc0m3_70_J4V45CR1p7_d30bFu5C4710N}`
+`HTB{...}`

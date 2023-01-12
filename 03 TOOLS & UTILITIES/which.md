@@ -16,7 +16,7 @@ Locate a command.
 	which python
 	which python3
 
-```shell-session
+```text
 /usr/bin/python3
 ```
 

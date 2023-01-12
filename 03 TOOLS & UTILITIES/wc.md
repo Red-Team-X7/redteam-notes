@@ -15,7 +15,7 @@ Print newline, word, and byte counts for each file.
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}'
 
-```shell-session
+```text
 root /bin/bash
 sync /bin/sync
 mrb3n /bin/bash
@@ -25,7 +25,7 @@ htb-student /bin/bash
 
 	cat /etc/passwd | grep -v "false\|nologin" | tr ":" " " | awk '{print $1, $NF}' | wc -l
 
-```shell-session
+```text
 5
 ```
 

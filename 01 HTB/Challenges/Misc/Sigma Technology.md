@@ -1,7 +1,7 @@
 # 🧩 Sigma Technology
 
 Tags: #🧩
-Related to: [[]]
+Related to:
 See also:
 Previous: [[HTB]]
 
@@ -13,7 +13,7 @@ On a path to avenging his father, Tex Chance manufactured steam-powered robots t
 
 	echo "095e4b89490d78e5b9d9de78cb347202cefb45cbea8e340b1cb4cf5cfdd52919 Sigma Technology.zip" | sha256sum -c -
 
-```shell-session
+```text
 Sigma Technology.zip: OK
 ```
 
@@ -23,7 +23,7 @@ Sigma Technology.zip: OK
 	unzip Sigma\ Technology.zip
 	tree
 
-```shell-session
+```text
 
 ```
 

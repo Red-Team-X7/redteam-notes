@@ -1,7 +1,7 @@
 # 🤖 PROGRAMMING
 Tags: 
 Related to: 
-See also: [[explain code]]
+See also: [[_explain code]]
 Previous: [[ ]]
 
 [[bash]]

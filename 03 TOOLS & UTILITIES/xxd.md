@@ -70,7 +70,7 @@ Script: Sherlock.ps1
 
 	echo https://www.hackthebox.eu/ | xxd -p
 
-```shell-session
+```text
 68747470733a2f2f7777772e6861636b746865626f782e65752f0a
 ```
 
@@ -78,7 +78,7 @@ Script: Sherlock.ps1
 
 	echo 68747470733a2f2f7777772e6861636b746865626f782e65752f0a | xxd -p -r
 
-```shell-session
+```text
 https://www.hackthebox.eu/
 ```
 

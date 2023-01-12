@@ -2,7 +2,7 @@
 Tags: #💢
 Related to: 
 See also: 
-Previous: [[Information Gathering]], [[Reporting Tools]], [[Social Engineering Tools]]
+Previous: [[00 KALI/Information Gathering]], [[Reporting Tools]], [[Social Engineering Tools]]
 
 ---
 ## Description

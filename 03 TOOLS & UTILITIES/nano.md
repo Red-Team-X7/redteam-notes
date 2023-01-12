@@ -44,7 +44,7 @@ nano -s /bin/sh
 
 ### Basic usage
 
-```shell-session
+```text
   GNU nano 2.9.3                                    notes.txt                                              
 
 Here we can type everything we want and make our notes.▓
@@ -56,7 +56,7 @@ Here we can type everything we want and make our notes.▓
 
 Below we see two lines with short descriptions. The `caret` (`^`) stands for our "`[CTRL]`" key. For example, if we press `[CTRL + W]`, a "`Search:`" line appears at the bottom of the editor, where we can enter the word or words we are looking for. If we now search for the word "`we`" and press `[ENTER]`, the cursor will move to the first word that matches.
 
-```shell-session
+```text
 GNU nano 2.9.3                                    notes.txt                                              
 
 Here ▓we can type everything we want and make our notes.
@@ -68,7 +68,7 @@ Search:   notes
 
 To jump to the next match with the cursor, we press `[CTRL + W]` again and confirm with `[ENTER]` without any additional information.
 
-```shell-session
+```text
 GNU nano 2.9.3                                    notes.txt                                              
 
 Here we can type everything ▓we want and make our notes.
@@ -80,7 +80,7 @@ Search [we]:
 
 Now we can save the file by pressing `[CTRL + O]` and confirm the file name with `[ENTER]`.
 
-```shell-session
+```text
 GNU nano 2.9.3                                    notes.txt                                              
 
 Here we can type everything we want and make our notes.

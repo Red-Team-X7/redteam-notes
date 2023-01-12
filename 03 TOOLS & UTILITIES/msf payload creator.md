@@ -1,16 +1,12 @@
 # 💢 msf payload creator
 Tags: #💢
-Related to: 
-See also: 
+Related to:
+See also:
 Previous: [[Exploitation Tools]], [[Social Engineering Tools]]
 
----
 ## Description
 
 
 ## Usage Examples
 
-
----
-## References
-- [[]]
+# References

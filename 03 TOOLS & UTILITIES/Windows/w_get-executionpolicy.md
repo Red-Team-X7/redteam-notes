@@ -15,7 +15,7 @@ View the PowerShell execution policy.
 
 	Get-ExecutionPolicy -List
 
-```powershell-session
+```text
         Scope ExecutionPolicy
         ----- ---------------
 MachinePolicy       Undefined

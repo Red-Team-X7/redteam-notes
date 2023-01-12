@@ -7,7 +7,7 @@ Previous: [[ ]]
 
 ## Description
 
-```shell-session
+```text
 more:  more is a filter for paging through text one screenful at a time.
 
 less:  opposite of more

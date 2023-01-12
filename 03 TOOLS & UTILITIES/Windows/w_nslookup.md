@@ -19,7 +19,7 @@ Let's look at an example. We can perform a `nslookup` for the domain name and 
 
 	nslookup INLANEFREIGHT.LOCAL
 
-```powershell-session
+```text
 Server:  172.16.6.5
 Address:  172.16.6.5
 
@@ -33,7 +33,7 @@ If we would like to obtain the DNS name of a single host using the IP address, w
 
 	nslookup 172.16.6.5
 
-```powershell-session
+```text
 Server:  172.16.6.5
 Address:  172.16.6.5
 
@@ -47,7 +47,7 @@ If we would like to find the IP address of a single host, we can do this in reve
 
 	nslookup ACADEMY-EA-DC01
 
-```powershell-session
+```text
 Server:   172.16.6.5
 Address:  172.16.6.5
 

@@ -1,9 +1,9 @@
 # 💢 samrdump
 
 Tags: #💢
-Related to:
+Related to: [[rpcclient]]
 See also:
-Previous: [[Getting Started]], [[Footprinting]]
+Previous: [[Getting Started]], [[Footprinting]] [[SMB]]
 
 ## Description
 

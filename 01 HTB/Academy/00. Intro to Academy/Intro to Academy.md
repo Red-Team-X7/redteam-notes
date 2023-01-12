@@ -39,7 +39,7 @@ The structure of the Academy is as follows:
 
   Academy Structure
 
-```
+```text
 Path
   ├── Module_1
   │     └── Sections
@@ -147,7 +147,7 @@ Follow the steps below to complete this exercise.
 3.  Type `uname -a` and press Enter in the terminal window.
     -   *Tip: This will return some useful information about the specific flavor of the OS and its kernel.*
 
-```
+```text
 [user1@htb]$ uname -a
 ...
 ```

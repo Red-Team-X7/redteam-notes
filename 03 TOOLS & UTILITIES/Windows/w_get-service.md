@@ -15,7 +15,7 @@ cmdlet to view running services.
 
 	Get-Service | ? {$_.Status -eq "Running"} | select -First 2 |fl
 
-```powershell-session
+```text
 Name                : AdobeARMservice
 DisplayName         : Adobe Acrobat Update Service
 Status              : Running

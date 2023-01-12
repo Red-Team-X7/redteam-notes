@@ -23,7 +23,7 @@ Static source code analyzer which works on 20+ languages.
 
 	semgrep --config auto badcode.php
 
-```shell-session
+```text
 etching rules from https://semgrep.dev/registry.
 
 Scanning across multiple languages:

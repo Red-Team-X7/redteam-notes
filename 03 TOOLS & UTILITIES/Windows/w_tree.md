@@ -15,7 +15,7 @@ Graphically display the directory structure of a path.
 
 	tree "c:\Program Files (x86)\VMware"
 
-```cmd-session
+```text
 Folder PATH listing
 Volume serial number is F416-77BE
 C:\PROGRAM FILES (X86)\VMWARE

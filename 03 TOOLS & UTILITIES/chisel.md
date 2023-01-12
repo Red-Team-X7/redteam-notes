@@ -1,10 +1,9 @@
 # 💢 chisel
 Tags: #💢
-Related to: 
-See also: 
+Related to:
+See also:
 Previous: [[Post Exploitation]], [[Tunneling & Exfiltration]]
 
----
 ## Description
 
 A fast TCP/UDP tunnel, transported over HTTP, and secured via SSH.

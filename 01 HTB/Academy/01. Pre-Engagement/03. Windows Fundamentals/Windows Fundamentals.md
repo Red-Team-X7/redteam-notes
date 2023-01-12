@@ -1,7 +1,7 @@
 # 03. Windows Fundamentals
 
 Tags: #🧑‍🎓 
-Related to: [[xfreerdp]], [[w_get-wmiobject]], [[w_dir]], [[w_tree]], [[w_icacls]], [[w_get-service]], [[w_help]], [[w_get-alias]], [[w_new-alias]], [[w_get-module]], [[w_get-executionpolicy]], [[w_set-executionpolicy]], [[w_wmic]], [[w_invoke-wmimethod]], [[w_whoami]], [[w_reg]], [[w_get-mpcomputerstatus]], [[w_sconfig]]
+Related to: [[w_dir]], [[w_get-alias]], [[w_get-executionpolicy]], [[w_get-module]], [[w_get-mpcomputerstatus]], [[w_get-service]], [[w_get-wmiobject]], [[w_help]], [[w_icacls]], [[w_invoke-wmimethod]], [[w_new-alias]], [[w_reg]], [[w_sconfig]], [[w_set-executionpolicy]], [[w_tree]], [[w_whoami]], [[w_wmic]], [[xfreerdp]]
 See also:
 Previous: [[HTB Academy]]
 
@@ -108,7 +108,7 @@ We can use the [Get-WmiObject](https://docs.microsoft.com/en-us/powershell/modu
 
 	Get-WmiObject -Class win32_OperatingSystem | select Version,BuildNumber
 
-```powershell-session
+```text
 Version    BuildNumber
 -------    -----------
 10.0.19041 19041
@@ -218,7 +218,7 @@ We can explore the file system using the [dir](https://docs.microsoft.com/en-us
 
 	dir c:\ /a
 
-```cmd-session
+```text
  Volume in drive C has no label.
  Volume Serial Number is F416-77BE
 
@@ -250,7 +250,7 @@ The [tree](https://docs.microsoft.com/en-us/windows-server/administration/windo
 
 	tree "c:\Program Files (x86)\VMware"
 
-```cmd-session
+```text
 Folder PATH listing
 Volume serial number is F416-77BE
 C:\PROGRAM FILES (X86)\VMWARE
@@ -366,7 +366,7 @@ We can list out the NTFS permissions on a specific directory by running either 
 
 	icacls c:\windows
 
-```cmd-session
+```text
 c:\windows NT SERVICE\TrustedInstaller:(F)
            NT SERVICE\TrustedInstaller:(CI)(IO)(F)
            NT AUTHORITY\SYSTEM:(M)
@@ -408,7 +408,7 @@ We can add and remove permissions via the command line using `icacls`. Here we 
 
 	icacls c:\Users
 
-```cmd-session
+```text
 c:\Users NT AUTHORITY\SYSTEM:(OI)(CI)(F)
          BUILTIN\Administrators:(OI)(CI)(F)
          BUILTIN\Users:(RX)
@@ -423,14 +423,14 @@ Using the command `icacls c:\users /grant joe:f` we can grant the joe user ful
 
 	icacls c:\users /grant joe:f
 
-```cmd-session
+```text
 processed file: c:\users
 Successfully processed 1 files; Failed processing 0 files
 ```
 
 	icacls c:\users
 
-```cmd-session
+```text
 c:\users WS01\joe:(F)
          NT AUTHORITY\SYSTEM:(OI)(CI)(F)
          BUILTIN\Administrators:(OI)(CI)(F)
@@ -461,7 +461,6 @@ Microsoft owns over [70%](https://gs.statcounter.com/os-market-share/desktop/wo
 The `Server Message Block protocol` (`SMB`) is used in Windows to connect shared resources like files and printers. It is used in large, medium, and small enterprise environments. See the image below to visualize this concept:
 
 ![[smb_diagram.png]]
-
 
 Note: Any time you see a visualization/diagram of a concept, take your time to understand it thoroughly. A picture can be worth a thousand words but very tempting to skip over when reading.
 
@@ -549,7 +548,7 @@ Note: A server is technically a software function used to service the requests o
 
 	smbclient -L IPaddressOfTarget -U htb-student
 
-```shell-session
+```text
 Enter WORKGROUP\htb-student's password: 
 
 	Sharename       Type      Comment
@@ -617,7 +616,7 @@ We can also see the share we created.
 
 	net share
 
-```cmd-session
+```text
 Share name   Resource                        Remark
 
 -------------------------------------------------------------------------------
@@ -676,7 +675,7 @@ It is also possible to query and manage services via the command line using `sc
 
 	Get-Service | ? {$_.Status -eq "Running"} | select -First 2 |fl
 
-```powershell-session
+```text
 Name                : AdobeARMservice
 DisplayName         : Adobe Acrobat Update Service
 Status              : Running
@@ -744,7 +743,7 @@ For example, we can run procdump.exe directly from this share without downloadin
 
 	\\live.sysinternals.com\tools\procdump.exe -accepteula
 
-```cmd-session
+```text
 ProcDump v9.0 - Sysinternals process dump utility
 Copyright (C) 2009-2017 Mark Russinovich and Andrew Richards
 Sysinternals - www.sysinternals.com
@@ -869,7 +868,7 @@ Sc can also be used to configure and manage services. Let's experiment with a fe
 
 	sc qc wuauserv
 
-```cmd-session
+```text
 [SC] QueryServiceConfig SUCCESS
 
 SERVICE_NAME: wuauserv
@@ -892,7 +891,7 @@ We can also use sc to start and stop services.
 
 	sc stop wuauserv
 
-```cmd-session
+```text
 [SC] OpenService FAILED 5:
 
 Access is denied.
@@ -902,11 +901,14 @@ Notice how we are denied access from performing this action without running it w
 
 	sc config wuauserv binPath=C:\Winbows\Perfectlylegitprogram.exe
 
-```cmd-session
+```text
 [SC] ChangeServiceConfig SUCCESS
 
-C:\WINDOWS\system32> sc qc wuauserv
+```
 
+	C:\WINDOWS\system32> sc qc wuauserv
+
+```text
 [SC] QueryServiceConfig SUCCESS
 
 SERVICE_NAME: wuauserv
@@ -927,7 +929,7 @@ Another helpful way we can examine service permissions using `sc` is through t
 
 	sc sdshow wuauserv
 
-```cmd-session
+```text
 D:(A;;CCLCSWRPLORC;;;AU)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)S:(AU;FA;CCDCLCSWRPWPDTLOSDRCWDWO;;;WD)
 ```
 
@@ -935,7 +937,7 @@ At an initial glance, the output looks crazy. It almost seems that we have done 
 
 Generally, a DACL is used for controlling access to an object, and a SACL is used to account for and log access attempts. This section will examine the DACL, but the same concepts would apply to a SACL.
 
-```
+```text
 D:(A;;CCLCSWRPLORC;;;AU)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;SY)
 
 ```
@@ -979,7 +981,7 @@ Using the `Get-Acl` PowerShell cmdlet, we can examine service permissions by t
 
 	Get-ACL -Path HKLM:\System\CurrentControlSet\Services\wuauserv | Format-List
 
-```powershell-session
+```text
 Path   : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\wuauserv
 Owner  : NT AUTHORITY\SYSTEM
 Group  : NT AUTHORITY\SYSTEM
@@ -1068,7 +1070,7 @@ After launching `cmd.exe` we can type `help` to see a listing of available c
 
 	help
 
-```cmd-session
+```text
 For more information on a specific command, type HELP command-name
 ASSOC          Displays or modifies file extension associations.
 ATTRIB         Displays or changes file attributes.
@@ -1097,7 +1099,7 @@ For more information about a specific command, we can type `help <command name>
 
 	help schtasks
 
-```cmd-session
+```text
 SCHTASKS /parameter [arguments]
 
 Description:
@@ -1137,7 +1139,7 @@ Note that certain commands have their own help menus, which can be accessed by t
 
 	ipconfig /?
 
-```cmd-session
+```text
 USAGE:
     ipconfig [/allcompartments] [/? | /all |
                                  /renew [adapter] | /release [adapter] |
@@ -1197,7 +1199,7 @@ Many cmdlets in PowerShell also have aliases. For example, the aliases for the c
 
 	get-alias
 
-```powershell-session
+```text
 CommandType     Name                                               Version    Source
 -----------     ----                                               -------    ------
 Alias           % -> ForEach-Object
@@ -1220,7 +1222,7 @@ We can also set up our own aliases with `New-Alias` and get the alias for any 
 	New-Alias -Name "Show-Files" Get-ChildItem
 	Get-Alias -Name "Show-Files"
 
-```powershell-session
+```text
 CommandType     Name                                               Version    Source
 -----------     ----                                               -------    ------
 Alias           Show-Files
@@ -1230,7 +1232,7 @@ PowerShell has a help system for cmdlets, functions, scripts, and concepts. This
 
 	help
 
-```powershell-session
+```text
 TOPIC
     Windows PowerShell Help System
 
@@ -1269,7 +1271,7 @@ Typing a command such as `Get-Help Get-AppPackage` will return just the partia
 
 	Get-Help Get-AppPackage
 
-```powershell-session
+```text
 NAME
     Get-AppxPackage
 
@@ -1299,7 +1301,7 @@ We can run PowerShell scripts in a variety of ways. If we know the functions, we
 
 	.\PowerView.ps1;Get-LocalGroup |fl
 
-```powershell-session
+```text
 Description     : Users of Docker Desktop
 Name            : docker-users
 SID             : S-1-5-21-674899381-4069889467-2080702030-1004
@@ -1331,7 +1333,7 @@ One common way to work with a script in PowerShell is to import it so that all f
 
 	Get-Module | select Name,ExportedCommands | fl
 
-```powershell-session
+```text
 Name             : Appx
 ExportedCommands : {[Add-AppxPackage, Add-AppxPackage], [Add-AppxVolume, Add-AppxVolume], [Dismount-AppxVolume,
                    Dismount-AppxVolume], [Get-AppxDefaultVolume, Get-AppxDefaultVolume]...}
@@ -1375,7 +1377,7 @@ Below is an example of the current execution policy for all scopes.
 
 	Get-ExecutionPolicy -List
 
-```powershell-session
+```text
         Scope ExecutionPolicy
         ----- ---------------
 MachinePolicy       Undefined
@@ -1391,7 +1393,7 @@ Below is an example of changing the execution policy for the current process (se
 
 	Set-ExecutionPolicy Bypass -Scope Process
 
-```powershell-session
+```text
 Execution Policy Change
 The execution policy helps protect you from scripts that you do not trust. Changing the execution policy might expose
 you to the security risks described in the about_Execution_Policies help topic at
@@ -1403,7 +1405,7 @@ We can now see that the execution policy has been changed.
 
 	Get-ExecutionPolicy -List
 
-```powershell-session
+```text
         Scope ExecutionPolicy
         ----- ---------------
 MachinePolicy       Undefined
@@ -1453,7 +1455,7 @@ These tasks can all be performed using a combination of PowerShell and the WMI C
 
 	wmic /?
 
-```cmd-session
+```text
 WMIC is deprecated.
 
 [global switches] <command>
@@ -1487,7 +1489,7 @@ The following command example lists information about the operating system.
 
 	wmic os list brief
 
-```cmd-session
+```text
 BuildNumber  Organization  RegisteredUser  SerialNumber             SystemDirectory      Version
 19041                      Owner           00123-00123-00123-AAOEM  C:\Windows\system32  10.0.19041
 ```
@@ -1498,7 +1500,7 @@ Here we can get information about the operating system.
 
 	Get-WmiObject -Class Win32_OperatingSystem | select SystemDirectory,BuildNumber,SerialNumber,Version | ft
 
-```powershell-session
+```text
 SystemDirectory     BuildNumber SerialNumber            Version
 ---------------     ----------- ------------            -------
 C:\Windows\system32 19041       00123-00123-00123-AAOEM 10.0.19041
@@ -1508,7 +1510,7 @@ We can also use the `Invoke-WmiMethod` [module](https://docs.microsoft.com/en-
 
 	Invoke-WmiMethod -Path "CIM_DataFile.Name='C:\users\public\spns.csv'" -Name Rename -ArgumentList "C:\Users\Public\kerberoasted_users.csv"
 
-```powershell-session
+```text
 __GENUS          : 2
 __CLASS          : __PARAMETERS
 __SUPERCLASS     :
@@ -1565,7 +1567,7 @@ WSL installs an application called `Bash.exe`, which can be run by merely typin
 
 	ls /
 
-```powershell-session
+```text
 bin dev home lib lLib64 media opt root sbin srv tmp var
 boot etc init 1lib32 Libx32 mnt proc run Snap sys usr
 ```
@@ -1574,7 +1576,7 @@ We can access the C$ volume and other volumes on the host operating system via t
 
 	uname -a
 
-```powershell-session
+```text
 Linux WS01 4.4.0-18362-Microsoft #476-Microsoft Frit Nov 01 16:53:00
 PST 2019 x86_64 x86 _64 x86_64 GNU/Linux
 ```
@@ -1638,7 +1640,7 @@ A SID consists of the Identifier Authority and the Relative ID (RID). In an Acti
 
 	whoami /user
 
-```powershell-session
+```text
 USER INFORMATION
 ----------------
 
@@ -1649,7 +1651,7 @@ ws01\bob S-1-5-21-674899381-4069889467-2080702030-1002
 
 The SID is broken down into this pattern.
 
-```powershell-session
+```text
 (SID)-(revision level)-(identifier-authority)-(subauthority1)-(subauthority2)-(etc)
 ```
 
@@ -1719,7 +1721,7 @@ The entire system registry is stored in several files on the operating system. Y
 
 	ls
 
-```powershell-session
+```text
     Directory: C:\Windows\system32\config
 
 Mode                 LastWriteTime         Length Name
@@ -1744,7 +1746,7 @@ The user-specific registry hive (HKCU) is stored in the user folder (i.e., `C:\
 
 	gci -Hidden
 
-```powershell-session
+```text
     Directory: C:\Users\bob
 
 Mode                 LastWriteTime         Length Name
@@ -1783,7 +1785,7 @@ There are also so-called registry hives, which contain a logical group of keys, 
 
 The Windows registry includes the following four keys:
 
-```powershell-session
+```text
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
@@ -1794,7 +1796,7 @@ Here is an example of the `HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Curren
 
 	reg query HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 
-```powershell-session
+```text
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
     SecurityHealth    REG_EXPAND_SZ    %windir%\system32\SecurityHealthSystray.exe
     RTHDVCPL    REG_SZ    "C:\Program Files\Realtek\Audio\HDA\RtkNGUI64.exe" -s
@@ -1805,7 +1807,7 @@ Here is an example of the `HKEY_CURRENT_USER\Software\Microsoft\Windows\Current
 
 	reg query HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 
-```powershell-session
+```text
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
     OneDrive    REG_SZ    "C:\Users\bob\AppData\Local\Microsoft\OneDrive\OneDrive.exe" /background
     OPENVPN-GUI    REG_SZ    C:\Program Files\OpenVPN\bin\openvpn-gui.exe
@@ -1870,7 +1872,7 @@ We can use the PowerShell cmdlet `Get-MpComputerStatus` to check which protect
 
 	Get-MpComputerStatus | findstr "True"
 
-```powershell-session
+```text
 AMServiceEnabled                : True
 AntispywareEnabled              : True
 AntivirusEnabled                : True

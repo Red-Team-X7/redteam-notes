@@ -9,6 +9,7 @@ Previous: [[PROGRAMMING]]
 ## Usage Examples
 
 ### Get client-side software inventory
+
 	dir /s “c:\Program Files” > inventory.txt
 	dir /s “c:\Program Files (x86)” >> inventory.txt
 

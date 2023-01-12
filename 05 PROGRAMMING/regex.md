@@ -43,7 +43,7 @@ Interpret patterns.
 
 	curl https://inlanefreight.com/
 
-```shell-session
+```text
 <snip>
 <a href='https://www.inlanefreight.com/index.php/offices/'>Offices</a></li>
 <a href="https://www.inlanefreight.com/index.php/news/">News</a></li>
@@ -55,7 +55,7 @@ Interpret patterns.
 
 	curl https://www.inlanefreight.com/ | grep -Eo "https:\/\/.{0,3}\.inlanefreight\.com[^\"\']*" | sort -u
 
-```shell-session
+```text
 https://www.inlanefreight.com/
 https://www.inlanefreight.com/index.php/about-us/
 https://www.inlanefreight.com/index.php/career/

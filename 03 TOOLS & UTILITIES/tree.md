@@ -12,7 +12,7 @@ List contents of directories in a tree-like format.
 
 ### List contents of directory
 
-```shell-session
+```text
 tree Projects/
 
 Projects/
@@ -39,7 +39,7 @@ Projects/
 
 	tree -L 1 /var/www/html
 
-```shell-session
+```text
 .
 ├── index.php
 ├── license.txt

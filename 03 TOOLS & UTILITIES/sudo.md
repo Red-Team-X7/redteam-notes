@@ -46,7 +46,7 @@ User ben may run the following commands on DANTE-NIX04:
 	usermod -aG sudo cry0l1t3
 	su - cry0l1t3
 
-```shell-session
+```text
 Password: 
 
 [cry0l1t3@VPS ~]$

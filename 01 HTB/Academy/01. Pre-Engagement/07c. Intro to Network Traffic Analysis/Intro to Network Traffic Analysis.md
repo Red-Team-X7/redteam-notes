@@ -277,17 +277,13 @@ Capturing traffic of a link, especially one in a production environment, can be 
 Now is the time to start carving out data pertinent to the issue we are chasing down. Look at specific hosts, protocols, even things as specific as flags set in the TCP header. The following questions will help us:
 
 1.  Is the traffic encrypted or plain text? Should it be?
-
 2.  Can we see users attempting to access resources to which they should not have access?
-
 3.  Are different hosts talking to each other that typically do not?
 
 #### 4\. Detect the Root Issue
 
 1.  Are we seeing any errors? Is a device not responding that should be?
-
 2.  Use our analysis to decide if what we see is benign or potentially malicious.
-
 3.  Other tools like IDS and IPS can come in handy at this point. They can run heuristics and signatures against the traffic to determine if anything within is potentially malicious.
 
 #### 5\. Fix and Monitor
@@ -870,7 +866,7 @@ We can run the tcpdump package with the `--version` switch to check our instal
 
 	sudo tcpdump --version
 
-```shell-session
+```text
 tcpdump version 4.9.3
 libpcap version 1.9.1 (with TPACKET_V3)
 OpenSSL 1.1.1f  31 Mar 2020
@@ -918,7 +914,7 @@ Here are some examples of basic Tcpdump switch usage along with descriptions of 
 
 	sudo tcpdump -D
 
-```shell-session
+```text
 1.eth0 [Up, Running, Connected]
 2.any (Pseudo-device that captures on all interfaces) [Up, Running]
 3.lo [Up, Running, Loopback]
@@ -936,7 +932,7 @@ The above command calls tcpdump using sudo privileges and lists the usable netwo
 
 	sudo tcpdump -i eth0
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 10:58:33.719241 IP 172.16.146.2.55260 > 172.67.1.1.https: Flags [P.], seq 1953742992:1953743073, ack 2034210498, win 501, length 81
@@ -950,7 +946,7 @@ In this terminal, we are calling tcpdump and selecting the interface eth0 to cap
 
 	sudo tcpdump -i eth0 -nn
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 11:02:35.580449 IP 172.16.146.2.48402 > 52.31.199.148.443: Flags [P.], seq 988167196:988167233, ack 1512376150, win 501, options [nop,nop,TS val 214282239 ecr 77421665], length 37
@@ -969,7 +965,7 @@ When utilizing the `-e` switch, we are tasking tcpdump to include the ethernet
 
 	sudo tcpdump -i eth0 -e
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 11:05:45.982115 00:0c:29:97:52:65 (oui Unknown) > 8a:66:5a:11:8d:64 (oui Unknown), ethertype IPv4 (0x0800), length 103: 172.16.146.2.57142 > ec2-99-80-22-207.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 922951468:922951505, ack 1842875143, win 501, options [nop,nop,TS val 1368272062 ecr 65637925], length 37
@@ -984,7 +980,7 @@ By issuing the `-X` switch, we can see the packet a bit clearer now. We get an
 
 	sudo tcpdump -i eth0 -X
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 11:10:34.972248 IP 172.16.146.2.57170 > ec2-99-80-22-207.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 2612172989:2612173026, ack 3165195759, win 501, options [nop,nop,TS val 1368561052 ecr 65712142], length 37
@@ -1013,7 +1009,7 @@ Pay attention to the level of detail in the output above. We will notice that we
 
 	sudo tcpdump -i eth0 -nnvXX
 
-```shell-session
+```text
 tcpdump: listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 11:13:59.149599 IP (tos 0x0, ttl 64, id 24075, offset 0, flags [DF], proto TCP (6), length 89)
     172.16.146.2.42454 > 54.77.251.34.443: Flags [P.], cksum 0x6fce (incorrect -> 0xb042), seq 671020720:671020757, ack 3699222968, win 501, options [nop,nop,TS val 1154433101 ecr 1116647414], length 37
@@ -1088,7 +1084,7 @@ Using `-w` will write our capture to a file. Keep in mind that as we capture t
 
 	sudo tcpdump -i eth0 -w ~/output.pcap
 
-```shell-session
+```text
 tcpdump: listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 10 packets captured
 131 packets received by filter
@@ -1101,7 +1097,7 @@ This capture above will generate the output to a file called `output.pcap`. Whe
 
 	sudo tcpdump -r ~/output.pcap
 
-```shell-session
+```text
 reading from file /home/trey/output.pcap, link-type EN10MB (Ethernet), snapshot length 262144
 11:15:40.321509 IP 172.16.146.2.57236 > ec2-99-80-22-207.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 2751910362:2751910399, ack 946558143, win 501, options [nop,nop,TS val 1368866401 ecr 65790024], length 37
 11:15:40.337302 IP 172.16.146.2.55416 > 172.67.1.1.https: Flags [P.], seq 3766493458:3766493533, ack 4098207917, win 501, length 75
@@ -1314,7 +1310,7 @@ With these filters, we can filter the network traffic on most properties to faci
 	### Syntax: host [IP]
 	sudo tcpdump -i eth0 host 172.16.146.2
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 14:50:53.072536 IP 172.16.146.2.48738 > ec2-52-31-199-148.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 3400465007:3400465044, ack 254421756, win 501, options [nop,nop,TS val 220968655 ecr 80852594], length 37
@@ -1331,7 +1327,7 @@ This filter is often used when we want to examine only a specific host or server
 	### Syntax: src/dst [host|net|port] [IP|Network Range|Port]
 	sudo tcpdump -i eth0 src host 172.16.146.2
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 14:53:36.199628 IP 172.16.146.2.48766 > ec2-52-31-199-148.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 1428378231:1428378268, ack 3778572066, win 501, options [nop,nop,TS val 221131782 ecr 80889856], length 37
@@ -1352,7 +1348,7 @@ Source and destination allow us to work with the directions of communication. Fo
 
 	sudo tcpdump -i eth0 tcp src port 80
 
-```shell-session
+```text
 06:17:08.222534 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [S.], seq 290218379, ack 951057940, win 5840, options [mss 1380,nop,nop,sackOK], length 0
 06:17:08.783340 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [.], ack 480, win 6432, length 0
 06:17:08.993643 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [.], seq 1:1381, ack 480, win 6432, length 1380: HTTP: HTTP/1.1 200 OK
@@ -1368,7 +1364,7 @@ Notice now that we only see one side of the conversation? This is because we are
 
 	sudo tcpdump -i eth0 dest net 172.16.146.0/24
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 16:33:14.376003 IP 64.233.177.103.443 > 172.16.146.2.36050: Flags [.], ack 1486880537, win 316, options [nop,nop,TS val 2311579424 ecr 263866084], length 0
@@ -1390,7 +1386,7 @@ This filter can utilize the common protocol name or protocol number for any IP, 
 	### Syntax: [tcp/udp/icmp]
 	sudo tcpdump -i eth0 udp
 
-```shell-session
+```text
 06:17:09.864896 IP dialin-145-254-160-237.pools.arcor-ip.net.3009 > 145.253.2.203.domain: 35+ A? pagead2.googlesyndication.com. (47)
 06:17:10.225414 IP 145.253.2.203.domain > dialin-145-254-160-237.pools.arcor-ip.net.3009: 35 4/0/0 CNAME pagead2.google.com., CNAME pagead.google.akadns.net., A 216.239.59.104, A 216.239.59.99 (146)
 ```
@@ -1400,7 +1396,7 @@ This filter can utilize the common protocol name or protocol number for any IP, 
 	### Syntax: proto [protocol number]
 	sudo tcpdump -i eth0 proto 17
 
-```shell-session
+```text
 06:17:09.864896 IP dialin-145-254-160-237.pools.arcor-ip.net.3009 > 145.253.2.203.domain: 35+ A? pagead2.googlesyndication.com. (47)
 06:17:10.225414 IP 145.253.2.203.domain > dialin-145-254-160-237.pools.arcor-ip.net.3009: 35 4/0/0 CNAME pagead2.google.com., CNAME pagead.google.akadns.net., A 216.239.59.104, A 216.239.59.99 (146)
 ```
@@ -1414,7 +1410,7 @@ With protocols that use both TCP and UDP for different functions, such as DNS, w
 	### Syntax: port [port number]
 	sudo tcpdump -i eth0 tcp port 443
 
-```shell-session
+```text
 06:17:07.311224 IP dialin-145-254-160-237.pools.arcor-ip.net.3372 > 65.208.228.223.http: Flags [S], seq 951057939, win 8760, options [mss 1460,nop,nop,sackOK], length 0
 06:17:08.222534 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [S.], seq 290218379, ack 951057940, win 5840, options [mss 1380,nop,nop,sackOK], length 0
 06:17:08.222534 IP dialin-145-254-160-237.pools.arcor-ip.net.3372 > 65.208.228.223.http: Flags [.], ack 1, win 9660, length 0
@@ -1442,7 +1438,7 @@ The `portrange` filter, as seen below, allows us to see everything from within
 	### Syntax: portrange [portrange 0-65535]
 	sudo tcpdump -i eth0 portrange 0-1024
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 13:10:35.092477 IP 172.16.146.1.domain > 172.16.146.2.32824: 47775 1/0/0 CNAME autopush.prod.mozaws.net. (81)
@@ -1464,7 +1460,7 @@ Next, we are looking for any packet less than 64 bytes. From the following outpu
 	### Syntax: less/greater [size in bytes]
 	sudo tcpdump -i eth0 less 64
 
-```shell-session
+```text
 06:17:07.311224 IP dialin-145-254-160-237.pools.arcor-ip.net.3372 > 65.208.228.223.http: Flags [S], seq 951057939, win 8760, options [mss 1460,nop,nop,sackOK], length 0
 06:17:08.222534 IP 65.208.228.223.http > dialin-145-254-160-237.pools.arcor-ip.net.3372: Flags [S.], seq 290218379, ack 951057940, win 5840, options [mss 1380,nop,nop,sackOK], length 0
 06:17:08.222534 IP dialin-145-254-160-237.pools.arcor-ip.net.3372 > 65.208.228.223.http: Flags [.], ack 1, win 9660, length 0
@@ -1495,7 +1491,7 @@ Above was an excellent example of using `less`. We can utilize the modifier `g
 
 	sudo tcpdump -i eth0 greater 500
 
-```shell-session
+```text
 21:12:43.548353 IP 192.168.0.1.telnet > 192.168.0.2.1550: Flags [P.], seq 401695766:401696254, ack 2579866052, win 17376, options [nop,nop,TS val 2467382 ecr 10234152], length 488
 E...;...@.................d.......C........
 .%.6..)(Warning: no Kerberos tickets issued.
@@ -1517,7 +1513,7 @@ known fix for it exists, include that as well.
 	### Syntax: and [requirement]
 	sudo tcpdump -i eth0 host 192.168.0.1 and port 23
 
-```shell-session
+```text
 21:12:38.387203 IP 192.168.0.2.1550 > 192.168.0.1.telnet: Flags [S], seq 2579865836, win 32120, options [mss 1460,sackOK,TS val 10233636 ecr 0,nop,wscale 0], length 0
 21:12:38.389728 IP 192.168.0.1.telnet > 192.168.0.2.1550: Flags [S.], seq 401695549, ack 2579865837, win 17376, options [mss 1448,nop,wscale 0,nop,nop,TS val 2467372 ecr 10233636], length 0
 21:12:38.389775 IP 192.168.0.2.1550 > 192.168.0.1.telnet: Flags [.], ack 1, win 32120, options [nop,nop,TS val 10233636 ecr 2467372], length 0
@@ -1531,7 +1527,7 @@ The other modifiers, `OR` and `NOT` provide us with a way to specify multipl
 
 	sudo tcpdump -i eth0
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 14:39:51.224071 IP 172.16.146.2 > dns.google: ICMP echo request, id 19623, seq 72, length 64
@@ -1559,7 +1555,7 @@ We have a mix of different sources and destinations along with multiple protocol
 	### Syntax: or/|| [requirement]
 	sudo tcpdump -r sus.pcap icmp or host 172.16.146.1
 
-```shell-session
+```text
 reading from file sus.pcap, link-type EN10MB (Ethernet), snapshot length 262144
 14:54:03.659163 IP 172.16.146.2 > dns.google: ICMP echo request, id 51661, seq 21, length 64
 14:54:03.691278 IP dns.google > 172.16.146.2: ICMP echo reply, id 51661, seq 21, length 64
@@ -1588,7 +1584,7 @@ Our traffic looks a bit different now. That is because a lot of the packets matc
 	### Syntax: not/! [requirement]
 	sudo tcpdump -r sus.pcap not icmp
 
-```shell-session
+```text
 14:54:03.879882 ARP, Request who-has 172.16.146.1 tell 172.16.146.2, length 28
 14:54:03.880266 ARP, Reply 172.16.146.1 is-at 8a:66:5a:11:8d:64 (oui Unknown), length 46
 14:54:16.541657 IP 172.16.146.2.55592 > ec2-52-211-164-46.eu-west-1.compute.amazonaws.com.https: Flags [P.], seq 3569937476:3569937513, ack 2948818703, win 501, options [nop,nop,TS val 713252991 ecr 12282469], length 37
@@ -1629,7 +1625,7 @@ Many handy options that can be used but are not always directly valuable for eve
 
 	sudo tcpdump -Ar telnet.pcap
 
-```shell-session
+```text
 21:12:43.528695 IP 192.168.0.1.telnet > 192.168.0.2.1550: Flags [P.], seq 157:217, ack 216, win 17376, options [nop,nop,TS val 2467382 ecr 10234022], length 60
 E..p;...@..p..............c.......C........
 .%.6..(.Last login: Sat Nov 27 20:11:43 on ttyp2 from bam.zing.org
@@ -1662,7 +1658,7 @@ Notice how it has the ASCII values shown below each output line because of our u
 
 	sudo tcpdump -Ar http.cap -l | grep 'mailto:*'
 
-```shell-session
+```text
 reading from file http.cap, link-type EN10MB (Ethernet), snapshot length 65535
   <a href="mailto:ethereal-web[AT]ethereal.com">ethereal-web[AT]ethereal.com</a>
   <a href="mailto:free-support[AT]thewrittenword.com">free-support[AT]thewrittenword.com</a>
@@ -1684,7 +1680,7 @@ This is counting to the 13th byte in the structure and looking at the 2nd bit. I
 
 	sudo tcpdump -i eth0 'tcp[13] &2 != 0'
 
-```shell-session
+```text
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 15:18:14.630993 IP 172.16.146.2.56244 > 172.67.1.1.https: Flags [S], seq 122498858, win 64240, options [mss 1460,sackOK,TS val 534699017 ecr 0,nop,wscale 7], length 0
@@ -2002,7 +1998,7 @@ TShark can use filters for protocols, common items like hosts and ports, and eve
 	tshark -D
 	tshark -i 1 -w /tmp/test.pcap
 
-```shell-session
+```text
 Capturing on 'Wi-Fi: en0'
 484
 ```
@@ -2017,7 +2013,7 @@ With the basic string in the command line above, we utilize TShark to capture on
 
 	sudo tshark -i eth0 -f "host 172.16.146.2"
 
-```shell-session
+```text
 Capturing on 'eth0'
     1 0.000000000 172.16.146.2 → 172.16.146.1 DNS 70 Standard query 0x0804 A github.com
     2 0.258861645 172.16.146.1 → 172.16.146.2 DNS 86 Standard query response 0x0804 A github.com A 140.82.113.4
@@ -2599,12 +2595,8 @@ Check your understanding:
 #### Questions
 
 >What was the filename of the image that contained a certain Transformer Leader? (name.filetype)
->
->
 
 >Which employee is suspected of performing potentially malicious actions in the live environment?
->
-> 
 
 ## Guided Lab: Traffic Analysis Workflow
 

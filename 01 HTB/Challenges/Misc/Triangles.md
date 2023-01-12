@@ -1,7 +1,7 @@
 # 🧩 Triangles
 
 Tags: #🧩
-Related to: [[]]
+Related to:
 See also:
 Previous: [[HTB]]
 
@@ -13,7 +13,7 @@ Three vertices.Two csv files.One solution.
 
 	echo "e433c4a2994c730ed57850e5fdfee42c0887db1de541fb3ce147b4254428f875 Triangles.zip" | sha256sum -c -
 
-```shell-session
+```text
 Triangles.zip: OK
 ```
 
@@ -23,7 +23,7 @@ Triangles.zip: OK
 	unzip Triangles.zip
 	tree
 
-```shell-session
+```text
 
 ```
 

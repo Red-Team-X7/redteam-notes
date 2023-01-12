@@ -77,7 +77,7 @@ If we run this script, the string `"Hello Academy!"` will be printed to the te
 	vim welcome.py
 	python3 welcome.py
 
-```shell-session
+```text
 Hello Academy!
 ```
 
@@ -146,7 +146,7 @@ print("Hello Academy!")
 	chmod +x welcome.py
 	./welcome.py
 
-```shell-session
+```text
 Hello Academy!
 ```
 
@@ -323,7 +323,7 @@ Now that we know that a while-loop is a loop that continues to execute `while`�
 	vim loop1.py
 	python3 loop1.py
 
-```shell-session
+```text
 Hello #0
 Hello #1
 Hello #2
@@ -437,7 +437,7 @@ Try to implement the example in a new Python script and run it. It should look s
 	vim groceries.py
 	python3 groceries.py
 
-```shell-session
+```text
 I bought some Walnuts today.
 I bought some Grapes today.
 I bought some Bird seeds today.
@@ -614,7 +614,7 @@ This will produce the following output:
 
 	python3 invitation.py
 
-```shell-session
+```text
 Dear Karen and John.
 Tina and I would love to see you both as well as Noah at our Pizza Party tomorrow evening.
 
@@ -787,7 +787,7 @@ with Foo():
 
 This prints the following to the console:
 
-```shell-session
+```text
 Enter...
 Hello world!
 ...and exit.
@@ -863,7 +863,7 @@ Some valuable arguments for `pip` that we will look at are `install` and`--u
 	# Syntax: python3 -m pip install [package]
 	python3 -m pip install flask
 
-```shell-session
+```text
 Collecting flask
   Using cached Flask-1.1.2-py2.py3-none-any.whl (94 kB)
 Collecting Werkzeug>=0.15
@@ -887,7 +887,7 @@ As can be seen, even though we only asked to install `flask`, a brilliant packa
 
 	python3 -m pip install --upgrade flask
 
-```shell-session
+```text
 Requirement already up-to-date: flask in /usr/local/lib/python3.9/site-packages (1.1.2)
 Requirement already satisfied, skipping upgrade: itsdangerous>=0.24 in /usr/local/lib/python3.9/site-packages (from flask) (1.1.0)
 Requirement already satisfied, skipping upg...
@@ -907,7 +907,7 @@ Let us see what is currently installed by running `pip` with the `freeze` ar
 	# Syntax: python3 -m pip freeze [package]
 	python3 -m pip freeze
 
-```shell-session
+```text
 click==7.1.2
 Flask==1.1.2
 itsdangerous==1.1.0
@@ -932,7 +932,7 @@ For the sake of an example, let us suppose that we would like to use `flask` a
 
 	cat requirements.txt
 
-```shell-session
+```text
 flask
 click
 ```
@@ -976,7 +976,7 @@ Let us install requests just like we have learned.
 
 	python3 -m pip install requests
 
-```shell-session
+```text
 Collecting requests
   Downloading requests-2.25.1-py2.py3-none-any.whl (61 kB)
      |████████████████████████████████| 61 kB 3.8 MB/s
@@ -1022,7 +1022,7 @@ Another handy package is the BeautifulSoup library (rather `beautifulsoup4`). T
 
 	python3 -m pip install beautifulsoup4
 
-```shell-session
+```text
 Collecting beautifulsoup4
   Downloading beautifulsoup4-4.9.3-py3-none-any.whl (115 kB)
      |████████████████████████████████| 115 kB ...
@@ -1530,7 +1530,7 @@ Let us look at some examples to illustrate things better. First up is a plain ru
 
 #### Playing With Click
 
-```cmd-session
+```text
 C:\Users\Birb> python click_test.py
 
 Your name: Birb
@@ -1539,7 +1539,7 @@ Hello Birb!
 
 This we can also specify explicitly:
 
-```cmd-session
+```text
 C:\Users\Birb> python click_test.py --name Birb
 
 Hello Birb!
@@ -1547,7 +1547,7 @@ Hello Birb!
 
 Moreover, the `--count` parameter can be explicitly set instead of it being 1 by default:
 
-```cmd-session
+```text
 C:\Users\Birb> python click_test.py --name Birb --count 3
 
 Hello Birb!
@@ -1557,7 +1557,7 @@ Hello Birb!
 
 Lastly, here is the `--help` output:
 
-```cmd-session
+```text
 C:\Users\Birb> python click_test.py --help
 
 Usage: click_test.py [OPTIONS]
@@ -1762,7 +1762,7 @@ When we run this script on our target machine, we can use `nc` on our attacker
 
 #### Starting the Bind Shell
 
-```cmd-session
+```text
 C:\Users\Birb\Desktop\python> python bindshell.py --port 4444
 ```
 
@@ -1770,7 +1770,7 @@ C:\Users\Birb\Desktop\python> python bindshell.py --port 4444
 
 	nc 10.10.10.10 4444 -nv
 
-```shell-session
+```text
 (UNKNOWN) [10.10.10.10] 4444 (?) open
 
 whoami
@@ -1854,13 +1854,13 @@ The default `site-packages`/`dist-packages` locations are the following:
 
 -   Windows 10: `PYTHON_INSTALL_DIR\Lib\site-packages`:
 
-```cmd-session
+```text
 C:\Program Files\Python38\Lib\site-packages
 ```
 
 -   Linux: `/usr/lib/PYTHON_VERSION/dist-packages/`:
 
-```shell-session
+```text
 /usr/lib/python3/dist-packages
 ```
 
@@ -1877,7 +1877,7 @@ Instead of producing a fully functional script for scraping words off a website,
 
 	python3
 
-```shell-session
+```text
 Python 3.9.2 (default, Feb 28 2021, 17:03:44) 
 [GCC 10.2.1 20210110] on linux
 Type "help", "copyright", "credits" or "license" for more information.
@@ -1894,7 +1894,7 @@ Now let's specify a `PYTHONPATH` environment variable and see how it affects t
 
 	PYTHONPATH=/tmp/ python3
 
-```shell-session
+```text
 Python 3.9.2 (default, Feb 28 2021, 17:03:44) 
 [GCC 10.2.1 20210110] on linux
 Type "help", "copyright", "credits" or "license" for more information.
@@ -1913,7 +1913,7 @@ Suppose we wanted to have the packages installed in a specific folder. For examp
 
 	python3 -m pip install --target /var/www/packages/ requests
 
-```shell-session
+```text
 Collecting requests
   Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB)
 Collecting urllib3<1.27,>=1.21.1
@@ -1942,7 +1942,7 @@ Next up, we can source the `activate` script located in `academy/bin/`. This 
 	source academy/bin/activate
 	pip install requests
 
-```shell-session
+```text
 Collecting requests
   Using cached requests-2.25.1-py2.py3-none-any.whl (61 kB)
 Collecting idna<3,>=2.5

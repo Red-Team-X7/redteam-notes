@@ -17,8 +17,10 @@ Previous: [[KALI]]
 [[wpscan]]
 [[zap]]
 
-[[ffuf]]
+[[ffuf cewl]]
 [[payloadallthethings]]
+[[aquatone]]
+[[wappalyzer]]
 
 ## OWASP Top 10
 
@@ -37,7 +39,6 @@ Previous: [[KALI]]
 
 
 # References
-```
-https://wpvulndb.com/wordpresses/541   // WordPress Vulnerability Database
-https://owasp.org/www-project-top-ten/ // OWASP Top ten
-```
+
+https://wpvulndb.com/wordpresses/541 
+https://owasp.org/www-project-top-ten/

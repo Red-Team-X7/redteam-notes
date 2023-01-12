@@ -1,7 +1,7 @@
 # 🧩 Query
 
 Tags: #🧩
-Related to: [[]]
+Related to:
 See also:
 Previous: [[HTB]]
 
@@ -13,7 +13,7 @@ While investigating a phishing attempt, you came across a suspicious JavaScript 
 
 	echo "4ccd8c4ecde87aa4207f7b522bf4e80624c130691b09294ce349f95c2133a8f5 Query.zip" | sha256sum -c -
 
-```shell-session
+```text
 Query.zip: OK
 ```
 
@@ -23,7 +23,7 @@ Query.zip: OK
 	unzip Query.zip
 	tree
 
-```shell-session
+```text
 
 ```
 

@@ -2,7 +2,7 @@
 
 Tags: #💢 
 Related to: 
-See also: [[netcat ncat nc]], [[powercat]]
+See also: [[nc]], [[powercat]]
 Previous: [[ ]]
 
 ## Description

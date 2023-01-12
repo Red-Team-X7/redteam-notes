@@ -15,7 +15,7 @@ Display status of jobs in the current session.
 
 	jobs -p
 
-```shell-session
+```text
 [1]  + 87055 suspended
 ```
 

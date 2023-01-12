@@ -15,7 +15,7 @@ View files and directories.
 
 	dir c:\ /a
 
-```cmd-session
+```text
  Volume in drive C has no label.
  Volume Serial Number is F416-77BE
 

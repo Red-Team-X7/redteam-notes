@@ -1,9 +1,9 @@
 # ⚙️ html2text
 
 Tags: #⚙️
-Related to:
+Related to: [[singlefile]], [[onehistory]]  ,[[html2text]]
 See also:
-Previous: [[Hacking Wordpress]]
+Previous: [[Hacking Wordpress]], [[OSINT - Corporate Recon]], [[OSINT]]
 
 ## Description
 
@@ -15,7 +15,7 @@ An advanced HTML-to-text converter.
 
 	curl -s -X GET http://blog.inlanefreight.com/wp-content/plugins/mail-masta/ | html2text
 
-```shell-session
+```text
 ****** Index of /wp-content/plugins/mail-masta ******
 [[ICO]]       Name                 Last_modified    Size Description
 ===========================================================================
@@ -27,6 +27,14 @@ An advanced HTML-to-text converter.
 [[TXT]]       readme.txt           2020-05-13 18:01 2.2K  
 ===========================================================================
      Apache/2.4.29 (Ubuntu) Server at blog.inlanefreight.com Port 80
+```
+
+### Download Website and Extract Information
+
+	cat *.html | html2text | grep "Emma Williams"
+
+```text
+Emma Williams  emma.williams@inlanefreight.com
 ```
 
 # References

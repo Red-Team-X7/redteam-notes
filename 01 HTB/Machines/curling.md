@@ -2,7 +2,7 @@
 
 Tags: #📦
 Related to: 
-See also: [[nmap]], [[cewl]], [[joomscan]], [[tee]], [[base64]], [[burpsuite]], [[wfuzz]], [[PHP]], [[bash]], [[python]], [[netcat ncat nc]], [[curl]], [[dev shm]], [[xxd]], [[file]], [[bzcat]], [[zcat]], [[tar]], [[gzip]], [[bzip2]], [[wget]], [[pspy]], [[rlwrap]], [[stty]], [[watch]], [[cron]] ,[[crontab]], [[powershell]], [[cyberchef]]
+See also: [[PHP]], [[base64]], [[bash]], [[burpsuite]], [[bzcat]], [[bzip2]], [[cewl]], [[cron]] ,[[crontab]], [[curl]], [[cyberchef]], [[dev shm]], [[file]], [[gzip]], [[joomscan]], [[nc]], [[nmap]], [[powershell]], [[pspy]], [[python]], [[rlwrap]], [[stty]], [[tar]], [[tee]], [[watch]], [[wfuzz]], [[wget]], [[xxd]], [[zcat]]
 Previous: [[01 HTB/HTB]]
 
 - [x] official walkthrough
@@ -14,7 +14,7 @@ Previous: [[01 HTB/HTB]]
 
 	nmap -sC -sV -oA nmap/curling 10.129.171.59
 	
-```shell-session
+```text
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-07-05 13:57 EDT
 Nmap scan report for 10.129.171.59
 Host is up (0.072s latency).
@@ -100,7 +100,7 @@ Curling2018!
 
 	joomscan -h
 
-```shell-session
+```text
     ____  _____  _____  __  __  ___   ___    __    _  _ 
    (_  _)(  _  )(  _  )(  \/  )/ __) / __)  /__\  ( \( )
   .-_)(   )(_)(  )(_)(  )    ( \__ \( (__  /(__)\  )  ( 
@@ -143,7 +143,7 @@ Usage:  joomscan [options]
 
 	joomscan -ec -url 10.129.171.59 | tee joomscan.out
 
-```shell-session
+```text
 [+] Detecting Joomla Version
 [++] Joomla 3.8.8
 
@@ -286,7 +286,7 @@ Try this if it doesn't work:
 
 		nc -lvnp 9001
 	
-```shell-session
+```text
 listening on [any] 9001 ...
 connect to [10.10.17.201] from (UNKNOWN) [10.129.171.59] 37656
 bash: cannot set terminal process group (1542): Inappropriate ioctl for device

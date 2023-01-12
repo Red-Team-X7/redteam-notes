@@ -15,7 +15,7 @@ Check which Defender protection settings are enabled.
 
 	Get-MpComputerStatus | findstr "True"
 
-```powershell-session
+```text
 AMServiceEnabled                : True
 AntispywareEnabled              : True
 AntivirusEnabled                : True

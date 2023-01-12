@@ -40,7 +40,6 @@ The course uses a mixture of both theory and practice. The theory component cove
 
 
 ### Join the Discord Channel
-- [x] 
 
 ## SQL Injection
 

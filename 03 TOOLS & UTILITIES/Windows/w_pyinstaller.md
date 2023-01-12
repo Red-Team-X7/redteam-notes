@@ -1,7 +1,7 @@
 # ⚙️ pyinstaller
 
 Tags: #⚙️
-Related to:
+Related to: [[python]]
 See also:
 Previous:
 

@@ -15,7 +15,7 @@ List PowerShell aliases
 
 	get-alias
 
-```powershell-session
+```text
 CommandType     Name                                               Version    Source
 -----------     ----                                               -------    ------
 Alias           % -> ForEach-Object
@@ -37,7 +37,7 @@ Alias           clp -> Clear-ItemProperty
 
 	Get-Alias -Name "Show-Files"
 
-```powershell-session
+```text
 CommandType     Name                                               Version    Source
 -----------     ----                                               -------    ------
 Alias           Show-Files

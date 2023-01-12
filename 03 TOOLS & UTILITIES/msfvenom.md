@@ -4,7 +4,6 @@ Related to:
 See also: 
 Previous: [[Exploitation Tools]], [[Social Engineering Tools]]
 
----
 ## Description
 
 A Metasploit standalone payload generator.
@@ -51,7 +50,4 @@ buf += b"\xa6\x95\xbd\x9d\xff\xd5\x3c\x06\x7c\x0a\x80\xfb\xe0"
 buf += b"\x75\x05\xbb\x47\x13\x72\x6f\x6a\x00\x53\xff\xd5"
 ```
 
----
-## References
-
-- [[]]
+# References

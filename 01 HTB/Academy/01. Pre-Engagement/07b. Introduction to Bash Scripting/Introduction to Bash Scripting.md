@@ -205,7 +205,7 @@ Let us look at such a script and see how they can be created to get specific res
 
 	./CIDR.sh inlanefreight.com
 
-```shell-session
+```text
 Discovered IP address(es):
 165.22.119.202
 
@@ -438,10 +438,9 @@ fi
 ```
 
 	bash if-only.sh 5
-
 	bash if-only.sh 12
 
-```shell-session
+```text
 Given argument is greater than 10.
 ```
 
@@ -469,19 +468,19 @@ fi
 
 	bash if-elif-else.sh 5
 
-```shell-session
+```text
 Given argument is less than 10.
 ```
 
 	bash if-elif-else.sh 12
 
-```shell-session
+```text
 Given argument is greater than 10.
 ```
 
 	bash if-elif-else.sh HTB
 
-```shell-session
+```text
 if-elif-else.sh: line 5: [: HTB: integer expression expected
 if-elif-else.sh: line 8: [: HTB: integer expression expected
 Given argument is not a number.
@@ -513,8 +512,6 @@ fi
 ```
 
 Here we define another condition (`elif [<condition>];then`) that prints a line telling us (`echo -e "..."`) that we have given more than one argument and exits the program with an error (`exit 1`).
-
-* * * * *
 
 * * * * *
 
@@ -566,7 +563,7 @@ do
 
 The advantage of bash scripts is that we can always pass up to 9 arguments (`$0`-`$9`) to the script without assigning them to variables or setting the corresponding requirements for these. `9 arguments` because the first argument `$0` is reserved for the script. As we can see here, we need the dollar sign (`$`) before the name of the variable to use it at the specified position. The assignment would look like this in comparison:
 
-```shell-session
+```text
 			  ./script.sh ARG1 ARG2 ARG3 ... ARG9
 ASSIGNMENTS:       $0      $1   $2   $3  ...   $9
 ```
@@ -598,7 +595,7 @@ There are several ways how we can execute our script. However, we must first set
 
 	./cidr.sh
 
-```shell-session
+```text
 You need to specify the target domain.
 
 Usage:
@@ -609,7 +606,7 @@ Usage:
 
 	bash cidr.sh
 
-```shell-session
+```text
 You need to specify the target domain.
 
 Usage:
@@ -660,7 +657,7 @@ In contrast to other programming languages, there is no direct differentiation a
 
 	variable = "this will result with an error."
 
-```shell-session
+```text
 command not found: variable
 ```
 
@@ -669,7 +666,7 @@ command not found: variable
 	variable="Declared without an error."
 	echo $variable
 
-```shell-session
+```text
 Declared without an error.
 ```
 
@@ -693,7 +690,7 @@ We can also retrieve them individually using the index using the variable with t
 
 	./Arrays.sh
 
-```shell-session
+```text
 www.inlanefreight.com
 ```
 
@@ -710,7 +707,7 @@ echo ${domains[0]}
 
 	./Arrays.sh
 
-```shell-session
+```text
 www.inlanefreight.com ftp.inlanefreight.com vpn.inlanefreight.com
 ```
 
@@ -1022,7 +1019,7 @@ The output of this script looks like this:
 
 	./Arithmetic.sh
 
-```shell-session
+```text
 Addition: 10 + 10 = 20
 Substraction: 10 - 10 = 0
 Multiplication: 10 * 10 = 100
@@ -1050,7 +1047,7 @@ echo ${#htb}
 
 	./VarLength.sh
 
-```shell-session
+```text
 10
 ```
 
@@ -1155,7 +1152,7 @@ When using `tee`, we transfer the received output and use the pipe (`|`) to for
 
 	cat discovered_hosts.txt CIDR.txt
 
-```shell-session
+```text
 165.22.119.202
 NetRange:       165.22.0.0 - 165.22.255.255
 CIDR:           165.22.0.0/16
@@ -1209,7 +1206,7 @@ done
 
 	for ip in 10.10.10.170 10.10.10.174;do ping -c 1 $ip;done
 
-```shell-session
+```text
 PING 10.10.10.170 (10.10.10.170): 56 data bytes
 64 bytes from 10.10.10.170: icmp_seq=0 ttl=63 time=42.106 ms
 
@@ -1313,7 +1310,7 @@ done
 
 	./WhileBreaker.sh
 
-```shell-session
+```text
 Counter: 1
 Counter: 2
 Counter: 3
@@ -1350,7 +1347,7 @@ done
 
 	./Until.sh
 
-```shell-session
+```text
 Counter: 1
 Counter: 2
 Counter: 3
@@ -1606,7 +1603,7 @@ print_pars "$one" "$two" "$three"
 
 	./PrintPars.sh
 
-```shell-session
+```text
 First parameter Second parameter Third parameter
 ```
 
@@ -1667,7 +1664,7 @@ echo -e "Content of the variable: \n\t$content"
 
 	./Return.sh
 
-```shell-session
+```text
 Number of arguments: 0
 Function status code: 1
 
@@ -1690,7 +1687,7 @@ This process is also used to find vulnerabilities in programs. For example, we c
 
 	bash -x CIDR.sh
 
-```shell-session
+```text
 + '[' 0 -eq 0 ']'
 + echo -e 'You need to specify the target domain.\n'
 You need to specify the target domain.
@@ -1708,7 +1705,7 @@ Here Bash shows us precisely which function or command was executed with which v
 
 	bash -x -v CIDR.sh
 
-```shell-session
+```bash
 #!/bin/bash
 
 # Check for given argument

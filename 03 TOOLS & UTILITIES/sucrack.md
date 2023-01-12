@@ -2,7 +2,7 @@
 Tags: #💢
 Related to: 
 See also: [[nping]], [[ndiff]], [[ncat]]
-Previous: [[Information Gathering]]
+Previous: [[00 KALI/Information Gathering]]
 
 ---
 ## Description

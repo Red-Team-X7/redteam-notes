@@ -2,7 +2,7 @@
 Tags: #💢
 Related to: 
 See also: 
-Previous: [[00 KALI/Password Attacks]]
+Previous: [[Passwd Attacks]]
 
 ---
 ## Description

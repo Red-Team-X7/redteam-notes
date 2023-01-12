@@ -15,7 +15,7 @@ View information about a registry entry.
 
 	reg query HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 
-```powershell-session
+```text
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
     SecurityHealth    REG_EXPAND_SZ    %windir%\system32\SecurityHealthSystray.exe
     RTHDVCPL    REG_SZ    "C:\Program Files\Realtek\Audio\HDA\RtkNGUI64.exe" -s
@@ -26,7 +26,7 @@ HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 
 	reg query HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 
-```powershell-session
+```text
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
     OneDrive    REG_SZ    "C:\Users\bob\AppData\Local\Microsoft\OneDrive\OneDrive.exe" /background
     OPENVPN-GUI    REG_SZ    C:\Program Files\OpenVPN\bin\openvpn-gui.exe

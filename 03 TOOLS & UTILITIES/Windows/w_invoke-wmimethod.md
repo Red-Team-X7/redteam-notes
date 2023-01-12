@@ -15,7 +15,7 @@ Call methods of WMI objects
 
 	Invoke-WmiMethod -Path "CIM_DataFile.Name='C:\users\public\spns.csv'" -Name Rename -ArgumentList "C:\Users\Public\kerberoasted_users.csv"
 
-```powershell-session
+```text
 __GENUS          : 2
 __CLASS          : __PARAMETERS
 __SUPERCLASS     :

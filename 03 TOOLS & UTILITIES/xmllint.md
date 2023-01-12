@@ -15,7 +15,7 @@ Command line XML tool.
 
 	curl -s http://10.129.42.190/nibbleblog/content/private/users.xml | xmllint  --format -
 
-```shell-session
+```text
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <users>
   <user username="admin">

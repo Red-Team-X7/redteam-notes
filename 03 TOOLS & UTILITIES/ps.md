@@ -23,20 +23,20 @@ Report a snapshot of the current processes.
 
 	ps aux | grep proftpd
 
-```shell-session
+```text
 proftpd   1587  0.0  0.1 126440  3576 ?        Ss   10:02   0:00 proftpd: (accepting connections)
 htb-stu+  6816  0.0  0.0  13144  1040 pts/0    S+   10:57   0:00 grep --color=auto proftpd
 ```
 
 	htb-student@nixfund:~$ ps aux | grep proftpd | grep -v grep
 
-```shell-session
+```text
 proftpd   1587  0.0  0.1 126440  3576 ?        Ss   10:02   0:00 proftpd: (accepting connections)
 ```
 
 	htb-student@nixfund:~$ ps aux | grep proftpd | grep -v grep | cut -d " " -f1
 
-```shell-session
+```text
 proftpd
 ```
 

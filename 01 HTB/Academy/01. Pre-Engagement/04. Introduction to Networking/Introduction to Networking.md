@@ -669,7 +669,7 @@ Here is an example of how the `first octet` looks like:
 
 #### 1st Octet - Value: 192
 
-```shell-session
+```text
 Values:         128  64  32  16  8  4  2  1
 Binary:           1   1   0   0  0  0  0  0
 ```
@@ -689,7 +689,7 @@ The entire representation from binary to decimal would look like this:
 
   IPv4 - Binary Notation
 
-```
+```text
 Octet:             1st         2nd         3rd         4th
 Binary:         1100 0000 . 1010 1000 . 0000 1010 . 0010 0111
 Decimal:           192    .    168    .     10    .     39
@@ -704,7 +704,7 @@ This addition takes place for each octet, which results in a decimal representat
 
   IPv4 - Decimal to Binary
 
-```
+```text
 Values:         128  64  32  16  8  4  2  1
 Binary:           1   1   1   1  1  1  1  1
 
@@ -719,7 +719,7 @@ Binary:           1   1   1   1  1  1  1  1
 
 #### Subnet Mask
 
-```shell-session
+```text
 Octet:             1st         2nd         3rd         4th
 Binary:         1111 1111 . 1111 1111 . 1111 1111 . 0000 0000
 Decimal:           255    .    255    .    255    .     0
@@ -748,7 +748,7 @@ Now the whole representation of the IPv4 address and the subnet mask would look 
 
 The CIDR suffix is, therefore, the sum of all ones in the subnet mask.
 
-```shell-session
+```text
 Octet:             1st         2nd         3rd         4th
 Binary:         1111 1111 . 1111 1111 . 1111 1111 . 0000 0000 (/24)
 Decimal:           255    .    255    .    255    .     0

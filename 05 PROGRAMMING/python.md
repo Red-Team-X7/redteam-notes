@@ -2,7 +2,7 @@
 Tags: #🤖
 Related to: 
 See also: 
-Previous: [[PROGRAMMING]], [[Getting Started]]
+Previous: [[PROGRAMMING]], [[Getting Started]], [[DNS Enumeration Using Python]], [[Introduction to Python 3]]
 
 ## Description
 

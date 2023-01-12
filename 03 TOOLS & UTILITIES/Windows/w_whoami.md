@@ -47,7 +47,7 @@ The command completed successfully.
 
 	whoami /user
 
-```powershell-session
+```text
 USER INFORMATION
 ----------------
 

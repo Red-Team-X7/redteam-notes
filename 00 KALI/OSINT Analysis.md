@@ -3,11 +3,12 @@
 Tags: #😈
 Related to: 
 See also: 
-Previous: [[Information Gathering]]]
+Previous: [[00 KALI/Information Gathering]]]
 
 [[maltego]]
 [[spiderfoot]]
 [[spiderfoot-cli]]
 [[theharvester]]
+
 
 # References

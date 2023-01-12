@@ -12,9 +12,21 @@ The ultimate WinRM shell for hacking/pentesting
 
 ## Usage Examples
 
-### Log in to the WinRM server
+### WinRM Login
 
-	evil-winrm -i <FQDN/IP> -u <user> -p <password>
+	evil-winrm -i 10.129.201.248 -u Cry0l1t3 -p P455w0rD!
+
+```text
+Evil-WinRM shell v3.3
+
+Warning: Remote path completions is disabled due to ruby limitation: quoting_detection_proc() function is unimplemented on this machine
+
+Data: For more information, check Evil-WinRM Github: https://github.com/Hackplayers/evil-winrm#Remote-path-completion
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\Cry0l1t3\Documents>
+```
 
 # References
 

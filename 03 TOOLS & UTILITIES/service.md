@@ -17,7 +17,7 @@ Run a System V init script.
 
 	service --status-all
 
-```shell-session
+```text
  [ + ]  acpid
  [ - ]  alsa-utils
  [ - ]  anacron

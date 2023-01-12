@@ -20,7 +20,7 @@ Show / manipulate routing, network devices, interfaces and tunnels.
 
 	ip -4 a show tun0
 
-```shell-session
+```text
 6: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UNKNOWN group default qlen 500
     inet 10.10.10.1/23 scope global tun0
        valid_lft forever preferred_lft forever

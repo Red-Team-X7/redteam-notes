@@ -1,7 +1,7 @@
 # 🧩 Eternal Loop
 
 Tags: #🧩
-Related to: [[sum]], [[unzip]], [[john]], [[sqlitebrowser]], [[head]]
+Related to: [[head]], [[john]], [[sqlitebrowser]], [[sum]], [[unzip]]
 See also:
 Previous: [[HTB]]
 
@@ -13,7 +13,7 @@ Can you find a way out of this loop?
 
 	echo "4246a77b6ca2a2844749437d1a441fc759c6b8ec316187647cd9b1019da6f6fc Eternal Loop.zip" | sha256sum -c -
 
-```shell-session
+```text
 Eternal Loop.zip: OK
 ```
 
@@ -22,7 +22,7 @@ Eternal Loop.zip: OK
 	unzip unzip Eternal\ Loop.zip
 	tree
 
-```shell-session
+```text
 .
 ├── 37366.zip
 ```
@@ -33,7 +33,7 @@ Eternal Loop.zip: OK
 
 	unzip 37366.zip
 
-```shell-session
+```text
 Archive:  37366.zip
 [37366.zip] 5900.zip password:
 ```
@@ -42,7 +42,7 @@ Archive:  37366.zip
 
 	john 37366.zip.hash
 
-```shell-session
+```text
 5900    (37366.zip/5900.zip)     
 ```
 
@@ -50,7 +50,7 @@ Archive:  37366.zip
 
 	unzip 37366.zip
 
-```shell-session
+```text
 Archive:  37366.zip
 [37366.zip] 5900.zip password: 5900
   inflating: 5900.zip
@@ -60,7 +60,7 @@ Archive:  37366.zip
 
 	unzip 5900.zip
 
-```shell-session
+```text
 Archive:  5900.zip
 [5900.zip] 49805.zip password: 49805
   inflating: 49805.zip
@@ -72,13 +72,13 @@ Get the contained zip filename:
 
 	unzip -l 49805.zip
 
-```shell-session
+```text
 13811.zip
 ```
 
 	unzip -P 13811 49805.zip
 
-```shell-session
+```text
 Archive:  49805.zip
   inflating: 13811.zip
 ```
@@ -108,7 +108,7 @@ done
 	chmod +x unzipr.sh
 	./unzipr.sh 37366.zip
 
-```shell-session
+```text
 Archive:  37366.zip
 	inflating: 5900.zip   
 
@@ -126,19 +126,19 @@ Unzipped 6969.zip using password  (82)
 
 	zip2john 6969.zip > 6969.zip.hash
 
-```shell-session
+```text
 ver 2.0 efh 5455 efh 7875 6969.zip/DoNotTouch PKZIP Encr: TS_chk, cmplen=335181, decmplen=884736, crc=E8183254 ts=5B04 cs=5b04 type=8
 ```
 
 	john --wordlist=/usr/share/wordlists/rockyou.txt  6969.zip.hash
 
-```shell-session
+```text
 letmeinplease    (6969.zip/DoNotTouch)
 ```
 
 	unzip -P letmeinplease 6969.zip
 
-```shell-session
+```text
 Archive:  6969.zip
   inflating: DoNotTouch
 ```
@@ -147,7 +147,7 @@ Archive:  6969.zip
 
 	head DoNotTouch
 
-```shell-session
+```text
 SQLite format 3@
 ```
 
@@ -161,11 +161,11 @@ But let's try something easier first:
 
 	strings DoNotTouch | grep HTB
 
-```shell-session
-1969-01-01 00:00:002069-01-01 00:00:00Chillin with SatanHellHTB{z1p_and_unz1p_ma_bruddahs}
+```text
+1969-01-01 00:00:002069-01-01 00:00:00Chillin with SatanHellHTB{...}
 ```
 
-`HTB{z1p_and_unz1p_ma_bruddahs}`
+`HTB{...}`
 
 # References
 

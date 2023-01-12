@@ -2,7 +2,7 @@
 Tags: #💢
 Related to: 
 See also: 
-Previous: [[Web Application Analysis]], [[Database Assessment]], [[Exploitation Tools]]
+Previous: [[Web Application Analysis]], [[Database Assessment]], [[Exploitation Tools]], [[SQLMap Essentials]]
 
 ---
 ## Description

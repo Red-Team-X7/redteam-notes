@@ -1,7 +1,7 @@
 # CIDR
 
 Tags:
-Related to: 
+Related to: [[ipcalc]]
 See also: 
 Previous: [[NOTES]]
 

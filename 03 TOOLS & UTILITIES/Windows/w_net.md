@@ -21,7 +21,7 @@ Adjust account settings.
 
 	net user gerald
 
-```cmd-session
+```text
 User name                    gerald
 Full Name                    
 Comment                      
@@ -55,7 +55,7 @@ The command completed successfully.
 
 	net share
 
-```cmd-session
+```text
 Share name   Resource                        Remark
 
 -------------------------------------------------------------------------------

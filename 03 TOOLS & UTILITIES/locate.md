@@ -11,9 +11,22 @@ Find files by names.
 
 ## Usage Examples
 
-### Locate files and folders with the .conf extension
+### Update Database
 
-```shell-session
+	sudo updatedb
+
+### Locate Program
+
+	locate mssqlclient
+
+```text
+/usr/bin/impacket-mssqlclient
+/usr/share/doc/python3-impacket/examples/mssqlclient.py
+```
+
+### Locate .conf
+
+```text
 /etc/GeoIP.conf
 /etc/NetworkManager/NetworkManager.conf
 /etc/UPower/UPower.conf
@@ -21,11 +34,7 @@ Find files by names.
 <SNIP>
 ```
 
-### Update locate database
-
-	sudo updatedb
-
-### Locate nmap scripting engine scripts
+### Locate NSE Scripts
 
 	locate nmap | grep .nse
 
@@ -54,7 +63,7 @@ Find files by names.
 
 	locate scripts/citrix
 
-```shell-session
+```text
 /usr/share/nmap/scripts/citrix-brute-xml.nse
 /usr/share/nmap/scripts/citrix-enum-apps-xml.nse
 /usr/share/nmap/scripts/citrix-enum-apps.nse
@@ -62,7 +71,7 @@ Find files by names.
 /usr/share/nmap/scripts/citrix-enum-servers.nse
 ```
 
-### Search NSE for EternalBlue exploit
+### Search NSE for EternalBlue Exploit
 
 	locate lue | grep .nse$
 
